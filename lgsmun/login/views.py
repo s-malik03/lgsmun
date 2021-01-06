@@ -15,7 +15,13 @@ def post_login(request):
 
         info=request.POST
 
-        password=User.objects.get(email=request.POST["email"])
+        try:
+
+            password=User.objects.get(email=request.POST["email"])
+
+        except:
+
+            return HttpResponse("invalid email or password")
 
         password=password.password
 
@@ -25,4 +31,4 @@ def post_login(request):
 
         else:
 
-            return HttpResponse('not')
+            return HttpResponse('invalid email or password')
