@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from login.models import User
+from hashlib import sha256
 
 # Create your views here.
 
@@ -23,7 +24,17 @@ def delegate(request):
 def changepassword(request):
 
     request_context={}
-    return HttpResponse("")
+
+    return render(request,'menu/changepassword.html',request_context)
+
+def setpassword(request):
+
+    newpw=request.POST["new_password"]
+    uinfo=User.objects.get(email=request.session['uid'])
+    uinfo.password=sha256(newpw.encode('utf-8')).hexdigest()
+    uinfo.save()
+    request_context={}
+    return redirect('/menu/'+request.session['utype'])
 
 def adminjoinsession(request):
 
