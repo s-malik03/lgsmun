@@ -36,7 +36,7 @@ body{
   margin: 8px 0;
   border-bottom: 1px solid #4caf50;
 }
-.textbox i{
+.login-box i{
   width: 26px;
   float: left;
   text-align: center;

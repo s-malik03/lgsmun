@@ -5,7 +5,7 @@
 
   <meta charset="utf-8">
   <title></title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body><form action="adminjoinsession" method="GET">
   <div class="login-box">
@@ -19,17 +19,19 @@
       <option value="SPECPOL">SPECPOL</option>
       <option value="ICJ">ICJ</option>
     </select>
-    <a href="changepassword">Change Password</a>
+    <br>
+    <i class="fas fa-lock"></i>
+    <input href="changepassword" type="button" class="btn" value="Change Password">
     <input type="button" class="btn" value="Join">
   </div>
-    <br>
+
 
 
 
 
 
   </form>
-  <br>
+
 
 
 </body>
