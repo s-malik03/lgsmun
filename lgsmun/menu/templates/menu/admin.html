@@ -1,26 +1,30 @@
 {% load static %}
 <html>
 <head>
-  <title>Admin Menu</title>
+  <h2>Admin Menu</h2>
   <meta charset="utf-8">
   <title></title>
   <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
-<body><form action="adminjoinsession" method="GET">
-  <label for="committees">Join Committee:</label>
-  <select name="committees" id="committees">
-    <option value="UNSC">UNSC</option>
-    <option value="DISEC">DISEC</option>
-    <option value="UNFSC">UNFSC</option>
-    <option value="SACC1">SACC1</option>
-    <option value="SACC2">SACC2</option>
-    <option value="SPECPOL">SPECPOL</option>
-    <option value="ICJ">ICJ</option>
-  </select>
+<body><form action="adminjoinsession" method="GET">\
+  <div class="textbox">
+    <h1>Join Committee: </h1>
+    <i class="fas fa-user"></i>
+    <select name="committees" id="committees">
+      <option value="UNSC">UNSC</option>
+      <option value="DISEC">DISEC</option>
+      <option value="UNFSC">UNFSC</option>
+      <option value="SACC1">SACC1</option>
+      <option value="SACC2">SACC2</option>
+      <option value="SPECPOL">SPECPOL</option>
+      <option value="ICJ">ICJ</option>
+    </select>
+  </div>
+    <br>
+    <input type="button" class="btn" value="Join">
+  </form>
   <br>
-  <input type="button" class="btn" value="Join">
-</form>
-<br>
-<a href="changepassword">Change Password</a>
+  <a href="changepassword">Change Password</a>
+
 </body>
 </html>
