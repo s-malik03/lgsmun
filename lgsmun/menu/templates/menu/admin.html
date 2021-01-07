@@ -1,13 +1,13 @@
-{% load static %}
+
 <html>
 
 <head>
 
   <meta charset="utf-8">
   <title></title>
-  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body><form action="adminjoinsession" method="GET">\
+<body><form action="adminjoinsession" method="GET">
   <div class="login-box">
     <h1>Join Committee: </h1>
     <select name="committees" id="committees">
@@ -19,18 +19,18 @@
       <option value="SPECPOL">SPECPOL</option>
       <option value="ICJ">ICJ</option>
     </select>
+    <a href="changepassword">Change Password</a>
+    <input type="button" class="btn" value="Join">
   </div>
     <br>
-<<<<<<< HEAD
-    <div class="textbox">
-      <input type="button" class="btn" value="Join">
-    </div>
-=======
-    <input type="submit" class="btn" value="Join">
->>>>>>> 2c81a5775c4971fbc0ec14ab9da717a4dcb2b691
+
+
+
+
+
   </form>
   <br>
-  <a href="changepassword">Change Password</a>
+
 
 </body>
 </html>
