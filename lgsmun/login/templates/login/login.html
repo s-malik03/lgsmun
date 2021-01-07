@@ -1,13 +1,15 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title></title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
   </head>
   <body>
 <div class="login-box">
   <h1>Login</h1>
+  <form action="post_login" method="POST">{% csrf_token %}
   <div class="textbox">
     <i class="fas fa-user"></i>
     <input type="text" placeholder="E-Mail" id="email" name="email">
@@ -18,7 +20,8 @@
     <input type="password" placeholder="Password" id="password" name="password">
   </div>
 
-  <input type="button" class="btn" value="Sign in">
+  <input type="submit" class="btn" value="Sign in">
 </div>
+</form>
   </body>
 </html>
