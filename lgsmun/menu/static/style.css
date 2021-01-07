@@ -73,7 +73,7 @@ body{
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: white;
 }
-.signup-form select{
+.login-box select{
   margin: 20px 0;
   background: none;
   color: #fff;
