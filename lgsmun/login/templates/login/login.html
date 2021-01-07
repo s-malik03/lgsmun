@@ -1,12 +1,24 @@
-<html>
-<head><title>Login</title></head>
-<body>
-<form action="post_login" method="post">{% csrf_token %}
-<label for="email">Email: </label>
-<input id="email" type="text" name="email"><br>
-<label for="password">Password: </label>
-<input id="password" type="password" name="password"><br>
-<input type="submit">
-</form>
-</body>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+<div class="login-box">
+  <h1>Login</h1>
+  <div class="textbox">
+    <i class="fas fa-user"></i>
+    <input type="text" placeholder="E-Mail" id="email" name="email">
+  </div>
+
+  <div class="textbox">
+    <i class="fas fa-lock"></i>
+    <input type="password" placeholder="Password" id="password" name="password">
+  </div>
+
+  <input type="button" class="btn" value="Sign in">
+</div>
+  </body>
 </html>
