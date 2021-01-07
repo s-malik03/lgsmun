@@ -1,4 +1,4 @@
-
+{% load static %}
 <html>
 
 <head>
@@ -21,8 +21,9 @@
     </select>
     <br>
     <i class="fas fa-lock"></i>
-    <input href="changepassword" type="button" class="btn" value="Change Password">
-    <input type="button" class="btn" value="Join">
+    <input type="submit" class="btn" value="Join">
+    <input href="changepassword" type="button" class="btn" value="Change Password" onclick="window.location.href='changepassword'">
+
   </div>
 
 

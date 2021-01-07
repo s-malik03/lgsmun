@@ -39,13 +39,13 @@ def setpassword(request):
 def adminjoinsession(request):
 
     request_context={}
-    session['committee']=request.GET["committees"]
+    request.session['committee']=request.GET["committees"]
     return redirect('/dashboard/dais')
 
 def joinsession(request):
 
     uinfo=User.objects.get(email=request.session['uid'])
-    session['committee']=uinfo.committee
+    request.session['committee']=uinfo.committee
     request_context={}
     if request.session['utype']=='delegate':
         return redirect('/dashboard/rollcall')
