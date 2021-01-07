@@ -32,10 +32,11 @@ def post_login(request):
         if password==sha256(request.POST["password"].encode('utf-8')).hexdigest():
 
             request.session['uid']=uinfo.email
-            if uinfo.country=='admin':
+            request.session['committee']=uinfo.committee
+            if uinfo.role=='admin':
                 request.session['utype']='admin'
                 return redirect('/menu/admin')
-            elif uinfo.country=='dais':
+            elif uinfo.role=='dais':
                 request.session['utype']='dais'
                 return redirect('/menu/dais')
             else:
