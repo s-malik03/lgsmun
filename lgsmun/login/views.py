@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from django.template import RequestContext
 from .models import User
 from hashlib import sha256
 
@@ -7,27 +8,39 @@ from hashlib import sha256
 
 def index(request):
 
-    return render(request,'login/login.html')
+    request_context={}
+    return render(request,'login/login.html',request_context)
 
 def post_login(request):
 
+    request_context={}
+
     if request.method=="POST":
 
-        info=request.POST
+        uinfo=request.POST
 
         try:
 
-            password=User.objects.get(email=request.POST["email"])
+            uinfo=User.objects.get(email=request.POST["email"])
 
         except:
 
             return HttpResponse("invalid email or password")
 
-        password=password.password
+        password=uinfo.password
 
         if password==sha256(request.POST["password"].encode('utf-8')).hexdigest():
 
-            return HttpResponse('nice')
+            request.session['uid']=uinfo.email
+            if uinfo.country=='admin':
+                request.session['utype']='admin'
+                return redirect('/menu/admin')
+            elif uinfo.country=='dais':
+                request.session['utype']='dais'
+                return redirect('/menu/dais')
+            else:
+                request.session['utype']='delegate'
+                return redirect('/menu/delegate')
 
         else:
 
