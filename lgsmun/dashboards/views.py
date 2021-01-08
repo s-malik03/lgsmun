@@ -40,9 +40,31 @@ def markattendance(request):
 
     return redirect('delegate')
 
+def getcountrylist(request):
+
+    att=Attendance.objects.filter(committee=request.session['committee']).exclude(status="Absent").order_by('country')
+
+    list=''
+
+    for a in att:
+
+        list=list+a.country+'<br>'
+
+    return HttpResponse(list)
+
+def logout(request):
+
+    att=Attendance.objects.get(committee=request.session['committee'],country=request.session['country'])
+
+    att.status='Absent'
+
+    att.save()
+
+    return HttpResponse("Logged Out Successfully")
+
 def getattendance(request):
 
-    att=Attendance.objects.filter(committee=request.session['committee'])
+    att=Attendance.objects.filter(committee=request.session['committee']).exclude(status="Absent").order_by('country')
 
     list=''
 
