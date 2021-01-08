@@ -69,7 +69,7 @@ def getattendance(request):
 
     for a in att:
 
-        list=list+a.country+' | '+a.status+' | Recognized: '+str(a.recognized)+'<br>\n'
+        list=list+a.country+' | '+a.status+' | Recognized: '+str(a.recognized)+' | '+a.placard+'<br>\n'
 
     return HttpResponse(list)
 
@@ -83,7 +83,7 @@ def add_to_gsl(request):
 
 def remove_from_gsl(request):
 
-    g=GSL.objects.filter(country=request.GET['country']).order_by('-date')
+    g=GSL.objects.filter(committee=request.session['committee']).order_by('-date')
     g[0].delete()
     return HttpResponse("Successful")
 
@@ -95,6 +95,34 @@ def set_current_mod(request):
     c.current_mod=request.GET["current_mod"]
     c.save()
     return HttpResponse("Successful")
+
+def remove_current_mod(request):
+
+    c=CommitteeControl.objects.get(committee=request.session['committee'])
+    c.current_mod="No Moderated Caucus in Progress"
+    c.save()
+    return HttpResponse("Successful")
+
+#voting
+
+def vote(request):
+
+    if request.GET['vote']=='Abstain':
+
+        att=Attendance.objects.get(country=request.session['country'],committee=request.session['committee'])
+
+        if 'Voting' in att.status:
+
+            return HttpResponse("You are marked Present and Voting, therefore you cannot abstain.")
+
+    v=Vote.objects.filter(committee=request.session['committee'],country=request.session['country'])
+
+    if not(v.exists()):
+
+        v=Vote(committee=request.session['committee'],country=request.session['country'],vote_status=request.GET['vote'])
+        v.save()
+
+    return HttpResponse("Thank you for voting")
 
 #timer
 
@@ -138,6 +166,20 @@ def disable_motions(request):
 def delegate(request):
 
     return HttpResponse("")
+
+def raise_placard(request):
+
+    att=Attendance.objects.get(country=request.session['country'])
+    att.placard="Placard Raised"
+    att.save()
+    return HttpResponse("Successful")
+
+def lower_placard(request):
+
+    att=Attendance.objects.get(country=request.session['country'])
+    att.placard=""
+    att.save()
+    return HttpResponse("Successful")
 
 
 
