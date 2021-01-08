@@ -40,6 +40,18 @@ def markattendance(request):
 
     return redirect('delegate')
 
+def getattendance(request):
+
+    att=Attendance.objects.filter(committee=request.session['committee'])
+
+    list=''
+
+    for a in att:
+
+        list=list+a.country+' | '+a.status+' | Recognized: '+str(a.recognized)+'<br>\n'
+
+    return HttpResponse(list)
+
 def delegate(request):
 
     return HttpResponse("")

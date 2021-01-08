@@ -7,5 +7,6 @@ urlpatterns = [
     path('timer',views.timer,name='timer'),
     path('rollcall',views.rollcall,name='rollcall'),
     path('markattendance',views.markattendance,name='markattendance'),
-    path('delegate',views.delegate,name='delegate')
+    path('delegate',views.delegate,name='delegate'),
+    path('getattendance',views.getattendance,name='getattendance')
 ]
