@@ -46,8 +46,9 @@ def joinsession(request):
 
     uinfo=User.objects.get(email=request.session['uid'])
     request.session['committee']=uinfo.committee
+    request.session['country']=uinfo.country
     request_context={}
     if request.session['utype']=='delegate':
-        return redirect('/dashboard/rollcall')
+        return redirect('/dashboards/rollcall')
     else:
-        return redirect('/dashboard/'+request.session['utype'])
+        return redirect('/dashboards/'+request.session['utype'])
