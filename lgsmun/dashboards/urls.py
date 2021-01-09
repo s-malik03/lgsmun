@@ -18,6 +18,9 @@ urlpatterns = [
     path('enable_motions',views.enable_motions,name='enable_motions'),
     path('disable_motions',views.disable_motions,name='disable_motions'),
     path('raise_placard',views.raise_placard,name='raise_placard'),
-    path('lower_placard',views.lower_placard,name='lower_placard')
+    path('lower_placard',views.lower_placard,name='lower_placard'),
+    path('get_current_mod',views.get_current_mod,name='get_current_mod'),
+    path('get_current_topic',views.get_current_topic,name='get_current_topic'),
+    path('get_speaking_mode',views.get_speaking_mode,name='get_speaking_mode')
 
 ]

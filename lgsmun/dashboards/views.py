@@ -163,6 +163,21 @@ def disable_motions(request):
 
 #DELEGATE
 
+def get_current_topic(request):
+
+    c=CommitteeControl.objects.get(committee=request.session['committee'])
+    return HttpResponse(c.topic)
+
+def get_speaking_mode(request):
+
+    c=CommitteeControl.objects.get(committee=request.session['committee'])
+    return HttpResponse(c.speaking_mode)
+
+def get_current_mod(request):
+
+    c=CommitteeControl.objects.get(committee=request.session['committee'])
+    return HttpResponse(c.current_mod)
+
 def delegate(request):
 
     request_context={'committee':request.session['committee']}

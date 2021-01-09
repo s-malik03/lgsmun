@@ -8,7 +8,25 @@
             let y = await x.text();
             $('#att').html(y);
           }
-          setInterval(getattendance,1000)
+          async function getcurrentmod(){
+            let x = await fetch("/dashboards/get_current_mod");
+            let y = await x.text();
+            $('#current_mod').html(y);
+          }
+          async function getspeakingmode(){
+            let x = await fetch("/dashboards/get_speaking_mode");
+            let y = await x.text();
+            $('#speaking_mode').html(y);
+          }
+          async function getcurrenttopic(){
+            let x = await fetch("/dashboards/get_current_topic");
+            let y = await x.text();
+            $('#topic').html(y);
+          }
+          setInterval(getcurrenttopic,30000);
+          setInterval(getattendance,1000);
+          setInterval(getspeakingmode,15000);
+          setInterval(getcurrentmod,15000);
         </script>
         <style>
             #leftbox {
@@ -36,7 +54,7 @@
         </style>
     </head>
 
-    <body>
+    <body onbeforeunload="fetch('logout')">
         <div id = "boxes">
             <h1>{{committee}}</h1>
 
@@ -46,7 +64,10 @@
             </div>
 
             <div id = "middlebox">
-                <h2>BLANK:</h2>
+
+                <h2>Topic: <div id="topic">No Topic Has Been Set</div></h2>
+                <h3>Speaking Mode: <div id="speaking_mode">Idle</div></h3>
+                <h4>Current Mod: <div id="current_mod">No Moderated Caucus in Progress</div></h4>
 
             </div>
 
