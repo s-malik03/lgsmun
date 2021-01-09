@@ -16,6 +16,8 @@ urlpatterns = [
     path('speaking_mode',views.speaking_mode,name='speaking_mode'),
     path('set_current_topic',views.set_current_topic,name='speaking_mode'),
     path('enable_motions',views.enable_motions,name='enable_motions'),
-    path('disable_motions',views.disable_motions,name='disable_motions')
+    path('disable_motions',views.disable_motions,name='disable_motions'),
+    path('raise_placard',views.raise_placard,name='raise_placard'),
+    path('lower_placard',views.lower_placard,name='lower_placard')
 
 ]

@@ -57,7 +57,7 @@ def getcountrylist(request):
 
     for a in att:
 
-        list=list+a.country+'<br>'
+        list=list+a.country+'('+a.placard+')'+'<br>'
 
     return HttpResponse(list)
 
@@ -165,7 +165,8 @@ def disable_motions(request):
 
 def delegate(request):
 
-    return HttpResponse("")
+    request_context={'committee':request.session['committee']}
+    return render(request,'delegate.html',request_context)
 
 def raise_placard(request):
 

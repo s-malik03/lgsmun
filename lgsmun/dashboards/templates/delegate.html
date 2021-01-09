@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+          async function getattendance() {
+            let x = await fetch("/dashboards/getcountrylist");
+            let y = await x.text();
+            $('#att').html(y);
+          }
+          setInterval(getattendance,1000)
+        </script>
+        <style>
+            #leftbox {
+                float:left;
+                background:white;
+                width:25%;
+                height:280px;
+            }
+            #middlebox{
+                float:left;
+                background:white;
+                width:50%;
+                height:280px;
+            }
+            #rightbox{
+                float:right;
+                background:white;
+                width:25%;
+                height:280px;
+            }
+            h1{
+                color:black;
+                text-align:center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id = "boxes">
+            <h1>{{committee}}</h1>
+
+            <div id = "leftbox">
+                <h2>BLANK</h2>
+
+            </div>
+
+            <div id = "middlebox">
+                <h2>BLANK:</h2>
+
+            </div>
+
+            <div id = "rightbox">
+                <h2>Delegates Present:</h2>
+                <div id="att">No one present.</div>
+                <input type="button" class="btn" value="Raise Placard" onclick="fetch('raise_placard')">
+                <input type="button" class="btn" value="Lower Placard" onclick="fetch('lower_placard')"><br>
+                <input type="button" class="btn" value="Log Out" onclick="window.location.href='logout'"><br>
+            </div>
+        </div>
+    </body>
+</html>
