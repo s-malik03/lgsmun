@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login.apps.LoginConfig',
     'menu.apps.MenuConfig',
-    'dashboards.apps.DashboardsConfig'
+    'dashboards.apps.DashboardsConfig',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'lgsmun.wsgi.application'
+ASGI_APPLICATION = 'lgsmun.asgi.application'
 
 
 # Database
