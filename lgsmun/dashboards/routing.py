@@ -3,6 +3,6 @@ from .consumers import *
 
 ws_urlpatterns = [
 
-    path('ws/getcountrylist/',GetCountryList.as_asgi())
+    path('ws/delegate/',Delegate.as_asgi())
 
 ]
