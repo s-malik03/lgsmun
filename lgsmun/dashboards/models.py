@@ -55,4 +55,10 @@ class Vote(models.Model):
     country=models.CharField(max_length=100)
     vote_status=models.CharField(max_length=50)
 
+class Timer(models.Model):
+
+    committee=models.CharField(max_length=100)
+    status=models.CharField(max_length=100)
+    duration=models.IntegerField()
+
 # Create your models here.

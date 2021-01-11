@@ -1,6 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from .models import Attendance,CommitteeControl,Notifications,GSL,RSL
+from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer
 from asgiref.sync import sync_to_async
 import time
 
@@ -16,6 +16,7 @@ def essentialinfo(Committee):
         list=list+a.country+'('+a.placard+')'+'<br>'
 
     c=CommitteeControl.objects.get(committee=Committee)
+    t=Timer.objects.get(committee=Committee)
     g=GSL.objects.filter(committee=Committee).order_by('date')
     r=RSL.objects.filter(committee=Committee).order_by('date')
     rsl=''
@@ -46,7 +47,9 @@ def essentialinfo(Committee):
         'current_mod':c.current_mod,
         'notifications':nlist,
         'gsl':gsl,
-        'rsl':rsl
+        'rsl':rsl,
+        'timer_status':t.status,
+        'timer_duration':t.duration
 
     }
 

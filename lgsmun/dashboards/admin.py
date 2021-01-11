@@ -13,4 +13,6 @@ admin.site.register(Notifications)
 
 admin.site.register(Messages)
 
+admin.site.register(Timer)
+
 # Register your models here.
