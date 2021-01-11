@@ -1,6 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from .models import Attendance,CommitteeControl
+from .models import Attendance,CommitteeControl,Notifications
 from asgiref.sync import sync_to_async
 import time
 
@@ -16,13 +16,27 @@ def essentialinfo(Committee):
         list=list+a.country+'('+a.placard+')'+'<br>'
 
     c=CommitteeControl.objects.get(committee=Committee)
+    nlist=''
+    try:
+        n=Notifications.objects.filter(committee=Committee).order_by('-date')
+        for n_ in n:
+
+            nlist=nlist+'('+n_.date.strftime("%H:%M:%S")+')'+n_.country+':'+n_.message+'<br>'
+
+    except Exception as e:
+
+        nlist=str(e)
+
+    if len(n)>10:
+        n=n[:10]
 
     dict={
 
         'countrylist':list,
         'current_topic':c.topic,
         'speaking_mode':c.speaking_mode,
-        'current_mod':c.current_mod
+        'current_mod':c.current_mod,
+        'notifications':nlist
 
     }
 

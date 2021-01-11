@@ -7,10 +7,12 @@ ws.send($('#committee_name').html());
 };
 ws.onmessage=async function(event){
   var data=JSON.parse(event.data);
+  console.log(data);
   $('#att').html(data.countrylist);
   $('#current_mod').html(data.current_mod);
   $('#current_topic').html(data.current_topic);
   $('#speaking_mode').html(data.speaking_mode);
+  $('#notifications').html(data.notifications);
   await sleep(1000);
   ws.send($('#committee_name').html());
 };

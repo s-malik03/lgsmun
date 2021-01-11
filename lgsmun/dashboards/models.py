@@ -12,20 +12,20 @@ class GSL(models.Model):
 
     country=models.CharField(max_length=100)
     committee=models.CharField(max_length=50)
-    date=models.DateField(auto_now_add=True,blank=True)
+    date=models.DateTimeField(auto_now_add=True,blank=True)
 
 class RSL(models.Model):
 
     country=models.CharField(max_length=100)
     committee=models.CharField(max_length=50)
-    date=models.DateField(auto_now_add=True,blank=True)
+    date=models.DateTimeField(auto_now_add=True,blank=True)
 
 class Notifications(models.Model):
 
     country=models.CharField(max_length=100)
     committee=models.CharField(max_length=50)
     message=models.CharField(max_length=100)
-    date=models.DateField(auto_now_add=True)
+    date=models.DateTimeField(auto_now_add=True)
 
 class Messages(models.Model):
 
@@ -33,7 +33,7 @@ class Messages(models.Model):
     sender=models.CharField(max_length=100)
     recipient=models.CharField(max_length=100)
     message=models.CharField(max_length=250)
-    date=models.DateField(auto_now_add=True,blank=True)
+    date=models.DateTimeField(auto_now_add=True)
 
 class CommitteeControl(models.Model):
 

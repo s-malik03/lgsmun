@@ -11,6 +11,12 @@
                 width:25%;
                 height:280px;
             }
+            #leftbox2 {
+                float:left;
+                background:white;
+                width:50%;
+                height:280px;
+            }
             #middlebox{
                 float:left;
                 background:white;
@@ -23,6 +29,13 @@
                 width:25%;
                 height:280px;
             }
+            #rightbox2{
+                float:right;
+                background:white;
+                width:50%;
+                height:280px;
+            }
+
             h1{
                 color:black;
                 text-align:center;
@@ -41,13 +54,25 @@
 
             <div id = "middlebox">
 
+              <div id="leftbox2">
+
                 <h2>Topic: <div id="topic">No Topic Has Been Set</div></h2>
                 <h3>Speaking Mode: <div id="speaking_mode">Idle</div></h3>
                 <h4>Current Mod: <div id="current_mod">No Moderated Caucus in Progress</div></h4>
+                <h4>Raise Motion:</h4>
+                <input type="text" id="motion"/ size="50">
+                <input type="button" value="Raise"/><br>
 
             </div>
+            <div id="rightbox2">
+              <h3>RSL: <div id="rsl"> </div></h3>
+              <h3>GSL: <div id="gsl"> </div></h3>
+            </div>
+          </div>
 
             <div id = "rightbox">
+                <h2>Notifications:</h2>
+                <div id="notifications"> </div>
                 <h2>Delegates Present:</h2>
                 <div id="att">No one present.</div>
                 <input type="button" class="btn" value="Raise Placard" onclick="fetch('raise_placard')">

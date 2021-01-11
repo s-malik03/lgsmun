@@ -87,6 +87,20 @@ def remove_from_gsl(request):
     g[0].delete()
     return HttpResponse("Successful")
 
+#RSL
+
+def add_to_rsl(request):
+
+    r=RSL(country=request.GET['country'],committee=request.session['committee'])
+    r.save()
+    return HttpResponse("Successful")
+
+def remove_from_rsl(request):
+
+    r=RSL.objects.filter(committee=request.session['committee']).order_by('-date')
+    r[0].delete()
+    return HttpResponse("Successful")
+
 #MOD
 
 def set_current_mod(request):
