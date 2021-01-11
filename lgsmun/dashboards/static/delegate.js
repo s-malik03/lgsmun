@@ -13,6 +13,8 @@ ws.onmessage=async function(event){
   $('#current_topic').html(data.current_topic);
   $('#speaking_mode').html(data.speaking_mode);
   $('#notifications').html(data.notifications);
+  $('#gsl').html(data.gsl);
+  $('#rsl').html(data.rsl);
   await sleep(1000);
   ws.send($('#committee_name').html());
 };
