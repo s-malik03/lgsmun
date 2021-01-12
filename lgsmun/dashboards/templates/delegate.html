@@ -47,11 +47,13 @@
     </head>
 
     <body onbeforeunload="fetch('logout');ws.close();">
+        <input type="hidden" id="country" value="{{country}}"/>
         <div id = "boxes">
             <h1 id="committee_name">{{committee}}</h1>
 
             <div id = "leftbox">
-                <h2>BLANK</h2>
+                <h2>Inbox:</h2>
+                <p><div id="inbox"></div></p>
 
             </div>
 

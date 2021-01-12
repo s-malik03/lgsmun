@@ -1,33 +1,62 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer
+from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer,Messages
 from asgiref.sync import sync_to_async
 import time
+from django.db.models import Q
 
 @sync_to_async
-def essentialinfo(Committee):
+def essentialinfo(Committee,Country):
 
-    att=Attendance.objects.filter(committee=Committee).exclude(status="Absent").order_by('country')
-
+    inbox_text=''
+    rsl=''
+    gsl=''
     list=''
+    try:
 
-    for a in att:
+        inbox=Messages.objects.filter(Q(committee=Committee),Q(recipient=Country)|Q(sender=Country))
 
-        list=list+a.country+'('+a.placard+')'+'<br>'
+        for i in inbox:
+
+            inbox_text=inbox_text+'('+i.sender+' to '+i.recipient+')'+i.message+'<br>'
+
+    except:
+
+        pass
+
+    try:
+
+        att=Attendance.objects.filter(committee=Committee).exclude(status="Absent").order_by('country')
+
+        for a in att:
+
+            list=list+a.country+'('+a.placard+')'+'<br>'
+
+    except:
+
+        pass
 
     c=CommitteeControl.objects.get(committee=Committee)
     t=Timer.objects.get(committee=Committee)
-    g=GSL.objects.filter(committee=Committee).order_by('date')
-    r=RSL.objects.filter(committee=Committee).order_by('date')
-    rsl=''
-    gsl=''
-    for r_ in r:
-        rsl=rsl+r_.country+'<br>'
-    for g_ in g:
-        gsl=gsl+g_.country+'<br>'
+
+    try:
+        g=GSL.objects.filter(committee=Committee).order_by('date')
+        r=RSL.objects.filter(committee=Committee).order_by('date')
+
+        for r_ in r:
+            rsl=rsl+r_.country+'<br>'
+        for g_ in g:
+            gsl=gsl+g_.country+'<br>'
+
+    except:
+
+        pass
+
     nlist=''
     try:
         n=Notifications.objects.filter(committee=Committee).order_by('-date')
+        if len(n)>10:
+            n=n[:10]
         for n_ in n:
 
             nlist=nlist+'('+n_.date.strftime("%H:%M:%S")+')'+n_.country+':'+n_.message+'<br>'
@@ -35,9 +64,6 @@ def essentialinfo(Committee):
     except Exception as e:
 
         nlist=str(e)
-
-    if len(n)>10:
-        n=n[:10]
 
     dict={
 
@@ -50,7 +76,8 @@ def essentialinfo(Committee):
         'rsl':rsl,
         'timer_status':t.status,
         'timer_duration':t.duration,
-        'total_time':t.total_time
+        'total_time':t.total_time,
+        'inbox':inbox_text
 
     }
 
@@ -64,8 +91,12 @@ class Delegate(AsyncWebsocketConsumer):
 
     async def receive(self,text_data):
 
-        committee=text_data
+        json_data=json.loads(text_data)
 
-        einfo=await essentialinfo(committee)
+        committee=json_data['committee']
+
+        country=json_data['country']
+
+        einfo=await essentialinfo(committee,country)
 
         await self.send(einfo)
