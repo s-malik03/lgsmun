@@ -211,6 +211,13 @@ def lower_placard(request):
     att.save()
     return HttpResponse("Successful")
 
+def raise_motion(request):
+
+    motion='(MOTION)'+request.POST['motion']
+    n=Notifications(country=request.session['country'],committee=request.session['committee'],message=motion)
+    n.save()
+    return HttpResponse("Successful")
+
 
 
 
