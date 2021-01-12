@@ -1,10 +1,31 @@
+{% load static %}
 <html>
-<head><title>{{committee}} Roll Call</title></head>
+
+<head>
+
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
 <body>
-  <h1>{{committee}} Roll Call</h1><br>
   <form action="markattendance" method="GET">
-  <input name="status" type="submit" class="btn" value="Present" onclick="window.location.href='markattendance'"><br>
-  <input name="status" type="submit" class="btn" value="Present and Voting" onclick="window.location.href='markattendance'">
+    <div class="login-box">
+      <h1>Roll Call</h1>
+      <h5>Mark your Attendance </h5>
+      <br>
+      <input name="status" type="submit" class="btn" value="Present" onclick="window.location.href='markattendance'"><br>
+      <input name="status" type="submit" class="btn" value="Present and Voting" onclick="window.location.href='markattendance'">
+    </div>
   </form>
-  </body>
-  </html>
+
+
+
+
+
+
+  </form>
+
+
+
+</body>
+</html>
