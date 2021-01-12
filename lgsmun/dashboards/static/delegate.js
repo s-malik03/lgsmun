@@ -22,6 +22,13 @@ function raise_motion(){
     'csrfmiddlewaretoken':csrftoken
   });
 }
+function sendmessage(){
+  $.post("send_message",{
+    'message':$('#message').val(),
+    'recipient':$('#recipient').val(),
+    'csrfmiddlewaretoken':csrftoken
+  });
+}
 function raise_point(){
   $.post("raise_motion",{
     'motion':$('#point').val(),
