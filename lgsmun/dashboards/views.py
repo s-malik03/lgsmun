@@ -194,7 +194,7 @@ def get_current_mod(request):
 
 def delegate(request):
 
-    request_context={'committee':request.session['committee']}
+    request_context={'committee':request.session['committee'],'country':request.session['country']}
     return render(request,'delegate.html',request_context)
 
 def raise_placard(request):

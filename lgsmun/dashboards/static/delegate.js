@@ -52,8 +52,11 @@ function timer(){
 }
 }
 var ws= new WebSocket("ws://"+window.location.host+'/ws/delegate/');
+var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val()};
 ws.onopen=function(){
-ws.send($('#committee_name').html());
+  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val()};
+  console.log(ess_data);
+ws.send(JSON.stringify(ess_data));
 };
 ws.onmessage=async function(event){
   var data=JSON.parse(event.data);
@@ -65,6 +68,7 @@ ws.onmessage=async function(event){
   $('#notifications').html(data.notifications);
   $('#gsl').html(data.gsl);
   $('#rsl').html(data.rsl);
+  $('#inbox').html(data.inbox);
   status=data.timer_status;
   if(parseInt(data.total_time)!=total_time){
     total_time=parseInt(data.total_time);
@@ -81,6 +85,6 @@ ws.onmessage=async function(event){
     counter=0;
   }
   await sleep(1000);
-  ws.send($('#committee_name').html());
+  ws.send(JSON.stringify(ess_data));
 };
 setInterval(timer,1000);
