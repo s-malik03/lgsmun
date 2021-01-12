@@ -49,7 +49,8 @@ def essentialinfo(Committee):
         'gsl':gsl,
         'rsl':rsl,
         'timer_status':t.status,
-        'timer_duration':t.duration
+        'timer_duration':t.duration,
+        'total_time':t.total_time
 
     }
 

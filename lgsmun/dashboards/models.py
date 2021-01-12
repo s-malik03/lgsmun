@@ -60,5 +60,6 @@ class Timer(models.Model):
     committee=models.CharField(max_length=100)
     status=models.CharField(max_length=100)
     duration=models.IntegerField()
+    total_time=models.IntegerField(default=0)
 
 # Create your models here.

@@ -30,6 +30,8 @@ function raise_point(){
 }
 var duration=0;
 var counter=0;
+var total_time=0;
+var total_count=0;
 var status='';
 function timer(){
 
@@ -37,8 +39,15 @@ function timer(){
 
     $('#minutes').html(Math.trunc(counter/60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
     $('#seconds').html((counter%60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
+    $('#total_minutes').html(Math.trunc(total_count/60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
+    $('#total_seconds').html((total_count%60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
     if (counter!=0){
     counter=counter-1;
+    if ((total_count!=0 && status=='start')){
+
+      total_count=total_count-1;
+
+    }
 }
 }
 }
@@ -56,7 +65,11 @@ ws.onmessage=async function(event){
   $('#notifications').html(data.notifications);
   $('#gsl').html(data.gsl);
   $('#rsl').html(data.rsl);
-  status=data.timer_status
+  status=data.timer_status;
+  if(parseInt(data.total_time)!=total_time){
+    total_time=parseInt(data.total_time);
+    total_count=total_time;
+  }
   if ('start'==data.timer_status && duration!=parseInt(data.timer_duration)){
     status=data.timer_status;
       duration=parseInt(data.timer_duration);
