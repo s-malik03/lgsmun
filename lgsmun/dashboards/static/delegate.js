@@ -22,6 +22,12 @@ function raise_motion(){
     'csrfmiddlewaretoken':csrftoken
   });
 }
+function raise_point(){
+  $.post("raise_motion",{
+    'motion':$('#point').val(),
+    'csrfmiddlewaretoken':csrftoken
+  });
+}
 var duration=0;
 var counter=0;
 var status='';

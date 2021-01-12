@@ -213,9 +213,21 @@ def lower_placard(request):
 
 def raise_motion(request):
 
-    motion='(MOTION)'+request.POST['motion']
+    if 'Point' in request.POST['motion']:
+
+        motion='(POINT)'+request.POST['motion']
+
+    else:
+
+        motion='(MOTION)'+request.POST['motion']
     n=Notifications(country=request.session['country'],committee=request.session['committee'],message=motion)
     n.save()
+    return HttpResponse("Successful")
+
+def send_message(request):
+
+    inbox=Messages(committee=request.session['committee'],sender=request.session['country'],recipient=request.POST['recipient'],message=request.POST['message'])
+    inbox.save()
     return HttpResponse("Successful")
 
 

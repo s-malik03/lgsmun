@@ -65,8 +65,14 @@
                 <h4>Speaker Time:<br><div id="minutes"></div>:<div id="seconds"></div>
                 <h4>Raise Motion:</h4>
                 <input type="text" id="motion"/ size="50">
-                <input type="button" value="Raise" onclick="raise_motion()"/><br>
-
+                <input type="button" value="Raise Motion" onclick="raise_motion()"/><br>
+                <h4>Raise Point:</h4>
+                <select id="point">
+                  <option value="Point of Parliamentary Inquiry">Point of Parliamentary Inquiry</option>
+                  <option value="Point of Personal Privelege">Point of Personal Privelege</option>
+                  <option value="Point of Order">Point of Order</option>
+                </select>
+                <input type="button" value="Raise Point" onclick="raise_point()"/><br>
             </div>
             <div id="rightbox2">
               <h3>RSL: <div id="rsl"> </div></h3>
