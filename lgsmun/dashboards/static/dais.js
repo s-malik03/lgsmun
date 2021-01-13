@@ -22,6 +22,30 @@ function send_notification(){
     'csrfmiddlewaretoken':csrftoken
   });
 }
+function set_total_time(){
+  var m=parseInt($('#t_min').val());
+  var s=parseInt($('#t_sec').val());
+  s=s+(m*60);
+  $.post("set_total_time",{
+    'duration':s.toString(),
+    'csrfmiddlewaretoken':csrftoken
+  });
+
+}
+var general_s=0;
+function set_speaker_time(){
+  var m=parseInt($('#min').val());
+  var s=parseInt($('#sec').val());
+  $('#minutes').html(m.toLocaleString(undefined, {minimumIntegerDigits: 2}));
+  $('#seconds').html(s.toLocaleString(undefined, {minimumIntegerDigits: 2}));
+  s=s+(m*60);
+  general_s=s;
+  $.post("set_speaker_time",{
+    'duration':s.toString(),
+    'csrfmiddlewaretoken':csrftoken
+  });
+
+}
 function sendmessage(){
   $.post("send_message",{
     'message':$('#message').val(),
@@ -88,8 +112,8 @@ ws.onmessage=async function(event){
   }
   else if(data.timer_status=='stop'){
     status=data.timer_status;
-    duration=0;
-    counter=0;
+    duration=general_s;
+    counter=general_s;
   }
   await sleep(1000);
   ws.send(JSON.stringify(ess_data));

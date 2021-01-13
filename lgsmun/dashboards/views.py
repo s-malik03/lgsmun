@@ -173,6 +173,45 @@ def timer(request):
     request_context={}
     return render(request,'timer.html',request_context)
 
+def start_timer(request):
+
+    t=Timer.objects.get(committee=request.session['committee'])
+    t.status='start'
+    t.save()
+    return HttpResponse("Successful")
+
+def pause_timer(request):
+
+    t=Timer.objects.get(committee=request.session['committee'])
+    t.status='pause'
+    t.save()
+    return HttpResponse("Successful")
+
+def stop_timer(request):
+
+    t=Timer.objects.get(committee=request.session['committee'])
+    t.status='stop'
+    t.save()
+    return HttpResponse("Successful")
+
+def reset_total(request):
+    t=Timer.objects.get(committee=request.session['committee'])
+    t.total_time=0
+    t.save()
+    return HttpResponse("Successful")
+
+def set_total_time(request):
+    t=Timer.objects.get(committee=request.session['committee'])
+    t.total_time=int(request.POST['duration'])
+    t.save()
+    return HttpResponse("Successful")
+
+def set_speaker_time(request):
+    t=Timer.objects.get(committee=request.session['committee'])
+    t.duration=int(request.POST['duration'])
+    t.save()
+    return HttpResponse("Successful")
+
 #DAIS
 
 def speaking_mode(request):

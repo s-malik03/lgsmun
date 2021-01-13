@@ -325,8 +325,11 @@
                 <h4>Current Mod: <div id="current_mod">No Moderated Caucus in Progress</div></h4>
                 <h4>Set Current Mod:<input type="text" size="50" id="set_mod"/><input type="button" value="Set" onclick="set_mod();"/></h4>
                 <h4>Total Time:<br><div id="total_minutes"></div>:<div id="total_seconds"></div>
-                <h4>Set Total Time:<br><input type="number" min="0" max="60" id="t_min"/>:<input type="number" min="0" max="60" id="t_sec"/> <input type="button" value="Set" onclick="set_total_time();"/></h4>
-                <h4>Speaker Time:<br><div id="minutes"></div>:<div id="seconds"></div>
+                <h4>Set Total Time:<br><input type="number" min="0" max="60" id="t_min"/>:<input type="number" min="0" max="60" id="t_sec"/> <input type="button" value="Set" onclick="set_total_time();"/> <input type="button" value="Reset" onclick="fetch('reset_total');"/></h4>
+                <h4>Speaker Time:<br><div id="minutes"></div>:<div id="seconds"></div></h4>
+                  <input type="button" value="start" onclick="fetch('start_timer');"/>
+                  <input type="button" value="pause" onclick="fetch('pause_timer');"/>
+                  <input type="button" value="stop" onclick="fetch('stop_timer');"/>
                 <h4>Set Speaker Time:<br><input type="number" min="0" max="60" id="min"/>:<input type="number" min="0" max="60" id="sec"/> <input type="button" value="Set" onclick="set_speaker_time();"/></h4>
                 <h4>Add Speaker:<select id="speaker" name="speaker">
    <option value="Afganistan">Afghanistan</option>

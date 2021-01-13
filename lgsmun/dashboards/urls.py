@@ -25,6 +25,12 @@ urlpatterns = [
     path('send_notification',views.send_notification,name='send_notification'),
     path('send_message',views.send_message,name='send_message'),
     path('dais',views.dais,name='dais'),
-    path('remove_speaker',views.remove_speaker,name='remove_speaker')
+    path('remove_speaker',views.remove_speaker,name='remove_speaker'),
+    path('start_timer',views.start_timer,name='start_timer'),
+    path('pause_timer',views.pause_timer,name='pause_timer'),
+    path('stop_timer',views.stop_timer,name='stop_timer'),
+    path('reset_total',views.reset_total,name='reset_total'),
+    path('set_speaker_time',views.set_speaker_time,name='set_speaker_time'),
+    path('set_total_time',views.set_total_time,name='set_total_time')
 
 ]
