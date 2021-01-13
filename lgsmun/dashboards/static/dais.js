@@ -16,9 +16,9 @@ var csrftoken = getCookie('csrftoken');
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-function raise_motion(){
-  $.post("raise_motion",{
-    'motion':$('#motion').val(),
+function send_notification(){
+  $.post("send_notification",{
+    'notification':$('#noti').val(),
     'csrfmiddlewaretoken':csrftoken
   });
 }

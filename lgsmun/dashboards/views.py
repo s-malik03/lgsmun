@@ -81,11 +81,18 @@ def add_to_gsl(request):
     g.save()
     return HttpResponse("Successful")
 
-def remove_from_gsl(request):
+def remove_from_gsl(Committee):
 
-    g=GSL.objects.filter(committee=request.session['committee']).order_by('-date')
-    g[0].delete()
-    return HttpResponse("Successful")
+    try:
+
+        g=GSL.objects.filter(committee=Committee).order_by('-date')
+        g[0].delete()
+
+    except:
+
+        pass
+
+    return ""
 
 #RSL
 
@@ -95,11 +102,32 @@ def add_to_rsl(request):
     r.save()
     return HttpResponse("Successful")
 
-def remove_from_rsl(request):
+def remove_from_rsl(Committee):
 
-    r=RSL.objects.filter(committee=request.session['committee']).order_by('-date')
-    r[0].delete()
-    return HttpResponse("Successful")
+    try:
+
+        r=RSL.objects.filter(committee=Committee).order_by('-date')
+        r[0].delete()
+
+    except:
+
+        pass
+
+    return ""
+
+def remove_speaker(request):
+
+    C=CommitteeControl.objects.get(committee=request.session['committee'])
+
+    if C.speaking_mode=='GSL':
+
+        remove_from_gsl(request.session['committee'])
+
+    if C.speaking_mode=='Mod':
+
+        remove_from_rsl(request.session['committee'])
+
+    return HttpResponse('Successful')
 
 #MOD
 

@@ -24,6 +24,7 @@ urlpatterns = [
     path('get_speaking_mode',views.get_speaking_mode,name='get_speaking_mode'),
     path('raise_motion',views.raise_motion,name='raise_motion'),
     path('send_message',views.send_message,name='send_message'),
-    path('dais',views.dais,name='dais')
+    path('dais',views.dais,name='dais'),
+    path('remove_speaker',views.remove_speaker,name='remove_speaker')
 
 ]
