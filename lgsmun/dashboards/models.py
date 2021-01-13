@@ -32,14 +32,13 @@ class Messages(models.Model):
     committee=models.CharField(max_length=100)
     sender=models.CharField(max_length=100)
     recipient=models.CharField(max_length=100)
-    message=models.CharField(max_length=250)
+    message=models.TextField()
     date=models.DateTimeField(auto_now_add=True)
 
 class CommitteeControl(models.Model):
 
     committee=models.CharField(max_length=100,primary_key=True)
     speaking_mode=models.CharField(default='Idle',max_length=100)
-    allow_motions=models.BooleanField()
     topic=models.CharField(default='No Topic Has Been Set',max_length=100)
     current_mod=models.CharField(default='No Moderated Caucus in Progress',max_length=100)
 
@@ -59,7 +58,7 @@ class Timer(models.Model):
 
     committee=models.CharField(max_length=100)
     status=models.CharField(max_length=100)
-    duration=models.IntegerField()
+    duration=models.IntegerField(default=0)
     total_time=models.IntegerField(default=0)
 
 # Create your models here.

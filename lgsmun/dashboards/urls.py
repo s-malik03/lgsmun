@@ -23,6 +23,7 @@ urlpatterns = [
     path('get_current_topic',views.get_current_topic,name='get_current_topic'),
     path('get_speaking_mode',views.get_speaking_mode,name='get_speaking_mode'),
     path('raise_motion',views.raise_motion,name='raise_motion'),
-    path('send_message',views.send_message,name='send_message')
+    path('send_message',views.send_message,name='send_message'),
+    path('dais',views.dais,name='dais')
 
 ]

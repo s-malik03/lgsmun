@@ -17,7 +17,7 @@ def logout(request):
 
     att.save()
 
-    return HttpResponse("Logged Out Successfully")
+    return redirect('/login')
 
 #attendance
 
@@ -175,6 +175,11 @@ def disable_motions(request):
     c.save()
     return HttpResponse("Successful")
 
+def dais(request):
+
+    request_context={'committee':request.session['committee'],'country':request.session['country']}
+    return render(request,'dais.html',request_context)
+
 #DELEGATE
 
 def get_current_topic(request):
@@ -226,8 +231,9 @@ def raise_motion(request):
 
 def send_message(request):
 
-    inbox=Messages(committee=request.session['committee'],sender=request.session['country'],recipient=request.POST['recipient'],message=request.POST['message'])
-    inbox.save()
+    if len(request.POST['message'])>0:
+        inbox=Messages(committee=request.session['committee'],sender=request.session['country'],recipient=request.POST['recipient'],message=request.POST['message'])
+        inbox.save()
     return HttpResponse("Successful")
 
 

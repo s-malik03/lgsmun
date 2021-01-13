@@ -39,8 +39,8 @@ def setpassword(request):
 def adminjoinsession(request):
 
     request_context={}
-    request.session['committee']=request.GET["committees"]
-    return redirect('/dashboard/dais')
+    request.session['committee']=request.GET["committee"]
+    return redirect('/dashboards/dais')
 
 def joinsession(request):
 
