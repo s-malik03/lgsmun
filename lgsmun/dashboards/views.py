@@ -244,16 +244,9 @@ def lower_placard(request):
     att.save()
     return HttpResponse("Successful")
 
-def raise_motion(request):
+def send_notification(request):
 
-    if 'Point' in request.POST['motion']:
-
-        motion='(POINT)'+request.POST['motion']
-
-    else:
-
-        motion='(MOTION)'+request.POST['motion']
-    n=Notifications(country=request.session['country'],committee=request.session['committee'],message=motion)
+    n=Notifications(country=request.session['country'],committee=request.session['committee'],message=request.POST['notification'])
     n.save()
     return HttpResponse("Successful")
 
