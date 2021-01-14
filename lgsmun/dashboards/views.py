@@ -138,6 +138,9 @@ def remove_speaker(request):
 def add_speaker(request):
 
     C=CommitteeControl.objects.get(committee=request.session['committee'])
+    recog=Attendance.objects.get(committee=request.session['committee'],country=request.POST['country'])
+    recog.recognized=recog.recognized+1
+    recog.save()
 
     if C.speaking_mode=='GSL':
 
