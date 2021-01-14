@@ -11,10 +11,9 @@ urlpatterns = [
     path('getattendance',views.getattendance,name='getattendance'),
     path('getcountrylist',views.getcountrylist,name='getcountrylist'),
     path('logout',views.logout,name='logout'),
-    path('add_to_gsl',views.add_to_gsl,name='add_to_gsl'),
     path('set_current_mod',views.set_current_mod,name='set_current_mod'),
     path('speaking_mode',views.speaking_mode,name='speaking_mode'),
-    path('set_current_topic',views.set_current_topic,name='speaking_mode'),
+    path('set_current_topic',views.set_current_topic,name='set_current_topic'),
     path('enable_motions',views.enable_motions,name='enable_motions'),
     path('disable_motions',views.disable_motions,name='disable_motions'),
     path('raise_placard',views.raise_placard,name='raise_placard'),
@@ -31,6 +30,7 @@ urlpatterns = [
     path('stop_timer',views.stop_timer,name='stop_timer'),
     path('reset_total',views.reset_total,name='reset_total'),
     path('set_speaker_time',views.set_speaker_time,name='set_speaker_time'),
-    path('set_total_time',views.set_total_time,name='set_total_time')
+    path('set_total_time',views.set_total_time,name='set_total_time'),
+    path('add_speaker',views.add_speaker,name='add_speaker')
 
 ]

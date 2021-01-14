@@ -46,6 +46,29 @@ function set_speaker_time(){
   });
 
 }
+function set_mod(){
+  $.post('set_current_mod',{
+    'current_mod':$('#set_mod').val(),
+    'csrfmiddlewaretoken':csrftoken
+  });
+}
+function set_topic(){
+  $.post('set_current_topic',{
+    'topic':$('#set_topic').val(),
+    'csrfmiddlewaretoken':csrftoken});
+}
+function set_speaking_mode(){
+  $.post('speaking_mode',{
+    'speaking_mode':$('#set_speaking_mode').val(),
+    'csrfmiddlewaretoken':csrftoken
+  });
+}
+function add_speaker(){
+  $.post('add_speaker',{
+    'country':$('#speaker').val(),
+    'csrfmiddlewaretoken':csrftoken
+  });
+}
 function sendmessage(){
   $.post("send_message",{
     'message':$('#message').val(),

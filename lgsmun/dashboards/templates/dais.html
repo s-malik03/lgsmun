@@ -46,7 +46,7 @@
         </style>
     </head>
 
-    <body onbeforeunload="fetch('logout');ws.close();">
+    <body onbeforeunload="ws.close();">
         <input type="hidden" id="country" value="{{country}}"/>
         <div id = "boxes">
             <h1 id="committee_name">{{committee}}</h1>
@@ -578,7 +578,7 @@
    <option value="Zaire">Zaire</option>
    <option value="Zambia">Zambia</option>
    <option value="Zimbabwe">Zimbabwe</option>
-</select><input type="button" value="Add" onlick="add_speaker();"/></h4>
+</select><input type="button" value="Add" onclick="add_speaker();"/></h4>
                 <input type="button" value="Remove From Top of List" onclick="fetch('remove_speaker');"/>
                 <h4>Send Notification:</h4>
                 <textarea cols=30 rows=5 id="noti"></textarea>
@@ -595,8 +595,6 @@
                 <div id="notifications"> </div>
                 <h2>Delegates Present:</h2>
                 <div id="att">No one present.</div>
-                <input type="button" class="btn" value="Raise Placard" onclick="fetch('raise_placard')">
-                <input type="button" class="btn" value="Lower Placard" onclick="fetch('lower_placard')"><br>
                 <input type="button" class="btn" value="Log Out" onclick="window.location.href='logout'"><br>
             </div>
         </div>

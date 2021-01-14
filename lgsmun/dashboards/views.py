@@ -11,11 +11,17 @@ def index(request):
 
 def logout(request):
 
-    att=Attendance.objects.get(committee=request.session['committee'],country=request.session['country'])
+    try:
 
-    att.status='Absent'
+        att=Attendance.objects.get(committee=request.session['committee'],country=request.session['country'])
 
-    att.save()
+        att.status='Absent'
+
+        att.save()
+
+    except:
+
+        pass
 
     return redirect('/login')
 
@@ -75,17 +81,17 @@ def getattendance(request):
 
 #GSL
 
-def add_to_gsl(request):
+def add_to_gsl(Committee,Country):
 
-    g=GSL(country=request.GET['country'],committee=request.session['committee'])
+    g=GSL(country=Country,committee=Committee)
     g.save()
-    return HttpResponse("Successful")
+    return ""
 
 def remove_from_gsl(Committee):
 
     try:
 
-        g=GSL.objects.filter(committee=Committee).order_by('-date')
+        g=GSL.objects.filter(committee=Committee).order_by('date')
         g[0].delete()
 
     except:
@@ -96,17 +102,17 @@ def remove_from_gsl(Committee):
 
 #RSL
 
-def add_to_rsl(request):
+def add_to_rsl(Committee,Country):
 
-    r=RSL(country=request.GET['country'],committee=request.session['committee'])
+    r=RSL(country=Country,committee=Committee)
     r.save()
-    return HttpResponse("Successful")
+    return ""
 
 def remove_from_rsl(Committee):
 
     try:
 
-        r=RSL.objects.filter(committee=Committee).order_by('-date')
+        r=RSL.objects.filter(committee=Committee).order_by('date')
         r[0].delete()
 
     except:
@@ -129,12 +135,26 @@ def remove_speaker(request):
 
     return HttpResponse('Successful')
 
+def add_speaker(request):
+
+    C=CommitteeControl.objects.get(committee=request.session['committee'])
+
+    if C.speaking_mode=='GSL':
+
+        add_to_gsl(request.session['committee'],request.POST['country'])
+
+    if C.speaking_mode=='Mod':
+
+        add_to_rsl(request.session['committee'],request.POST['country'])
+
+    return HttpResponse('Successful')
+
 #MOD
 
 def set_current_mod(request):
 
     c=CommitteeControl.objects.get(committee=request.session['committee'])
-    c.current_mod=request.GET["current_mod"]
+    c.current_mod=request.POST["current_mod"]
     c.save()
     return HttpResponse("Successful")
 
@@ -217,14 +237,14 @@ def set_speaker_time(request):
 def speaking_mode(request):
 
     sm=CommitteeControl.objects.get(committee=request.session['committee'])
-    sm.speaking_mode=request.GET["speaking_mode"]
+    sm.speaking_mode=request.POST["speaking_mode"]
     sm.save()
     return HttpResponse("Successful")
 
 def set_current_topic(request):
 
     c=CommitteeControl.objects.get(committee=request.session['committee'])
-    c.topic=request.GET["topic"]
+    c.topic=request.POST["topic"]
     c.save()
     return HttpResponse("Successful")
 
@@ -244,6 +264,8 @@ def disable_motions(request):
 
 def dais(request):
 
+    if request.session['utype']!='dais' and request.session['utype']!='admin':
+        return HttpResponse('Access Denied')
     request_context={'committee':request.session['committee'],'country':request.session['country']}
     return render(request,'dais.html',request_context)
 
@@ -265,6 +287,10 @@ def get_current_mod(request):
     return HttpResponse(c.current_mod)
 
 def delegate(request):
+
+    if request.session['utype']!='delegate':
+
+        return HttpResponse("Access Denied")
 
     request_context={'committee':request.session['committee'],'country':request.session['country']}
     return render(request,'delegate.html',request_context)
