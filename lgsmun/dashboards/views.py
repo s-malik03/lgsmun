@@ -157,6 +157,8 @@ def add_speaker(request):
 def set_current_mod(request):
 
     c=CommitteeControl.objects.get(committee=request.session['committee'])
+    r=RSL.objects.filter(committee=request.session['committee'])
+    r.delete()
     c.current_mod=request.POST["current_mod"]
     c.save()
     return HttpResponse("Successful")
