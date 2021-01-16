@@ -20,7 +20,7 @@
 <body onbeforeunload="fetch('logout');ws.close();">
   <input type="hidden" id="country" value="{{country}}"/>
   <div class="tital">
-    <h1 id="committee_name">DISEC</h1>
+    <h1 id="committee_name">{{committee}}</h1>
   </div>
   <div id="content">
     <span class="slide">
@@ -84,7 +84,7 @@
       </div>
       <div class="fourth">
         <h1>Chat with Other Delegates:</h1><br>
-        <div class="chat-del"><h6></h6>
+        <div class="chat-del" id="inbox"><h6></h6>
         </div>
         <div class="extra">
           <h2>Send To:</h2>
