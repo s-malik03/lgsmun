@@ -407,7 +407,6 @@ body {
   width: 96%;
 	height: 60px;
   float: center;
-	transform: translate(0%,-150%);
   margin: 5 0 0px;
   overflow: auto;
 }
@@ -426,7 +425,7 @@ body {
 }
 .chat-del {
   background-color: #000;
-  width: 91%;
+  width: 95%;
   height: 270px;
 	padding: 10px 10px;
   overflow: hidden;

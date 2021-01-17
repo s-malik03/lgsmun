@@ -5,40 +5,120 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="{% static 'delegate.js' %}"></script>
         <style>
+            body{
+              background-color: grey;
+              background-image: linear-gradient(white, grey, white);
+              overflow: auto;
+            }
             #leftbox {
+                border-radius:10px;
                 float:left;
-                background:white;
+                background: grey;
                 width:25%;
-                height:280px;
+                height:530px;
             }
             #leftbox2 {
                 float:left;
-                background:white;
+                border-radius:10px;
+                background: grey;
                 width:50%;
-                height:280px;
+                height:530px;
             }
             #middlebox{
                 float:left;
-                background:white;
+                border-radius: 10px;
+                background:grey;
                 width:50%;
-                height:280px;
+                height:530px;
             }
             #rightbox{
                 float:right;
-                background:white;
+                border-radius: 10px;
+                background:grey;
                 width:25%;
-                height:280px;
+                height:530px;
             }
             #rightbox2{
                 float:right;
-                background:white;
+                border-radius: 10px;
+                background:grey;
                 width:50%;
                 height:280px;
             }
             #minutes, #seconds,#total_minutes,#total_seconds{
                 display:inline;
             }
+            #message {
+              border: none;
+              outline: none;
+              background: none;
+              border: 2px solid white;
+              color: white;
+              font-size: 16px;
+              width: 96%;
+              height: 60px;
+              float: center;
+              margin: 5 0 0px;
+              overflow: auto;
+            }
+            ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+              color: white;
+              opacity: 1; /* Firefox */
+            }
 
+            :-ms-input-placeholder { /* Internet Explorer 10-11 */
+              color: white;
+            }
+
+            ::-ms-input-placeholder { /* Microsoft Edge */
+              color: white;
+            }
+            .overflow {
+              background-color: #000;
+              border-radius: 10px;
+              width: 94%;
+              height: 230px;
+              padding: 10px 10px;
+              overflow: hidden;
+              overflow-y: auto;
+            }
+            #rsl {
+              background-color: #000;
+              border-radius: 10px;
+              width: 94%;
+              height: 200px;
+              padding: 10px 10px;
+              overflow: hidden;
+              overflow-y: auto;
+            }
+            #gsl {
+              background-color: #000;
+              border-radius: 10px;
+              width: 94%;
+              height: 200px;
+              padding: 10px 10px;
+              overflow: hidden;
+              overflow-y: auto;
+            }
+            .selectbtn{
+              border-radius: 10px;
+              background: #444444;
+              color: #fff;
+              display: block;
+              width: 66%;
+              padding: 0 16px;
+              height: 30px;
+              text-align: center;
+              position: center;
+              box-sizing: border-box;
+              outline: none;
+              border: none;
+              font-family: "montserrat",sans-serif;
+            }
+            .btn{
+              background: none;
+              border: 2px solid #fff;
+            }
             h1{
                 color:black;
                 text-align:center;
@@ -53,9 +133,9 @@
 
             <div id = "leftbox">
                 <h2>Inbox:</h2>
-                <p><div id="inbox"></div></p><br>
-                <input type="text" size="50" id="message"/><br>
-                Send to:<select id="recipient" name="recipient">
+                <p><div class="overflow" id="inbox"></div></p><br>
+                <textarea class="textarea" placeholder="Message" id="message"/></textarea><br>
+                Send to:<br><select id="recipient" class="selectbtn" name="recipient">
    <option value="Dais">Dais</option>
    <option value="Afganistan">Afghanistan</option>
    <option value="Albania">Albania</option>
@@ -303,8 +383,8 @@
    <option value="Zaire">Zaire</option>
    <option value="Zambia">Zambia</option>
    <option value="Zimbabwe">Zimbabwe</option>
-</select>
-                <input type="button" value="Send Message" onclick="sendmessage()"/>
+</select><br>
+                <input type="button" class="btn" value="Send Message" onclick="sendmessage()"/>
 
             </div>
 
@@ -318,12 +398,12 @@
                 <h4>Total Time:<br><div id="total_minutes"></div>:<div id="total_seconds"></div>
                 <h4>Speaker Time:<br><div id="minutes"></div>:<div id="seconds"></div>
                 <h4>Raise Point:</h4>
-                <select id="point">
+                <select class="selectbtn" id="point">
                   <option value="Point of Parliamentary Inquiry">Point of Parliamentary Inquiry</option>
                   <option value="Point of Personal Privelege">Point of Personal Privelege</option>
                   <option value="Point of Order">Point of Order</option>
-                </select>
-                <input type="button" value="Raise Point" onclick="raise_point()"/><br>
+                </select><br>
+                <input type="button" class="btn" value="Raise Point" onclick="raise_point()"/><br>
             </div>
             <div id="rightbox2">
               <h3>RSL: <div id="rsl"> </div></h3>
@@ -336,9 +416,9 @@
                 <div id="notifications"> </div>
                 <h2>Delegates Present:</h2>
                 <div id="att">No one present.</div>
-                <input type="button" class="btn" value="Raise Placard" onclick="fetch('raise_placard')">
-                <input type="button" class="btn" value="Lower Placard" onclick="fetch('lower_placard')"><br>
-                <input type="button" class="btn" value="Log Out" onclick="window.location.href='logout'"><br>
+                <input type="button" class="btn" value="Raise Placard" onclick="fetch('raise_placard')"><br><br>
+                <input type="button" class="btn" value="Lower Placard" onclick="fetch('lower_placard')"><br><br>
+                <input type="button" class="btn" value="Log Out" onclick="window.location.href='logout'"><br><br>
             </div>
         </div>
     </body>
