@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,17 +34,16 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic',
+    'channels',
+    'login',
+    'menu',
+    'dashboards',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'login.apps.LoginConfig',
-    'menu.apps.MenuConfig',
-    'dashboards.apps.DashboardsConfig',
-    'channels'
+    'django.contrib.staticfiles'
 ]
 
 MIDDLEWARE = [
@@ -75,7 +76,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'lgsmun.wsgi.application'
-ASGI_APPLICATION = 'lgsmun.asgi.application'
 
 
 # Database
@@ -88,7 +88,9 @@ DATABASES = {
     }
 }
 
-
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['CONN_MAX_AGE'] = 500
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -130,3 +132,14 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+ASGI_APPLICATION = "lgsmun.routing.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis://:265def@ISL@redis-14215.c1.asia-northeast1-1.gce.cloud.redislabs.com:14215/0")],
+        },
+    },
+}
