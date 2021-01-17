@@ -24,7 +24,7 @@ def logout(request):
 
         pass
 
-    return redirect('/login')
+    return redirect('/')
 
 #attendance
 
