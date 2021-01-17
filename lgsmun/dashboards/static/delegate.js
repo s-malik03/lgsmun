@@ -30,8 +30,8 @@ function sendmessage(){
   });
 }
 function raise_point(){
-  $.post("raise_motion",{
-    'motion':$('#point').val(),
+  $.post("send_notification",{
+    'notification':'(POINT)'+$('#point').val(),
     'csrfmiddlewaretoken':csrftoken
   });
 }
