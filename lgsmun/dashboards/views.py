@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import *
 from login.models import User
+import pytz
 
 #general
 
@@ -326,6 +327,31 @@ def send_message(request):
         inbox=Messages(committee=request.session['committee'],sender=request.session['country'],recipient=request.POST['recipient'],message=request.POST['message'])
         inbox.save()
     return HttpResponse("Successful")
+
+def chat_log(request):
+
+    inbox=Messages.objects.filter(committee=request.session['committee']).order_by('date')
+
+    backlog=''
+
+    for i in inbox:
+
+        backlog=backlog+i.date.strftime("%H:%M:%S")+'('+i.sender+' to '+i.recipient+')'+i.message+'<br>'
+
+    return HttpResponse(backlog)
+
+def committee_log(request):
+
+    notis=Notifications.objects.filter(committee=request.session['committee']).order_by('date')
+
+    nlist=''
+
+    for n_ in notis:
+
+        nlist=nlist+'('+n_.date.strftime("%H:%M:%S")+')'+n_.country+':'+n_.message+'<br>'
+
+    return HttpResponse(nlist)
+
 
 
 

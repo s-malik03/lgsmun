@@ -74,6 +74,7 @@
           color: white;
         }
         .overflow {
+          color: white;
           background-color: #000;
           border-radius: 10px;
           width: 94%;
@@ -103,6 +104,7 @@
           float: left;
         }
         #rsl {
+          color: white;
           background-color: #000;
           border-radius: 10px;
           width: 94%;
@@ -112,6 +114,7 @@
           overflow-y: auto;
         }
         #gsl {
+          color: white;
           background-color: #000;
           border-radius: 10px;
           width: 94%;
@@ -710,9 +713,11 @@
 
             <div id = "rightbox">
                 <h2>Notifications:</h2>
-                <div id="notifications"> </div>
+                <div id="notifications" class="overflow"> </div>
                 <h2>Delegates Present:</h2>
-                <div id="att">No one present.</div><br>
+                <div id="att" class="overflow">No one present.</div><br>
+                <input type="button" class="btn" value="Chat Log" onclick=" window.open('chat_log','_blank')"><br>
+                <input type="button" class="btn" value="Committee Log" onclick=" window.open('committee_log','_blank')"><br>
                 <input type="button" class="btn" value="Log Out" onclick="window.location.href='logout'"><br>
             </div>
         </div>

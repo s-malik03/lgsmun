@@ -55,8 +55,6 @@ def essentialinfo(Committee,Country):
     nlist=''
     try:
         n=Notifications.objects.filter(committee=Committee).order_by('-date')
-        if len(n)>10:
-            n=n[:10]
         for n_ in n:
 
             nlist=nlist+'('+n_.date.strftime("%H:%M:%S")+')'+n_.country+':'+n_.message+'<br>'
@@ -134,8 +132,7 @@ def essentialinfo_dais(Committee,Country):
     nlist=''
     try:
         n=Notifications.objects.filter(committee=Committee).order_by('-date')
-        if len(n)>10:
-            n=n[:10]
+
         for n_ in n:
 
             nlist=nlist+'('+n_.date.strftime("%H:%M:%S")+')'+n_.country+':'+n_.message+'<br>'

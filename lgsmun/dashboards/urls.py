@@ -31,6 +31,8 @@ urlpatterns = [
     path('reset_total',views.reset_total,name='reset_total'),
     path('set_speaker_time',views.set_speaker_time,name='set_speaker_time'),
     path('set_total_time',views.set_total_time,name='set_total_time'),
-    path('add_speaker',views.add_speaker,name='add_speaker')
+    path('add_speaker',views.add_speaker,name='add_speaker'),
+    path('chat_log',views.chat_log,name="chat_log"),
+    path('committee_log',views.committee_log,name="committee_log")
 
 ]
