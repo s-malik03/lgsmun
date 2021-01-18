@@ -30,6 +30,9 @@ def changepassword(request):
 def setpassword(request):
 
     newpw=request.POST["new_password"]
+    cpw=request.POST["confirm_password"]
+    if newpw!=cpw:
+        return redirect('/menu/changepassword')
     uinfo=User.objects.get(email=request.session['uid'])
     uinfo.password=sha256(newpw.encode('utf-8')).hexdigest()
     uinfo.save()
