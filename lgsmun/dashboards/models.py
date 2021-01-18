@@ -31,6 +31,7 @@ class Mods(models.Model):
 
     mod=models.TextField()
     committee=models.CharField(max_length=50)
+    date=models.DateTimeField(auto_now_add=True)
 
 class Messages(models.Model):
 
