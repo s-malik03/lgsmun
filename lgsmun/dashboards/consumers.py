@@ -34,9 +34,9 @@ def essentialinfo(Committee,Country):
 
             if plcrd=="Placard Raised":
 
-                plcrd='<span class="dot"></span>'
+                plcrd=' <span class="dot"></span>'
 
-            list=list+a.country+plcrd+'<br>'
+            list=list+'<div class="btn">'+a.country+plcrd+'</div>'
 
     except:
 
@@ -50,9 +50,9 @@ def essentialinfo(Committee,Country):
         r=RSL.objects.filter(committee=Committee).order_by('date')
 
         for r_ in r:
-            rsl=rsl+r_.country+'<br>'
+            rsl=rsl+'<div class="btn">'+r_.country+'</div>'
         for g_ in g:
-            gsl=gsl+g_.country+'<br>'
+            gsl=gsl+'<div class="btn">'+g_.country+'</div>'
 
     except:
 
@@ -119,7 +119,7 @@ def essentialinfo_dais(Committee,Country):
 
                 plcrd='<span class="dot"></span>'
 
-            list=list+a.country+' | '+a.status+' | Recognized: '+str(a.recognized)+' | '+plcrd+'<br>\n'
+            list=list+'<div class="btn">'+a.country+' | '+a.status+' | Recognized: '+str(a.recognized)+' | '+plcrd+'</div>\n'
 
     except:
 
@@ -133,9 +133,10 @@ def essentialinfo_dais(Committee,Country):
         r=RSL.objects.filter(committee=Committee).order_by('date')
 
         for r_ in r:
-            rsl=rsl+r_.country+'<br>'
+            rsl=rsl+'<div class="btn">'+r_.country+'</div>'
         for g_ in g:
-            gsl=gsl+g_.country+'<br>'
+            gsl=gsl+'<div class="btn">'+g_.country+'</div>'
+
 
     except:
 

@@ -6,8 +6,7 @@
         <script src="{% static 'dais.js' %}"></script>
         <style>
         body{
-          background-color: grey;
-          background-image: linear-gradient(white, grey, white);
+          background: url("{% static 'bg.jpg' %}");
           overflow: auto;
         }
         .dot {
@@ -22,35 +21,35 @@
             float:left;
             background: grey;
             width:25%;
-            height:530px;
+            height:100%;
         }
         #leftbox2 {
             float:left;
             border-radius:10px;
             background: grey;
             width:50%;
-            height:1030px;
+            height:100%;
         }
         #middlebox{
             float:left;
             border-radius: 10px;
             background:grey;
             width:50%;
-            height:1030px;
+            height:100%;
         }
         #rightbox{
             float:right;
             border-radius: 10px;
             background:grey;
             width:25%;
-            height:630px;
+            height:100%;
         }
         #rightbox2{
             float:right;
             border-radius: 10px;
             background:grey;
             width:50%;
-            height:280px;
+            height:100%;
         }
         #minutes, #seconds,#total_minutes,#total_seconds{
             display:inline;
