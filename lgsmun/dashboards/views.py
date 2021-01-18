@@ -366,7 +366,7 @@ def remove_mod(request):
 
     try:
 
-        mod=Mods.objects.filter(committee=request.session["committee"])
+        mod=Mods.objects.filter(committee=request.session["committee"]).order_by('date')
 
         num=int(request.POST["modnum"])
 
