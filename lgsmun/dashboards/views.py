@@ -317,15 +317,19 @@ def lower_placard(request):
 
 def send_notification(request):
 
-    n=Notifications(country=request.session['country'],committee=request.session['committee'],message=request.POST['notification'])
-    n.save()
+    if not(('<' in request.POST['notification']) and ('>' in request.POST['notification'])):
+
+        n=Notifications(country=request.session['country'],committee=request.session['committee'],message=request.POST['notification'])
+        n.save()
     return HttpResponse("Successful")
 
 def send_message(request):
 
-    if len(request.POST['message'])>0:
-        inbox=Messages(committee=request.session['committee'],sender=request.session['country'],recipient=request.POST['recipient'],message=request.POST['message'])
-        inbox.save()
+    if not(('<' in request.POST['message']) and ('>' in request.POST['message'])):
+
+        if len(request.POST['message'])>0:
+            inbox=Messages(committee=request.session['committee'],sender=request.session['country'],recipient=request.POST['recipient'],message=request.POST['message'])
+            inbox.save()
     return HttpResponse("Successful")
 
 def chat_log(request):
