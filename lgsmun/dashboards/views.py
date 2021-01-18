@@ -24,7 +24,7 @@ def logout(request):
 
         pass
 
-    return redirect('/login')
+    return redirect('/')
 
 #attendance
 
@@ -391,7 +391,7 @@ def clear_mod(request):
         pass
 
     return HttpResponse("Successful")
-    
+
 
 
 

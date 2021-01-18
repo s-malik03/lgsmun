@@ -1,6 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer,Messages
+from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer,Messages,Mods
 from asgiref.sync import sync_to_async
 import time
 from django.db.models import Q
@@ -67,7 +67,23 @@ def essentialinfo(Committee,Country):
 
     except Exception as e:
 
-        nlist=str(e)
+        pass
+
+    modlist=''
+    mnum=1
+
+    try:
+
+        m=Mods.objects.filter(committee=Committee).order_by('date')
+
+        for mod in m:
+
+            modlist=modlist+str(mnum)+'. '+mod.mod+'<br>'
+            mnum=mnum+1
+
+    except:
+
+        pass
 
     dict={
 
@@ -81,7 +97,8 @@ def essentialinfo(Committee,Country):
         'timer_status':t.status,
         'timer_duration':t.duration,
         'total_time':t.total_time,
-        'inbox':inbox_text
+        'inbox':inbox_text,
+        'mods':modlist
 
     }
 
@@ -152,7 +169,23 @@ def essentialinfo_dais(Committee,Country):
 
     except Exception as e:
 
-        nlist=str(e)
+        pass
+
+    modlist=''
+    mnum=1
+
+    try:
+
+        m=Mods.objects.filter(committee=Committee).order_by('date')
+
+        for mod in m:
+
+            modlist=modlist+str(mnum)+'. '+mod.mod+'<br>'
+            mnum=mnum+1
+
+    except:
+
+        pass
 
     dict={
 
@@ -166,7 +199,8 @@ def essentialinfo_dais(Committee,Country):
         'timer_status':t.status,
         'timer_duration':t.duration,
         'total_time':t.total_time,
-        'inbox':inbox_text
+        'inbox':inbox_text,
+        'mods':modlist
 
     }
 
