@@ -356,6 +356,42 @@ def committee_log(request):
 
     return HttpResponse(nlist)
 
+def add_mod(request):
+
+    mod=Mods(mod=request.POST["mod"],committee=request.session["committee"])
+    mod.save()
+    return HttpResponse("Successful")
+
+def remove_mod(request):
+
+    try:
+
+        mod=Mods.objects.filter(committee=request.session["committee"])
+
+        num=int(request.POST["modnum"])
+
+        mod[num-1].delete()
+
+    except:
+
+        pass
+
+    return HttpResponse("Successful")
+
+def clear_mod(request):
+
+    try:
+
+        mod=Mods.objects.filter(committee=request.session["committee"])
+
+        mod.delete()
+
+    except:
+
+        pass
+
+    return HttpResponse("Successful")
+    
 
 
 
