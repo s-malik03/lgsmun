@@ -83,7 +83,7 @@
             .overflow {
               color: white;
               background-color: #000;
-              border-radius: 10px;
+              border-radius: 15px;
               width: 94%;
               height: 230px;
               padding: 10px 10px;
@@ -93,7 +93,7 @@
             #rsl {
               color: white;
               background-color: #000;
-              border-radius: 10px;
+              border-radius: 15px;
               width: 94%;
               height: 200px;
               padding: 10px 10px;
@@ -103,7 +103,16 @@
             #gsl {
               color: white;
               background-color: #000;
-              border-radius: 10px;
+              border-radius: 15px;
+              width: 94%;
+              height: 200px;
+              padding: 10px 10px;
+              overflow: hidden;
+              overflow-y: auto;
+            }
+            #att {
+              background-color: #000;
+              border-radius: 15px;
               width: 94%;
               height: 200px;
               padding: 10px 10px;
@@ -128,6 +137,7 @@
             .btn{
               text-align:center;
               background: none;
+              border-radius: 10px;
               border: 2px solid #fff;
             }
             h1{
@@ -415,11 +425,11 @@
                   <option value="Point of Order">Point of Order</option>
                 </select><br>
                 <input type="button" class="btn" value="Raise Point" onclick="raise_point()"/><br>
+                <h3>Floor Mods: <div class="overflow" id="mod_table"> </div></h3>
             </div>
             <div id="rightbox2">
               <h3>RSL: <div id="rsl"> </div></h3>
               <h3>GSL: <div id="gsl"> </div></h3>
-              <h3>Floor Mods: <div class="overflow" id="mod_table"> </div></h3>
             </div>
           </div>
 
