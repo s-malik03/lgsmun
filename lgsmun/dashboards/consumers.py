@@ -30,7 +30,13 @@ def essentialinfo(Committee,Country):
 
         for a in att:
 
-            list=list+a.country+'('+a.placard+')'+'<br>'
+            plcrd=a.placard
+
+            if plcrd=="Placard Raised":
+
+                plcrd='<span class="dot"></span>'
+
+            list=list+a.country+plcrd+'<br>'
 
     except:
 
@@ -107,7 +113,13 @@ def essentialinfo_dais(Committee,Country):
 
         for a in att:
 
-            list=list+a.country+' | '+a.status+' | Recognized: '+str(a.recognized)+' | '+a.placard+'<br>\n'
+            plcrd=a.placard
+
+            if plcrd=="Placard Raised":
+
+                plcrd='<span class="dot"></span>'
+
+            list=list+a.country+' | '+a.status+' | Recognized: '+str(a.recognized)+' | '+plcrd+'<br>\n'
 
     except:
 
