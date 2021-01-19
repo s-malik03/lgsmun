@@ -33,6 +33,9 @@ urlpatterns = [
     path('set_total_time',views.set_total_time,name='set_total_time'),
     path('add_speaker',views.add_speaker,name='add_speaker'),
     path('chat_log',views.chat_log,name="chat_log"),
-    path('committee_log',views.committee_log,name="committee_log")
+    path('committee_log',views.committee_log,name="committee_log"),
+    path('add_mod',views.add_mod,name="add_mod"),
+    path('remove_mod',views.remove_mod,name="remove_mod"),
+    path('clear_mod',views.clear_mod,name="clear_mod")
 
 ]

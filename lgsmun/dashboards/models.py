@@ -27,12 +27,18 @@ class Notifications(models.Model):
     message=models.CharField(max_length=100)
     date=models.DateTimeField(auto_now_add=True)
 
+class FloorMods(models.Model):
+
+    mod=models.TextField()
+    committee=models.CharField(max_length=50)
+    date=models.DateTimeField(auto_now_add=True)
+
 class Messages(models.Model):
 
     committee=models.CharField(max_length=100)
     sender=models.CharField(max_length=100)
     recipient=models.CharField(max_length=100)
-    message=models.TextField()
+    message=models.CharField(max_length=300)
     date=models.DateTimeField(auto_now_add=True)
 
 class CommitteeControl(models.Model):

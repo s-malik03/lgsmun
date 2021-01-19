@@ -6,44 +6,51 @@
         <script src="{% static 'delegate.js' %}"></script>
         <style>
             body{
-              background-color: grey;
-              background-image: linear-gradient(white, grey, white);
+
+              background: url("{% static 'bg.jpg' %}");
               overflow: auto;
+            }
+            .dot {
+                height: 15px;
+                width: 15px;
+                background-color: #0c0;
+                border-radius: 50%;
+                display: inline-block;
             }
             #leftbox {
                 border-radius:10px;
                 float:left;
                 background: grey;
                 width:25%;
-                height:530px;
+                height:100%;
             }
             #leftbox2 {
                 float:left;
                 border-radius:10px;
                 background: grey;
                 width:50%;
-                height:530px;
+                height:100%;
             }
             #middlebox{
                 float:left;
                 border-radius: 10px;
                 background:grey;
                 width:50%;
-                height:530px;
+                height:100%;
             }
             #rightbox{
                 float:right;
                 border-radius: 10px;
                 background:grey;
                 width:25%;
-                height:530px;
+                height:100%;
             }
             #rightbox2{
                 float:right;
                 border-radius: 10px;
                 background:grey;
                 width:50%;
-                height:280px;
+                height:100%;
             }
             #minutes, #seconds,#total_minutes,#total_seconds{
                 display:inline;
@@ -76,7 +83,7 @@
             .overflow {
               color: white;
               background-color: #000;
-              border-radius: 10px;
+              border-radius: 15px;
               width: 94%;
               height: 230px;
               padding: 10px 10px;
@@ -86,7 +93,7 @@
             #rsl {
               color: white;
               background-color: #000;
-              border-radius: 10px;
+              border-radius: 15px;
               width: 94%;
               height: 200px;
               padding: 10px 10px;
@@ -96,7 +103,16 @@
             #gsl {
               color: white;
               background-color: #000;
-              border-radius: 10px;
+              border-radius: 15px;
+              width: 94%;
+              height: 200px;
+              padding: 10px 10px;
+              overflow: hidden;
+              overflow-y: auto;
+            }
+            #att {
+              background-color: #000;
+              border-radius: 15px;
               width: 94%;
               height: 200px;
               padding: 10px 10px;
@@ -119,7 +135,9 @@
               font-family: "montserrat",sans-serif;
             }
             .btn{
+              text-align:center;
               background: none;
+              border-radius: 10px;
               border: 2px solid #fff;
             }
             h1{
@@ -407,6 +425,7 @@
                   <option value="Point of Order">Point of Order</option>
                 </select><br>
                 <input type="button" class="btn" value="Raise Point" onclick="raise_point()"/><br>
+                <h3>Floor Mods: <div class="overflow" id="mod_table"> </div></h3>
             </div>
             <div id="rightbox2">
               <h3>RSL: <div id="rsl"> </div></h3>
@@ -418,7 +437,7 @@
                 <h2>Notifications:</h2>
                 <div id="notifications" class="overflow"> </div>
                 <h2>Delegates Present:</h2>
-                <div id="att">No one present.</div>
+                <div id="att" class="overflow">No one present.</div><br>
                 <input type="button" class="btn" value="Raise Placard" onclick="fetch('raise_placard')"><br><br>
                 <input type="button" class="btn" value="Lower Placard" onclick="fetch('lower_placard')"><br><br>
                 <input type="button" class="btn" value="Log Out" onclick="window.location.href='logout'"><br><br>

@@ -6,44 +6,50 @@
         <script src="{% static 'dais.js' %}"></script>
         <style>
         body{
-          background-color: grey;
-          background-image: linear-gradient(white, grey, white);
+          background: url("{% static 'bg.jpg' %}");
           overflow: auto;
+        }
+        .dot {
+            height: 15px;
+            width: 15px;
+            background-color: #0c0;
+            border-radius: 50%;
+            display: inline-block;
         }
         #leftbox {
             border-radius:10px;
             float:left;
             background: grey;
             width:25%;
-            height:530px;
+            height:100%;
         }
         #leftbox2 {
             float:left;
             border-radius:10px;
             background: grey;
             width:50%;
-            height:1030px;
+            height:100%;
         }
         #middlebox{
             float:left;
             border-radius: 10px;
             background:grey;
             width:50%;
-            height:1030px;
+            height:100%;
         }
         #rightbox{
             float:right;
             border-radius: 10px;
             background:grey;
             width:25%;
-            height:630px;
+            height:100%;
         }
         #rightbox2{
             float:right;
             border-radius: 10px;
             background:grey;
             width:50%;
-            height:280px;
+            height:100%;
         }
         #minutes, #seconds,#total_minutes,#total_seconds{
             display:inline;
@@ -76,7 +82,7 @@
         .overflow {
           color: white;
           background-color: #000;
-          border-radius: 10px;
+          border-radius: 15px;
           width: 94%;
           height: 230px;
           padding: 10px 10px;
@@ -106,7 +112,7 @@
         #rsl {
           color: white;
           background-color: #000;
-          border-radius: 10px;
+          border-radius: 15px;
           width: 94%;
           height: 200px;
           padding: 10px 10px;
@@ -116,7 +122,7 @@
         #gsl {
           color: white;
           background-color: #000;
-          border-radius: 10px;
+          border-radius: 15px;
           width: 94%;
           height: 200px;
           padding: 10px 10px;
@@ -125,7 +131,7 @@
         }
         #notifications {
           background-color: #000;
-          border-radius: 10px;
+          border-radius: 15px;
           width: 94%;
           height: 200px;
           padding: 10px 10px;
@@ -134,7 +140,7 @@
         }
         #att {
           background-color: #000;
-          border-radius: 10px;
+          border-radius: 15px;
           width: 94%;
           height: 200px;
           padding: 10px 10px;
@@ -158,6 +164,8 @@
         }
         .btn{
           background: none;
+          text-align:center;
+          border-radius: 10px;
           border: 2px solid #fff;
         }
         h1{
@@ -708,6 +716,9 @@
             <div id="rightbox2">
               <h3>RSL: <div id="rsl"> </div></h3>
               <h3>GSL: <div id="gsl"> </div></h3>
+              <h3>Floor Mods: <div class="overflow" id="mod_table"> </div></h3>
+              <input type="text" placeholder="Non-Voted Mods" class="inputbox" id="mod_val"/><input type="button" class="btn" value="Add" onclick="floor_mod();"/><br><br>
+              Mod Number: <br><input type="number" class="numbox" min="0" max="60" id="modnum"/><input type="button" class="btn" value="Remove Mod" onclick="remove_mod();"/><input type="button" class="btn" value="Clear List" onclick="fetch('clear_mod');"/>
             </div>
           </div>
 

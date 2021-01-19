@@ -1,6 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer,Messages
+from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer,Messages,FloorMods
 from asgiref.sync import sync_to_async
 import time
 from django.db.models import Q
@@ -30,7 +30,13 @@ def essentialinfo(Committee,Country):
 
         for a in att:
 
-            list=list+a.country+'('+a.placard+')'+'<br>'
+            plcrd=a.placard
+
+            if plcrd=="Placard Raised":
+
+                plcrd=' <span class="dot"></span>'
+
+            list=list+'<div class="btn">'+a.country+plcrd+'</div>'
 
     except:
 
@@ -44,9 +50,9 @@ def essentialinfo(Committee,Country):
         r=RSL.objects.filter(committee=Committee).order_by('date')
 
         for r_ in r:
-            rsl=rsl+r_.country+'<br>'
+            rsl=rsl+'<div class="btn">'+r_.country+'</div>'
         for g_ in g:
-            gsl=gsl+g_.country+'<br>'
+            gsl=gsl+'<div class="btn">'+g_.country+'</div>'
 
     except:
 
@@ -61,7 +67,23 @@ def essentialinfo(Committee,Country):
 
     except Exception as e:
 
-        nlist=str(e)
+        pass
+
+    modlist=''
+    mnum=1
+
+    try:
+
+        m=FloorMods.objects.filter(committee=Committee).order_by('date')
+
+        for mod in m:
+
+            modlist=modlist+str(mnum)+'. '+mod.mod+'<br>'
+            mnum=mnum+1
+
+    except:
+
+        pass
 
     dict={
 
@@ -75,7 +97,8 @@ def essentialinfo(Committee,Country):
         'timer_status':t.status,
         'timer_duration':t.duration,
         'total_time':t.total_time,
-        'inbox':inbox_text
+        'inbox':inbox_text,
+        'mods':modlist
 
     }
 
@@ -107,7 +130,13 @@ def essentialinfo_dais(Committee,Country):
 
         for a in att:
 
-            list=list+a.country+' | '+a.status+' | Recognized: '+str(a.recognized)+' | '+a.placard+'<br>\n'
+            plcrd=a.placard
+
+            if plcrd=="Placard Raised":
+
+                plcrd='<span class="dot"></span>'
+
+            list=list+'<div class="btn">'+a.country+' | '+a.status+' | Recognized: '+str(a.recognized)+' | '+plcrd+'</div>\n'
 
     except:
 
@@ -121,9 +150,10 @@ def essentialinfo_dais(Committee,Country):
         r=RSL.objects.filter(committee=Committee).order_by('date')
 
         for r_ in r:
-            rsl=rsl+r_.country+'<br>'
+            rsl=rsl+'<div class="btn">'+r_.country+'</div>'
         for g_ in g:
-            gsl=gsl+g_.country+'<br>'
+            gsl=gsl+'<div class="btn">'+g_.country+'</div>'
+
 
     except:
 
@@ -139,7 +169,23 @@ def essentialinfo_dais(Committee,Country):
 
     except Exception as e:
 
-        nlist=str(e)
+        pass
+
+    modlist=''
+    mnum=1
+
+    try:
+
+        m=FloorMods.objects.filter(committee=Committee).order_by('date')
+
+        for mod in m:
+
+            modlist=modlist+str(mnum)+'. '+mod.mod+'<br>'
+            mnum=mnum+1
+
+    except:
+
+        pass
 
     dict={
 
@@ -153,7 +199,8 @@ def essentialinfo_dais(Committee,Country):
         'timer_status':t.status,
         'timer_duration':t.duration,
         'total_time':t.total_time,
-        'inbox':inbox_text
+        'inbox':inbox_text,
+        'mods':modlist
 
     }
 

@@ -21,6 +21,7 @@ function raise_motion(){
     'motion':$('#motion').val(),
     'csrfmiddlewaretoken':csrftoken
   });
+
 }
 function sendmessage(){
   $.post("send_message",{
@@ -28,6 +29,7 @@ function sendmessage(){
     'recipient':$('#recipient').val(),
     'csrfmiddlewaretoken':csrftoken
   });
+  $('#message').val('');
 }
 function raise_point(){
   $.post("send_notification",{
@@ -76,6 +78,7 @@ ws.onmessage=async function(event){
   $('#gsl').html(data.gsl);
   $('#rsl').html(data.rsl);
   $('#inbox').html(data.inbox);
+  $('#mod_table').html(data.mods);
   status=data.timer_status;
   if(parseInt(data.total_time)!=total_time){
     total_time=parseInt(data.total_time);
