@@ -717,9 +717,8 @@
               <h3>RSL: <div id="rsl"> </div></h3>
               <h3>GSL: <div id="gsl"> </div></h3>
               <h3>Floor Mods: <div class="overflow" id="mod_table"> </div></h3>
-              <input type="text" placeholder="Non-Voted Mods" class="inputbox" id="mod_val"/><input type="button" class="btn" value="Set"/><br>
-              <input type="button" class="btn" value=""/><br>
-              Time Stamp: <br><input type="number" class="numbox" min="0" max="60" id="modnum"/><input type="button" class="btn" value="Remove Mod"/><input type="button" class="btn" value="Clear List"/>
+              <input type="text" placeholder="Non-Voted Mods" class="inputbox" id="mod_val"/><input type="button" class="btn" value="Add" onclick="floor_mod();"/><br><br>
+              Mod Number: <br><input type="number" class="numbox" min="0" max="60" id="modnum"/><input type="button" class="btn" value="Remove Mod" onclick="remove_mod();"/><input type="button" class="btn" value="Clear List" onclick="fetch('clear_mod');"/>
             </div>
           </div>
 

@@ -21,6 +21,7 @@ function send_notification(){
     'notification':$('#noti').val(),
     'csrfmiddlewaretoken':csrftoken
   });
+  $('#noti').val('');
 }
 function set_total_time(){
   var m=parseInt($('#t_min').val());
@@ -46,16 +47,32 @@ function set_speaker_time(){
   });
 
 }
+function floor_mod(){
+  $.post('add_mod',{
+    'mod':$('#mod_val').val(),
+    'csrfmiddlewaretoken':csrftoken
+  });
+  $('#mod_val').val('');
+}
+function remove_mod(){
+  $.post('remove_mod',{
+    'modnum':parseInt($('#modnum').val()),
+    'csrfmiddlewaretoken':csrftoken
+  });
+  $('#modnum').val(0);
+}
 function set_mod(){
   $.post('set_current_mod',{
     'current_mod':$('#set_mod').val(),
     'csrfmiddlewaretoken':csrftoken
   });
+  $('#set_mod').val('');
 }
 function set_topic(){
   $.post('set_current_topic',{
     'topic':$('#set_topic').val(),
     'csrfmiddlewaretoken':csrftoken});
+  $('#set_topic').val('');
 }
 function set_speaking_mode(){
   $.post('speaking_mode',{
@@ -75,6 +92,7 @@ function sendmessage(){
     'recipient':$('#recipient').val(),
     'csrfmiddlewaretoken':csrftoken
   });
+  $('#message').val('');
 }
 function raise_point(){
   $.post("raise_motion",{
@@ -123,6 +141,7 @@ ws.onmessage=async function(event){
   $('#gsl').html(data.gsl);
   $('#rsl').html(data.rsl);
   $('#inbox').html(data.inbox);
+  $('#mod_table').html(data.mods);
   status=data.timer_status;
   if(parseInt(data.total_time)!=total_time){
     total_time=parseInt(data.total_time);

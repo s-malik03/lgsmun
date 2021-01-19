@@ -1,6 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer,Messages,Mods
+from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer,Messages,FloorMods
 from asgiref.sync import sync_to_async
 import time
 from django.db.models import Q
@@ -74,7 +74,7 @@ def essentialinfo(Committee,Country):
 
     try:
 
-        m=Mods.objects.filter(committee=Committee).order_by('date')
+        m=FloorMods.objects.filter(committee=Committee).order_by('date')
 
         for mod in m:
 
@@ -176,7 +176,7 @@ def essentialinfo_dais(Committee,Country):
 
     try:
 
-        m=Mods.objects.filter(committee=Committee).order_by('date')
+        m=FloorMods.objects.filter(committee=Committee).order_by('date')
 
         for mod in m:
 

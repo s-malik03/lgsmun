@@ -358,7 +358,7 @@ def committee_log(request):
 
 def add_mod(request):
 
-    mod=Mods(mod=request.POST["mod"],committee=request.session["committee"])
+    mod=FloorMods(mod=request.POST["mod"],committee=request.session["committee"])
     mod.save()
     return HttpResponse("Successful")
 
@@ -366,7 +366,7 @@ def remove_mod(request):
 
     try:
 
-        mod=Mods.objects.filter(committee=request.session["committee"]).order_by('date')
+        mod=FloorMods.objects.filter(committee=request.session["committee"]).order_by('date')
 
         num=int(request.POST["modnum"])
 
@@ -382,7 +382,7 @@ def clear_mod(request):
 
     try:
 
-        mod=Mods.objects.filter(committee=request.session["committee"])
+        mod=FloorMods.objects.filter(committee=request.session["committee"])
 
         mod.delete()
 
