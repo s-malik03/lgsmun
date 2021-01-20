@@ -303,14 +303,14 @@ def delegate(request):
 
 def raise_placard(request):
 
-    att=Attendance.objects.get(country=request.session['country'])
+    att=Attendance.objects.get(country=request.session['country'],committee=request.session['committee'])
     att.placard="Placard Raised"
     att.save()
     return HttpResponse("Successful")
 
 def lower_placard(request):
 
-    att=Attendance.objects.get(country=request.session['country'])
+    att=Attendance.objects.get(country=request.session['country'],committee=request.session['committee'])
     att.placard=""
     att.save()
     return HttpResponse("Successful")
