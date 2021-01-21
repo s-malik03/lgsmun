@@ -272,7 +272,21 @@ def dais(request):
 
     if request.session['utype']!='dais' and request.session['utype']!='admin':
         return HttpResponse('Access Denied')
-    request_context={'committee':request.session['committee'],'country':request.session['country']}
+
+    country_matrix=[]
+
+    try:
+
+        countries=User.objects.filter(committee=request.session['committee']).distinct().order_by('country')
+        for c in countries:
+
+            country_matrix.append(c.country)
+
+    except:
+
+        pass
+
+    request_context={'committee':request.session['committee'],'country':request.session['country'],'country_matrix':country_matrix}
     return render(request,'dais.html',request_context)
 
 #DELEGATE
@@ -298,7 +312,20 @@ def delegate(request):
 
         return HttpResponse("Access Denied")
 
-    request_context={'committee':request.session['committee'],'country':request.session['country']}
+    country_matrix=[]
+
+    try:
+
+        countries=User.objects.filter(committee=request.session['committee']).distinct().order_by('country')
+        for c in countries:
+
+            country_matrix.append(c.country)
+
+    except:
+
+        pass
+
+    request_context={'committee':request.session['committee'],'country':request.session['country'],'country_matrix':country_matrix}
     return render(request,'delegate.html',request_context)
 
 def raise_placard(request):
