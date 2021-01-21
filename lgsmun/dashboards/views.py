@@ -277,7 +277,7 @@ def dais(request):
 
     try:
 
-        countries=User.objects.filter(committee=request.session['committee']).distinct().order_by('country')
+        countries=User.objects.filter(committee=request.session['committee']).exclude(country='Dais').distinct().order_by('country')
         for c in countries:
 
             country_matrix.append(c.country)
