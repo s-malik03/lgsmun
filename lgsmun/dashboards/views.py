@@ -18,17 +18,17 @@ def logout(request):
 
         att.status='Absent'
 
-        uinfo=User.objects.get(email=request.session['uid'])
-
-        uinfo.uuid='none'
-
-        uinfo.save()
-
         att.save()
 
     except:
 
         pass
+
+    uinfo=User.objects.get(email=request.session['uid'])
+
+    uinfo.uuid='none'
+
+    uinfo.save()
 
     return redirect('/')
 

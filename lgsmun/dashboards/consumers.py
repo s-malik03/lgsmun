@@ -22,6 +22,8 @@ def u_auth(Committee,Country,UUID):
 
         return False
 
+    return True
+
 @sync_to_async
 def essentialinfo(Committee,Country):
 
@@ -241,7 +243,7 @@ class Delegate(AsyncWebsocketConsumer):
 
         if not(await u_auth(committee,country,uuid)):
 
-            self.close()
+            await self.close()
 
         einfo=await essentialinfo(committee,country)
 
@@ -265,7 +267,7 @@ class Dais(AsyncWebsocketConsumer):
 
         if not(await u_auth(committee,country,uuid)):
 
-            self.close()
+            await self.close()
 
         einfo=await essentialinfo_dais(committee,country)
 
