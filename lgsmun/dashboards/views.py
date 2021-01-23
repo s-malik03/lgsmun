@@ -18,6 +18,12 @@ def logout(request):
 
         att.status='Absent'
 
+        uinfo=User.objects.get(email=request.session['uid'])
+
+        uinfo.uuid='none'
+
+        uinfo.save()
+
         att.save()
 
     except:
@@ -286,7 +292,7 @@ def dais(request):
 
         pass
 
-    request_context={'committee':request.session['committee'],'country':request.session['country'],'country_matrix':country_matrix}
+    request_context={'committee':request.session['committee'],'country':request.session['country'],'country_matrix':country_matrix,'uuid':request.session['uuid']}
     return render(request,'dais.html',request_context)
 
 #DELEGATE
@@ -325,7 +331,7 @@ def delegate(request):
 
         pass
 
-    request_context={'committee':request.session['committee'],'country':request.session['country'],'country_matrix':country_matrix}
+    request_context={'committee':request.session['committee'],'country':request.session['country'],'country_matrix':country_matrix,'uuid':request.session['uuid']}
     return render(request,'delegate.html',request_context)
 
 def raise_placard(request):
