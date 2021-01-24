@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from .models import User
 from hashlib import sha256
+from uuid import uuid4
 
 # Create your views here.
 
@@ -33,6 +34,9 @@ def post_login(request):
 
             request.session['uid']=uinfo.email
             request.session['committee']=uinfo.committee
+            uinfo.uuid=str(uuid4())
+            uinfo.save()
+            request.session['uuid']=uinfo.uuid
             if uinfo.role=='admin':
                 request.session['utype']='admin'
                 return redirect('/menu/admin')

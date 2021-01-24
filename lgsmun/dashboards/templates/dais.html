@@ -175,8 +175,9 @@
         </style>
     </head>
 
-    <body onbeforeunload="ws.close();">
+    <body onbeforeunload="ws.close();fetch('logout');">
         <input type="hidden" id="country" value="{{country}}"/>
+        <input type="hidden" id="uuid" value="{{uuid}}"/>
         <div id = "boxes">
             <h1 id="committee_name">{{committee}}</h1>
 

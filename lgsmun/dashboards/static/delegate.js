@@ -1,3 +1,4 @@
+var button_lock=false;
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -32,10 +33,17 @@ function sendmessage(){
   $('#message').val('');
 }
 function raise_point(){
+  if(!button_lock){
   $.post("send_notification",{
     'notification':'(POINT)'+$('#point').val(),
     'csrfmiddlewaretoken':csrftoken
   });
+  button_lock=true;
+  setTimeout(unlock,30000);
+}}
+function unlock(){
+  button_lock=false;
+  clearTimeout(unlock);
 }
 var duration=0;
 var counter=0;
@@ -61,9 +69,9 @@ function timer(){
 }
 }
 var ws= new WebSocket("ws://"+window.location.host+'/ws/delegate/');
-var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val()};
+var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val()};
 ws.onopen=function(){
-  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val()};
+  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val()};
   console.log(ess_data);
 ws.send(JSON.stringify(ess_data));
 };

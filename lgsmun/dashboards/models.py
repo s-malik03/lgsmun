@@ -48,12 +48,6 @@ class CommitteeControl(models.Model):
     topic=models.CharField(default='No Topic Has Been Set',max_length=100)
     current_mod=models.CharField(default='No Moderated Caucus in Progress',max_length=100)
 
-class Mods(models.Model):
-
-    committee=models.CharField(max_length=100)
-    topic=models.CharField(max_length=100)
-    date=models.DateField(auto_now_add=True,blank=True)
-
 class Vote(models.Model):
 
     committee=models.CharField(max_length=100)
