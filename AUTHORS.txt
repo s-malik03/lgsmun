@@ -1,4 +1,5 @@
 This website was made for our school's Model United Nations conference. Here is a list of people who developed the website and their contributions:
   
-  Safiy Malik (Full backend and javascript for frontend) <safiy.malik@gmail.com>
-  Abdullah Zubair (HTML and CSS for frontend) <ab.ghouri03@gmail.com>
+  Safiy Ahmad Malik (Full backend and javascript for frontend) <safiy.malik@gmail.com>
+  Abdullah Zubair Ghouri (HTML and CSS for frontend) <ab.ghouri03@gmail.com>
+  Syed Ali Abbas Zaidi (Advisory) <alizaidi22003@gmail.com>
