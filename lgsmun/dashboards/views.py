@@ -293,6 +293,8 @@ def dais(request):
         pass
 
     request_context={'committee':request.session['committee'],'country':request.session['country'],'country_matrix':country_matrix,'uuid':request.session['uuid']}
+    if request.session['utype']=='admin':
+        return render(request,'admin.html',request_context)
     return render(request,'dais.html',request_context)
 
 #DELEGATE
