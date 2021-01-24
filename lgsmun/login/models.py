@@ -9,5 +9,6 @@ class User(models.Model):
     committee=models.CharField(max_length=100)
     school=models.CharField(max_length=100)
     role=models.CharField(default="delegate",max_length=100)
+    uuid=models.CharField(max_length=100,default='none')
 
 # Create your models here.

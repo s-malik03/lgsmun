@@ -15,4 +15,6 @@ admin.site.register(Messages)
 
 admin.site.register(Timer)
 
+admin.site.register(FloorMods)
+
 # Register your models here.

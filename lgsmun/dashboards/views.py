@@ -24,6 +24,12 @@ def logout(request):
 
         pass
 
+    uinfo=User.objects.get(email=request.session['uid'])
+
+    uinfo.uuid='none'
+
+    uinfo.save()
+
     return redirect('/')
 
 #attendance
@@ -272,7 +278,21 @@ def dais(request):
 
     if request.session['utype']!='dais' and request.session['utype']!='admin':
         return HttpResponse('Access Denied')
-    request_context={'committee':request.session['committee'],'country':request.session['country']}
+
+    country_matrix=[]
+
+    try:
+
+        countries=User.objects.filter(committee=request.session['committee']).exclude(country='Dais').distinct().order_by('country')
+        for c in countries:
+
+            country_matrix.append(c.country)
+
+    except:
+
+        pass
+
+    request_context={'committee':request.session['committee'],'country':request.session['country'],'country_matrix':country_matrix,'uuid':request.session['uuid']}
     return render(request,'dais.html',request_context)
 
 #DELEGATE
@@ -298,26 +318,45 @@ def delegate(request):
 
         return HttpResponse("Access Denied")
 
-    request_context={'committee':request.session['committee'],'country':request.session['country']}
+    country_matrix=[]
+
+    try:
+
+        countries=User.objects.filter(committee=request.session['committee']).distinct().order_by('country')
+        for c in countries:
+
+            country_matrix.append(c.country)
+
+    except:
+
+        pass
+
+    request_context={'committee':request.session['committee'],'country':request.session['country'],'country_matrix':country_matrix,'uuid':request.session['uuid']}
     return render(request,'delegate.html',request_context)
 
 def raise_placard(request):
 
-    att=Attendance.objects.get(country=request.session['country'])
+    att=Attendance.objects.get(country=request.session['country'],committee=request.session['committee'])
     att.placard="Placard Raised"
     att.save()
     return HttpResponse("Successful")
 
 def lower_placard(request):
 
-    att=Attendance.objects.get(country=request.session['country'])
+    att=Attendance.objects.get(country=request.session['country'],committee=request.session['committee'])
     att.placard=""
     att.save()
     return HttpResponse("Successful")
 
 def send_notification(request):
 
-    if not(('<' in request.POST['notification']) and ('>' in request.POST['notification'])):
+    if request.session['country']=='Dais':
+
+        msg='<b>'+request.POST['notification']+'</b>'
+        n=Notifications(country=request.session['country'],committee=request.session['committee'],message=msg)
+        n.save()
+
+    elif not(('<' in request.POST['notification']) and ('>' in request.POST['notification'])):
 
         n=Notifications(country=request.session['country'],committee=request.session['committee'],message=request.POST['notification'])
         n.save()
@@ -358,7 +397,7 @@ def committee_log(request):
 
 def add_mod(request):
 
-    mod=Mods(mod=request.POST["mod"],committee=request.session["committee"])
+    mod=FloorMods(mod=request.POST["mod"],committee=request.session["committee"])
     mod.save()
     return HttpResponse("Successful")
 
@@ -366,7 +405,7 @@ def remove_mod(request):
 
     try:
 
-        mod=Mods.objects.filter(committee=request.session["committee"]).order_by('date')
+        mod=FloorMods.objects.filter(committee=request.session["committee"]).order_by('date')
 
         num=int(request.POST["modnum"])
 
@@ -382,7 +421,7 @@ def clear_mod(request):
 
     try:
 
-        mod=Mods.objects.filter(committee=request.session["committee"])
+        mod=FloorMods.objects.filter(committee=request.session["committee"])
 
         mod.delete()
 

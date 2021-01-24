@@ -1,9 +1,28 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer,Messages,Mods
+from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer,Messages,FloorMods
 from asgiref.sync import sync_to_async
 import time
 from django.db.models import Q
+from login.models import User
+
+@sync_to_async
+
+def u_auth(Committee,Country,UUID):
+
+    if UUID=='none':
+
+        return False
+
+    try:
+
+        u=User.objects.get(committee=Committee,country=Country,uuid=UUID)
+
+    except:
+
+        return False
+
+    return True
 
 @sync_to_async
 def essentialinfo(Committee,Country):
@@ -74,7 +93,7 @@ def essentialinfo(Committee,Country):
 
     try:
 
-        m=Mods.objects.filter(committee=Committee).order_by('date')
+        m=FloorMods.objects.filter(committee=Committee).order_by('date')
 
         for mod in m:
 
@@ -126,7 +145,7 @@ def essentialinfo_dais(Committee,Country):
 
     try:
 
-        att=Attendance.objects.filter(committee=Committee).exclude(status="Absent").order_by('country')
+        att=Attendance.objects.filter(committee=Committee).exclude(status="Absent").order_by('country').order_by('-placard')
 
         for a in att:
 
@@ -135,6 +154,10 @@ def essentialinfo_dais(Committee,Country):
             if plcrd=="Placard Raised":
 
                 plcrd='<span class="dot"></span>'
+
+            else:
+
+                plcrd=''
 
             list=list+'<div class="btn">'+a.country+' | '+a.status+' | Recognized: '+str(a.recognized)+' | '+plcrd+'</div>\n'
 
@@ -176,7 +199,7 @@ def essentialinfo_dais(Committee,Country):
 
     try:
 
-        m=Mods.objects.filter(committee=Committee).order_by('date')
+        m=FloorMods.objects.filter(committee=Committee).order_by('date')
 
         for mod in m:
 
@@ -216,9 +239,15 @@ class Delegate(AsyncWebsocketConsumer):
 
         json_data=json.loads(text_data)
 
+        uuid=json_data['uuid']
+
         committee=json_data['committee']
 
         country=json_data['country']
+
+        if not(await u_auth(committee,country,uuid)):
+
+            await self.close()
 
         einfo=await essentialinfo(committee,country)
 
@@ -234,9 +263,15 @@ class Dais(AsyncWebsocketConsumer):
 
         json_data=json.loads(text_data)
 
+        uuid=json_data['uuid']
+
         committee=json_data['committee']
 
         country=json_data['country']
+
+        if not(await u_auth(committee,country,uuid)):
+
+            await self.close()
 
         einfo=await essentialinfo_dais(committee,country)
 

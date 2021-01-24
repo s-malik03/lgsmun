@@ -1,3 +1,4 @@
+var button_lock=false;
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -21,6 +22,7 @@ function raise_motion(){
     'motion':$('#motion').val(),
     'csrfmiddlewaretoken':csrftoken
   });
+
 }
 function sendmessage(){
   $.post("send_message",{
@@ -28,12 +30,20 @@ function sendmessage(){
     'recipient':$('#recipient').val(),
     'csrfmiddlewaretoken':csrftoken
   });
+  $('#message').val('');
 }
 function raise_point(){
+  if(!button_lock){
   $.post("send_notification",{
     'notification':'(POINT)'+$('#point').val(),
     'csrfmiddlewaretoken':csrftoken
   });
+  button_lock=true;
+  setTimeout(unlock,30000);
+}}
+function unlock(){
+  button_lock=false;
+  clearTimeout(unlock);
 }
 var duration=0;
 var counter=0;
@@ -59,9 +69,9 @@ function timer(){
 }
 }
 var ws= new WebSocket("ws://"+window.location.host+'/ws/delegate/');
-var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val()};
+var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val()};
 ws.onopen=function(){
-  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val()};
+  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val()};
   console.log(ess_data);
 ws.send(JSON.stringify(ess_data));
 };
@@ -76,6 +86,7 @@ ws.onmessage=async function(event){
   $('#gsl').html(data.gsl);
   $('#rsl').html(data.rsl);
   $('#inbox').html(data.inbox);
+  $('#mod_table').html(data.mods);
   status=data.timer_status;
   if(parseInt(data.total_time)!=total_time){
     total_time=parseInt(data.total_time);

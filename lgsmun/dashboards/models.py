@@ -27,7 +27,7 @@ class Notifications(models.Model):
     message=models.CharField(max_length=100)
     date=models.DateTimeField(auto_now_add=True)
 
-class Mods(models.Model):
+class FloorMods(models.Model):
 
     mod=models.TextField()
     committee=models.CharField(max_length=50)
@@ -47,12 +47,6 @@ class CommitteeControl(models.Model):
     speaking_mode=models.CharField(default='Idle',max_length=100)
     topic=models.CharField(default='No Topic Has Been Set',max_length=100)
     current_mod=models.CharField(default='No Moderated Caucus in Progress',max_length=100)
-
-class Mods(models.Model):
-
-    committee=models.CharField(max_length=100)
-    topic=models.CharField(max_length=100)
-    date=models.DateField(auto_now_add=True,blank=True)
 
 class Vote(models.Model):
 
