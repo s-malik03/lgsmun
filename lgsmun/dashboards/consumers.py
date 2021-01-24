@@ -4,6 +4,25 @@ from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer,Mess
 from asgiref.sync import sync_to_async
 import time
 from django.db.models import Q
+from login.models import User
+
+@sync_to_async
+
+def u_auth(Committee,Country,UUID):
+
+    if UUID=='none':
+
+        return False
+
+    try:
+
+        u=User.objects.get(committee=Committee,country=Country,uuid=UUID)
+
+    except:
+
+        return False
+
+    return True
 
 @sync_to_async
 def essentialinfo(Committee,Country):
@@ -216,9 +235,15 @@ class Delegate(AsyncWebsocketConsumer):
 
         json_data=json.loads(text_data)
 
+        uuid=json_data['uuid']
+
         committee=json_data['committee']
 
         country=json_data['country']
+
+        if not(await u_auth(committee,country,uuid)):
+
+            await self.close()
 
         einfo=await essentialinfo(committee,country)
 
@@ -234,9 +259,15 @@ class Dais(AsyncWebsocketConsumer):
 
         json_data=json.loads(text_data)
 
+        uuid=json_data['uuid']
+
         committee=json_data['committee']
 
         country=json_data['country']
+
+        if not(await u_auth(committee,country,uuid)):
+
+            await self.close()
 
         einfo=await essentialinfo_dais(committee,country)
 

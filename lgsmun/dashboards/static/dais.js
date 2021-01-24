@@ -124,9 +124,9 @@ function timer(){
 }
 }
 var ws= new WebSocket("ws://"+window.location.host+'/ws/dais/');
-var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val()};
+var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val()};
 ws.onopen=function(){
-  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val()};
+  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val()};
   console.log(ess_data);
 ws.send(JSON.stringify(ess_data));
 };
