@@ -145,7 +145,7 @@ def essentialinfo_dais(Committee,Country):
 
     try:
 
-        att=Attendance.objects.filter(committee=Committee).exclude(status="Absent").order_by('country')
+        att=Attendance.objects.filter(committee=Committee).exclude(status="Absent").order_by('country').order_by('-placard')
 
         for a in att:
 
@@ -154,6 +154,10 @@ def essentialinfo_dais(Committee,Country):
             if plcrd=="Placard Raised":
 
                 plcrd='<span class="dot"></span>'
+
+            else:
+
+                plcrd=''
 
             list=list+'<div class="btn">'+a.country+' | '+a.status+' | Recognized: '+str(a.recognized)+' | '+plcrd+'</div>\n'
 
