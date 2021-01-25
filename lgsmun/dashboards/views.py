@@ -320,11 +320,11 @@ def delegate(request):
 
         return HttpResponse("Access Denied")
 
-    country_matrix=[]
+    country_matrix=['Dais']
 
     try:
 
-        countries=User.objects.filter(committee=request.session['committee']).distinct().order_by('country')
+        countries=User.objects.filter(committee=request.session['committee']).exclude(country='Dais').distinct().order_by('country')
         for c in countries:
 
             country_matrix.append(c.country)
