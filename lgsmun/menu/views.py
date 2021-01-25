@@ -43,6 +43,9 @@ def adminjoinsession(request):
 
     request_context={}
     request.session['committee']=request.GET["committee"]
+    uinfo=User.objects.get(email=request.session['uid'])
+    uinfo.committee=request.GET['committee']
+    uinfo.save()
     return redirect('/dashboards/dais')
 
 def joinsession(request):
