@@ -36,6 +36,10 @@ urlpatterns = [
     path('committee_log',views.committee_log,name="committee_log"),
     path('add_mod',views.add_mod,name="add_mod"),
     path('remove_mod',views.remove_mod,name="remove_mod"),
-    path('clear_mod',views.clear_mod,name="clear_mod")
+    path('clear_mod',views.clear_mod,name="clear_mod"),
+    path('merge_form',views.merge_form,name="merge_form"),
+    path('unmerge_form',views.unmerge_form,name='unmerge_form'),
+    path('merge',views.merge,name='merge'),
+    path('unmerge',views.unmerge,name='unmerge')
 
 ]

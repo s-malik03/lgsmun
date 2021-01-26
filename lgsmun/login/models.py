@@ -7,6 +7,7 @@ class User(models.Model):
     password=models.CharField(max_length=200)
     country=models.CharField(max_length=100)
     committee=models.CharField(max_length=100)
+    old_committee=models.CharField(max_length=100,default='none')
     school=models.CharField(max_length=100)
     role=models.CharField(default="delegate",max_length=100)
     uuid=models.CharField(max_length=100,default='none')

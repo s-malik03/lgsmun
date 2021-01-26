@@ -10,6 +10,57 @@ def index(request):
 
     return HttpResponse("hi")
 
+def merge_form(request):
+
+    committees=CommitteeControl.objects.values('committee')
+    committee_matrix=[]
+
+    for c in committees:
+
+        committee_matrix.append(c['committee'])
+
+    request_context={'committees':committee_matrix}
+    return render(request,'',request_context)
+
+def unmerge_form(request):
+
+    committees=CommitteeControl.objects.values('committee')
+    committee_matrix=[]
+
+    for c in committees:
+
+        committee_matrix.append(c['committee'])
+
+    request_context={'committees':committee_matrix}
+    return render(request,'',request_context)
+
+def merge(request):
+
+    committee1=request.GET['committee1']
+    committee2=request.GET['committee2']
+    new_committee=request.GET['new_committee']
+    users=User.objects.filter(Q(committee=committee1)|Q(committee=committee2))
+
+    for u in users:
+
+        u.old_committee=u.committee
+        u.committee=new_committee
+        u.save()
+
+    return HttpResponse('Successful')
+
+def unmerge(request):
+
+    committee=request.GET['committee']
+    users=User.objects.filter(committee=committee)
+
+    for u in users:
+
+        u.committee=u.old_committee
+        u.save()
+
+    return HttpResponse('Successful')
+
 def logout(request):
 
     try:
