@@ -283,10 +283,10 @@ def dais(request):
 
     try:
 
-        countries=User.objects.filter(committee=request.session['committee']).exclude(country='Dais').distinct().order_by('country')
+        countries=User.objects.filter(committee=request.session['committee']).exclude(country='Dais').order_by('country').values('country').distinct()
         for c in countries:
 
-            country_matrix.append(c.country)
+            country_matrix.append(c['country'])
 
     except:
 
@@ -324,10 +324,10 @@ def delegate(request):
 
     try:
 
-        countries=User.objects.filter(committee=request.session['committee']).exclude(country='Dais').distinct().order_by('country')
+        countries=User.objects.filter(committee=request.session['committee']).exclude(country='Dais').order_by('country').values('country').distinct()
         for c in countries:
 
-            country_matrix.append(c.country)
+            country_matrix.append(c['country'])
 
     except:
 
