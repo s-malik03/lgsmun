@@ -3,12 +3,87 @@ from django.http import HttpResponse
 from .models import *
 from login.models import User
 import pytz
+from hashlib import sha256
 
 #general
 
 def index(request):
 
     return HttpResponse("hi")
+
+def generate_accounts(request):
+
+    committees=CommitteeControl.objects.values('committee')
+    committee_matrix=[]
+
+    for c in committees:
+
+        committee_matrix.append(c['committee'])
+
+    countries=['United States of America','China','United Kingdom','Pakistan','India','Nigeria','Saudi Arabia','France','Germany','Canada']
+
+    i=0
+
+    for c in committee_matrix:
+
+        for cn in countries:
+
+            u=User(email="delegate"+str(i),password=sha256("password".encode('utf-8')).hexdigest(),committee=c,country=cn,school='LGS')
+            i=i+1
+            u.save()
+
+    return HttpResponse("Successful")
+
+def merge_form(request):
+
+    committees=CommitteeControl.objects.values('committee')
+    committee_matrix=[]
+
+    for c in committees:
+
+        committee_matrix.append(c['committee'])
+
+    request_context={'committees':committee_matrix}
+    return render(request,'',request_context)
+
+def unmerge_form(request):
+
+    committees=CommitteeControl.objects.values('committee')
+    committee_matrix=[]
+
+    for c in committees:
+
+        committee_matrix.append(c['committee'])
+
+    request_context={'committees':committee_matrix}
+    return render(request,'',request_context)
+
+def merge(request):
+
+    committee1=request.GET['committee1']
+    committee2=request.GET['committee2']
+    new_committee=request.GET['new_committee']
+    users=User.objects.filter(Q(committee=committee1)|Q(committee=committee2))
+
+    for u in users:
+
+        u.old_committee=u.committee
+        u.committee=new_committee
+        u.save()
+
+    return HttpResponse('Successful')
+
+def unmerge(request):
+
+    committee=request.GET['committee']
+    users=User.objects.filter(committee=committee)
+
+    for u in users:
+
+        u.committee=u.old_committee
+        u.save()
+
+    return HttpResponse('Successful')
 
 def logout(request):
 
@@ -283,10 +358,10 @@ def dais(request):
 
     try:
 
-        countries=User.objects.filter(committee=request.session['committee']).exclude(country='Dais').distinct().order_by('country')
+        countries=User.objects.filter(committee=request.session['committee']).exclude(country='Dais').order_by('country').values('country').distinct()
         for c in countries:
 
-            country_matrix.append(c.country)
+            country_matrix.append(c['country'])
 
     except:
 
@@ -324,10 +399,10 @@ def delegate(request):
 
     try:
 
-        countries=User.objects.filter(committee=request.session['committee']).exclude(country='Dais').distinct().order_by('country')
+        countries=User.objects.filter(committee=request.session['committee']).exclude(country='Dais').order_by('country').values('country').distinct()
         for c in countries:
 
-            country_matrix.append(c.country)
+            country_matrix.append(c['country'])
 
     except:
 
