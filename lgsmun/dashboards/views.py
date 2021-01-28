@@ -3,12 +3,36 @@ from django.http import HttpResponse
 from .models import *
 from login.models import User
 import pytz
+from hashlib import sha256
 
 #general
 
 def index(request):
 
     return HttpResponse("hi")
+
+def generate_accounts(request):
+
+    committees=CommitteeControl.objects.values('committee')
+    committee_matrix=[]
+
+    for c in committees:
+
+        committee_matrix.append(c['committee'])
+
+    countries=['United States of America','China','United Kingdom','Pakistan','India','Nigeria','Saudi Arabia','France','Germany','Canada']
+
+    i=0
+
+    for c in committee_matrix:
+
+        for cn in countries:
+
+            u=User(email="delegate"+str(i),password=sha256("password".encode('utf-8')).hexdigest(),committee=c,country=cn,school='LGS')
+            i=i+1
+            u.save()
+
+    return HttpResponse("Successful")
 
 def merge_form(request):
 

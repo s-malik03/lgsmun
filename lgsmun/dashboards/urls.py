@@ -40,6 +40,7 @@ urlpatterns = [
     path('merge_form',views.merge_form,name="merge_form"),
     path('unmerge_form',views.unmerge_form,name='unmerge_form'),
     path('merge',views.merge,name='merge'),
-    path('unmerge',views.unmerge,name='unmerge')
+    path('unmerge',views.unmerge,name='unmerge'),
+    path('generate_accounts',views.generate_accounts,name='generate_accounts')
 
 ]
