@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from login.models import User
+from dashboards.models import CommitteeControl
 from hashlib import sha256
 
 # Create your views here.
@@ -7,7 +8,14 @@ from hashlib import sha256
 def admin(request):
     if request.session['utype']!='admin':
         return HttpResponse('Access denied')
-    request_context={}
+    committees=CommitteeControl.objects.values('committee')
+    committee_matrix=[]
+
+    for c in committees:
+
+        committee_matrix.append(c['committee'])
+
+    request_context={'committees':committee_matrix}
     return render(request,'menu/admin.html',request_context)
 
 def dais(request):

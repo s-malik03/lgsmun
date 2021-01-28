@@ -12,13 +12,9 @@
     <h1>Admin Menu</h1>
     <h5>Join Committee: </h5>
     <select name="committee" id="committees">
-      <option value="UNSC">UNSC</option>
-      <option value="DISEC">DISEC</option>
-      <option value="UNFSC">UNFSC</option>
-      <option value="SACC1">SACC1</option>
-      <option value="SACC2">SACC2</option>
-      <option value="SPECPOL">SPECPOL</option>
-      <option value="ICJ">ICJ</option>
+      {% for c in committees %}
+      <option value="{{c}}">{{c}}</option>
+      {% endfor %}
     </select>
     <br>
     <i class="fas fa-lock"></i>
