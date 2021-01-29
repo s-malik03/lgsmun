@@ -13,6 +13,8 @@ def index(request):
 
 def generate_accounts(request):
 
+    """
+
     committees=CommitteeControl.objects.values('committee')
     committee_matrix=[]
 
@@ -30,6 +32,53 @@ def generate_accounts(request):
 
             u=User(email="delegate"+str(i),password=sha256("password".encode('utf-8')).hexdigest(),committee=c,country=cn,school='LGS')
             i=i+1
+            u.save()
+
+    """
+
+    committees=['SOCHUM','Crisis','SPECPOL']
+
+    team_data={
+        'A':'USA',
+        'B':'Russia',
+        'C':'China',
+        'D':'France',
+        'E':'United Kingdom',
+        'F':'Germany',
+        'G':'Pakistan',
+        'H':'India',
+        'I':'Canada',
+        'J':'Iran',
+        'K':'Brazil',
+        'L':'North Korea',
+        'M':'South Korea',
+        'N':'Japan',
+        'O':'Malaysia',
+        'P':'Italy',
+        'Q':'Poland',
+        'R':'Iraq',
+        'S':'Saudi Arabia',
+        'T':'Azerbaijan',
+        'U':'Qatar',
+        'V':'Afghanistan',
+        'W':'Georgia',
+        'X':'Switzerland',
+        'Y':'Estonia',
+        'Z':'Venezuela',
+        'AA':'Morocco',
+        'AB':'Spain',
+        'AC':'Mongolia',
+        'AD':'Bangladesh',
+        'AE':'Mexico',
+        'AF':'Greenland',
+        'AG':'Norway'
+    }
+
+    for t in list(team_data.keys()):
+
+        for c in committees:
+
+            u=User(email=t.lower()+c.lower(),password=sha256("password".encode('utf-8')).hexdigest(),committee=c,country=team_data[t],school='LGS')
             u.save()
 
     return HttpResponse("Successful")
