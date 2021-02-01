@@ -117,7 +117,9 @@ def essentialinfo(Committee,Country):
         'timer_duration':t.duration,
         'total_time':t.total_time,
         'inbox':inbox_text,
-        'mods':modlist
+        'mods':modlist,
+        'zoom_link':c.zoom_link,
+        'drive_link':c.drive_link
 
     }
 
@@ -223,7 +225,9 @@ def essentialinfo_dais(Committee,Country):
         'timer_duration':t.duration,
         'total_time':t.total_time,
         'inbox':inbox_text,
-        'mods':modlist
+        'mods':modlist,
+        'zoom_link':c.zoom_link,
+        'drive_link':c.drive_link
 
     }
 

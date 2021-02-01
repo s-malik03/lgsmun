@@ -1,4 +1,6 @@
 var button_lock=false;
+var zoom_link='';
+var drive_link='';
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -87,6 +89,8 @@ ws.onmessage=async function(event){
   $('#rsl').html(data.rsl);
   $('#inbox').html(data.inbox);
   $('#mod_table').html(data.mods);
+  zoom_link=data.zoom_link;
+  drive_link=data.drive_link;
   status=data.timer_status;
   if(parseInt(data.total_time)!=total_time){
     total_time=parseInt(data.total_time);
