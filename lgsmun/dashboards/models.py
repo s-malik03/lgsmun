@@ -47,6 +47,8 @@ class CommitteeControl(models.Model):
     speaking_mode=models.CharField(default='Idle',max_length=100)
     topic=models.CharField(default='No Topic Has Been Set',max_length=100)
     current_mod=models.CharField(default='No Moderated Caucus in Progress',max_length=100)
+    zoom_link=models.CharField(default='',max_length=100)
+    drive_link=models.CharField(default='',max_length=100)
 
 class Vote(models.Model):
 
