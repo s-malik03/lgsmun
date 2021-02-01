@@ -84,6 +84,26 @@ def generate_accounts(request):
 
     return HttpResponse("Successful")
 
+def set_zoom_link(request):
+
+    c=CommitteeControl.objects.get(committee=request.session['committee'])
+
+    c.zoom_link=request.POST['zoom_link']
+
+    c.save()
+
+    return HttpResponse("Successful")
+
+def set_drive_link(request):
+
+    c=CommitteeControl.objects.get(committee=request.session['committee'])
+
+    c.drive_link=request.POST['drive_link']
+
+    c.save()
+
+    return HttpResponse("Successful")
+
 def merge_form(request):
 
     committees=CommitteeControl.objects.values('committee')

@@ -16,6 +16,18 @@ var csrftoken = getCookie('csrftoken');
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+function set_zoom_link(){
+  $.post("set_zoom_link",{
+    'zoom_link':$('#zl').val(),
+    'csrfmiddlewaretoken':csrftoken
+  });
+}
+function set_drive_link(){
+  $.post("set_drive_link",{
+    'drive_link':$('#dl').val(),
+    'csrfmiddlewaretoken':csrftoken
+  });
+}
 function send_notification(){
   $.post("send_notification",{
     'notification':$('#noti').val(),
