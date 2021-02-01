@@ -4,6 +4,7 @@ from .models import *
 from login.models import User
 import pytz
 from hashlib import sha256
+from django.db.models import Q
 
 #general
 
@@ -93,7 +94,7 @@ def merge_form(request):
         committee_matrix.append(c['committee'])
 
     request_context={'committees':committee_matrix}
-    return render(request,'',request_context)
+    return render(request,'merge.html',request_context)
 
 def unmerge_form(request):
 
@@ -105,7 +106,7 @@ def unmerge_form(request):
         committee_matrix.append(c['committee'])
 
     request_context={'committees':committee_matrix}
-    return render(request,'',request_context)
+    return render(request,'merge.html',request_context)
 
 def merge(request):
 
