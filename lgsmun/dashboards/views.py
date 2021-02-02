@@ -106,6 +106,10 @@ def set_drive_link(request):
 
 def merge_form(request):
 
+    if request.session['utype']!='admin' and request.session['utype']!='dais':
+
+        return HttpResponse('Access Denied')
+
     committees=CommitteeControl.objects.values('committee')
     committee_matrix=[]
 
@@ -480,6 +484,17 @@ def delegate(request):
 
     request_context={'committee':request.session['committee'],'country':request.session['country'],'country_matrix':country_matrix,'uuid':request.session['uuid']}
     return render(request,'delegate.html',request_context)
+
+def unraise_all_placard(request):
+
+    att=Attendance.objects.filter(committee=request.session['committee'])
+
+    for a in att:
+
+        a.placard=''
+        a.save()
+
+    return HttpResponse("Successful")
 
 def raise_placard(request):
 

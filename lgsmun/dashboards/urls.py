@@ -43,6 +43,7 @@ urlpatterns = [
     path('unmerge',views.unmerge,name='unmerge'),
     path('generate_accounts',views.generate_accounts,name='generate_accounts'),
     path('set_zoom_link',views.set_zoom_link,name='set_zoom_link'),
-    path('set_drive_link',views.set_drive_link,name='set_drive_link')
+    path('set_drive_link',views.set_drive_link,name='set_drive_link'),
+    path('unraise_all_placard',views.unraise_all_placard,name='unraise_all_placard')
 
 ]
