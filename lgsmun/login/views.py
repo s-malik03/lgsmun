@@ -34,6 +34,7 @@ def post_login(request):
 
             request.session['uid']=uinfo.email
             request.session['committee']=uinfo.committee
+            request.session['country']=uinfo.country
             uinfo.uuid=str(uuid4())
             uinfo.save()
             request.session['uuid']=uinfo.uuid
