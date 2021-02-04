@@ -22,7 +22,7 @@ def post_login(request):
 
         try:
 
-            uinfo=User.objects.get(email=request.POST["email"])
+            uinfo=User.objects.get(email__icontains=request.POST["email"])
 
         except:
 

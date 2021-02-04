@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import *
 from login.models import User
 import pytz
+import pandas
 from hashlib import sha256
 from django.db.models import Q
 
@@ -11,6 +12,26 @@ from django.db.models import Q
 def index(request):
 
     return HttpResponse("hi")
+
+def credential_register(request):
+
+    Creds=pandas.read_csv('Credentials.csv')
+    users=len(Creds['Email'].values)
+
+    for i in range(0,users):
+
+        email=Creds['Email'][i]
+        committee=Creds['Committee'][i]
+        country=Creds['Country'][i]
+        delegation=Creds['School Name'][i]
+        name=Creds['Name'][i]
+        password=sha256(Creds['Password'][i].encode('utf-8')).hexdigest()
+
+        u=User(email=email,real_name=name,password=password,committee=committee,country=country,school=delegation)
+        u.save()
+
+    return HttpResponse('Successful')
+
 
 def generate_accounts(request):
 
