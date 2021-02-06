@@ -93,6 +93,9 @@ function set_speaking_mode(){
   });
 }
 function add_speaker(){
+  if($('#speaking_mode').val()=='Idle'){
+    alert('Speaking mode is set to Idle! Please change to RSL or GSL to proceed further.');
+  }
   $.post('add_speaker',{
     'country':$('#speaker').val(),
     'csrfmiddlewaretoken':csrftoken
