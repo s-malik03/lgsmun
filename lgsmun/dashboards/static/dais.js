@@ -93,13 +93,14 @@ function set_speaking_mode(){
   });
 }
 function add_speaker(){
-  if($('#speaking_mode').val()=='Idle'){
-    alert('Speaking mode is set to Idle! Please change to RSL or GSL to proceed further.');
+  if(($('#speaking_mode').text()=='Idle')||($('#speaking_mode').text()=='UnMod')){
+    alert('Speaking mode is set to Idle/UnMod! Please change to RSL or GSL to proceed further.');
   }
+  else{
   $.post('add_speaker',{
     'country':$('#speaker').val(),
     'csrfmiddlewaretoken':csrftoken
-  });
+  });}
 }
 function sendmessage(){
   $.post("send_message",{
