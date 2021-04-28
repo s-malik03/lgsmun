@@ -1,13 +1,35 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import UserInformation
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 
 # Create your views here.
 
+def signout(request):
+
+    logout(request)
+
+    return redirect('/')
 
 def homepage(request):
+
+    if request.user.is_authenticated:
+
+        uinfo = UserInformation.objects.get(user=request.user)
+        if uinfo.role == 'admin':
+            request.session['utype'] = 'admin'
+            return redirect('/menu/admin')
+        elif uinfo.role == 'dais':
+            request.session['utype'] = 'dais'
+            return redirect('/menu/dais')
+        else:
+            request.session['utype'] = 'delegate'
+            return redirect('/menu/delegate')
+
+    else:
+
+        return redirect('login')
 
     return HttpResponse('')
 

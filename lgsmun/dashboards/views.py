@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
-#from lgsmun.login.models import UserInformation
+# from lgsmun.login.models import UserInformation
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
@@ -67,6 +67,7 @@ def merge(request):
 
     return HttpResponse('Successful')
 
+
 @login_required
 def unmerge(request):
     committee = request.GET['committee']
@@ -77,6 +78,7 @@ def unmerge(request):
         u.save()
 
     return HttpResponse('Successful')
+
 
 @login_required
 def logout(request):
@@ -103,15 +105,36 @@ def logout(request):
 
 # attendance
 @login_required
-def rollcall(request):
+def hub(request):
     if request.session['utype'] != 'delegate':
         return HttpResponse('Access Denied')
 
-    request_context = {'committee': request.session['committee']}
-    return render(request, 'rollcall.html', request_context)
+    current_user = request.user
+
+    try:
+
+        committees = UserCommittee.objects.filter(user=current_user)
+
+    except:
+
+        request_context = {'committees': []}
+        return render(request, 'hub.html', request_context)
+
+    committee_info = []
+
+    for c in committees:
+        committee_info.append(c.committee)
+
+    request_context = {'committees': committee_info}
+    return render(request, 'hub.html', request_context)
+
 
 @login_required
 def markattendance(request):
+    request.session['committee'] = request.GET['committee']
+    user = request.user
+    committee_info = UserCommittee.objects.get(user=user)
+    request.session['country'] = committee_info.country
     if request.session['utype'] != 'delegate':
         return HttpResponse('Access Denied')
 
@@ -123,10 +146,13 @@ def markattendance(request):
 
         att = Attendance(country=request.session['country'], committee=request.session['committee'])
 
-    att.status = request.GET['status']
+    att.status = 'Present'
     att.save()
 
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+
     return redirect('delegate')
+
 
 @login_required
 def getcountrylist(request):
@@ -138,6 +164,7 @@ def getcountrylist(request):
         list = list + a.country + '(' + a.placard + ')' + '<br>'
 
     return HttpResponse(list)
+
 
 @login_required
 def getattendance(request):
@@ -158,6 +185,7 @@ def add_to_gsl(Committee, Country):
     g = GSL(country=Country, committee=Committee)
     g.save()
     return ""
+
 
 @login_required
 def remove_from_gsl(Committee):
@@ -180,6 +208,7 @@ def add_to_rsl(Committee, Country):
     r.save()
     return ""
 
+
 @login_required
 def remove_from_rsl(Committee):
     try:
@@ -193,6 +222,7 @@ def remove_from_rsl(Committee):
 
     return ""
 
+
 @login_required
 def remove_speaker(request):
     C = CommitteeControl.objects.get(committee=request.session['committee'])
@@ -204,6 +234,7 @@ def remove_speaker(request):
         remove_from_rsl(request.session['committee'])
 
     return HttpResponse('Successful')
+
 
 @login_required
 def add_speaker(request):
@@ -230,6 +261,7 @@ def set_current_mod(request):
     c.current_mod = request.POST["current_mod"]
     c.save()
     return HttpResponse("Successful")
+
 
 @login_required
 def remove_current_mod(request):
@@ -265,12 +297,14 @@ def timer(request):
     request_context = {}
     return render(request, 'timer.html', request_context)
 
+
 @login_required
 def start_timer(request):
     t = Timer.objects.get(committee=request.session['committee'])
     t.status = 'start'
     t.save()
     return HttpResponse("Successful")
+
 
 @login_required
 def pause_timer(request):
@@ -279,12 +313,14 @@ def pause_timer(request):
     t.save()
     return HttpResponse("Successful")
 
+
 @login_required
 def stop_timer(request):
     t = Timer.objects.get(committee=request.session['committee'])
     t.status = 'stop'
     t.save()
     return HttpResponse("Successful")
+
 
 @login_required
 def reset_total(request):
@@ -293,12 +329,14 @@ def reset_total(request):
     t.save()
     return HttpResponse("Successful")
 
+
 @login_required
 def set_total_time(request):
     t = Timer.objects.get(committee=request.session['committee'])
     t.total_time = int(request.POST['duration'])
     t.save()
     return HttpResponse("Successful")
+
 
 @login_required
 def set_speaker_time(request):
@@ -316,12 +354,14 @@ def speaking_mode(request):
     sm.save()
     return HttpResponse("Successful")
 
+
 @login_required
 def set_current_topic(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     c.topic = request.POST["topic"]
     c.save()
     return HttpResponse("Successful")
+
 
 @login_required
 def enable_motions(request):
@@ -330,12 +370,14 @@ def enable_motions(request):
     c.save()
     return HttpResponse("Successful")
 
+
 @login_required
 def disable_motions(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     c.allow_motions = False
     c.save()
     return HttpResponse("Successful")
+
 
 @login_required
 def dais(request):
@@ -368,15 +410,18 @@ def get_current_topic(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     return HttpResponse(c.topic)
 
+
 @login_required
 def get_speaking_mode(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     return HttpResponse(c.speaking_mode)
 
+
 @login_required
 def get_current_mod(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     return HttpResponse(c.current_mod)
+
 
 @login_required
 def delegate(request):
@@ -397,7 +442,7 @@ def delegate(request):
         pass
 
     request_context = {'committee': request.session['committee'], 'country': request.session['country'],
-                       'country_matrix': country_matrix, 'uuid': request.session['uuid']}
+                       'country_matrix': country_matrix, 'uuid': 'none'}
     return render(request, 'delegate.html', request_context)
 
 

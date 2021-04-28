@@ -1,68 +1,84 @@
-from django.shortcuts import render,redirect
-from login.models import User
+from django.shortcuts import render, redirect, HttpResponse
+from django.contrib.auth import login, authenticate, update_session_auth_hash, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from dashboards.models import CommitteeControl
 from hashlib import sha256
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib import messages
+
 
 # Create your views here.
 
 def admin(request):
-    if request.session['utype']!='admin':
+    if request.session['utype'] != 'admin':
         return HttpResponse('Access denied')
-    committees=CommitteeControl.objects.values('committee')
-    committee_matrix=[]
+    committees = CommitteeControl.objects.values('committee')
+    committee_matrix = []
 
     for c in committees:
-
         committee_matrix.append(c['committee'])
 
-    request_context={'committees':committee_matrix}
-    return render(request,'menu/admin.html',request_context)
+    request_context = {'committees': committee_matrix}
+    return render(request, 'menu/admin.html', request_context)
+
 
 def dais(request):
-    if request.session['utype']!='dais':
+    if request.session['utype'] != 'dais':
         return HttpResponse('Access denied')
-    request_context={}
-    return render(request,'menu/dais.html',request_context)
+    request_context = {}
+    return render(request, 'menu/dais.html', request_context)
+
 
 def delegate(request):
+    request_context = {}
+    return render(request, 'menu/delegate.html', request_context)
 
-    request_context={}
-    return render(request,'menu/delegate.html',request_context)
 
 def changepassword(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('/menu/' + request.session['utype'])
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'menu/changepassword.html', {
+        'form': form
+    })
 
-    request_context={}
 
-    return render(request,'menu/changepassword.html',request_context)
-
+@login_required
 def setpassword(request):
-
-    newpw=request.POST["new_password"]
-    cpw=request.POST["confirm_password"]
-    if newpw!=cpw:
+    newpw = request.POST["new_password"]
+    cpw = request.POST["confirm_password"]
+    if newpw != cpw:
         return redirect('/menu/changepassword')
-    uinfo=User.objects.get(email=request.session['uid'])
-    uinfo.password=sha256(newpw.encode('utf-8')).hexdigest()
+    uinfo = request.user
+    uinfo.password = newpw
     uinfo.save()
-    request_context={}
-    return redirect('/menu/'+request.session['utype'])
+    request_context = {}
+    return redirect('/menu/' + request.session['utype'])
+
 
 def adminjoinsession(request):
-
-    request_context={}
-    request.session['committee']=request.GET["committee"]
-    uinfo=User.objects.get(email=request.session['uid'])
-    uinfo.committee=request.GET['committee']
+    request_context = {}
+    request.session['committee'] = request.GET["committee"]
+    uinfo = User.objects.get(email=request.session['uid'])
+    uinfo.committee = request.GET['committee']
     uinfo.save()
+    update_session_auth_hash(request, uinfo)
     return redirect('/dashboards/dais')
 
-def joinsession(request):
 
-    uinfo=User.objects.get(email=request.session['uid'])
-    request.session['committee']=uinfo.committee
-    request.session['country']=uinfo.country
-    request_context={}
-    if request.session['utype']=='delegate':
-        return redirect('/dashboards/rollcall')
+@login_required
+def joinsession(request):
+    request_context = {}
+    if request.session['utype'] == 'delegate':
+        return redirect('/dashboards/hub')
     else:
-        return redirect('/dashboards/'+request.session['utype'])
+        return redirect('/dashboards/' + request.session['utype'])

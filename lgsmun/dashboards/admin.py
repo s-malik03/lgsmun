@@ -17,4 +17,6 @@ admin.site.register(Timer)
 
 admin.site.register(FloorMods)
 
+admin.site.register(UserCommittee)
+
 # Register your models here.

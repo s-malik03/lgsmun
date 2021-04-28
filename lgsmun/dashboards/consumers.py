@@ -1,43 +1,23 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from .models import Attendance,CommitteeControl,Notifications,GSL,RSL,Timer,Messages,FloorMods
+from .models import Attendance, CommitteeControl, Notifications, GSL, RSL, Timer, Messages, FloorMods
 from asgiref.sync import sync_to_async
 import time
 from django.db.models import Q
-from login.models import User
+
 
 @sync_to_async
-
-def u_auth(Committee,Country,UUID):
-
-    if UUID=='none':
-
-        return False
-
+def essentialinfo(Committee, Country):
+    inbox_text = ''
+    rsl = ''
+    gsl = ''
+    list = ''
     try:
 
-        u=User.objects.get(committee=Committee,country=Country,uuid=UUID)
-
-    except:
-
-        return False
-
-    return True
-
-@sync_to_async
-def essentialinfo(Committee,Country):
-
-    inbox_text=''
-    rsl=''
-    gsl=''
-    list=''
-    try:
-
-        inbox=Messages.objects.filter(Q(committee=Committee),Q(recipient=Country)|Q(sender=Country))
+        inbox = Messages.objects.filter(Q(committee=Committee), Q(recipient=Country) | Q(sender=Country))
 
         for i in inbox:
-
-            inbox_text=inbox_text+'('+i.sender+' to '+i.recipient+')'+i.message+'<br>'
+            inbox_text = inbox_text + '(' + i.sender + ' to ' + i.recipient + ')' + i.message + '<br>'
 
     except:
 
@@ -45,101 +25,96 @@ def essentialinfo(Committee,Country):
 
     try:
 
-        att=Attendance.objects.filter(committee=Committee).exclude(status="Absent").order_by('country')
+        att = Attendance.objects.filter(committee=Committee).exclude(status="Absent").order_by('country')
 
         for a in att:
 
-            plcrd=a.placard
+            plcrd = a.placard
 
-            if plcrd=="Placard Raised":
+            if plcrd == "Placard Raised":
+                plcrd = ' <span class="dot"></span>'
 
-                plcrd=' <span class="dot"></span>'
-
-            list=list+'<div class="btn">'+a.country+plcrd+'</div>'
+            list = list + '<div class="btn">' + a.country + plcrd + '</div>'
 
     except:
 
         pass
 
-    c=CommitteeControl.objects.get(committee=Committee)
-    t=Timer.objects.get(committee=Committee)
+    c = CommitteeControl.objects.get(committee=Committee)
+    t = Timer.objects.get(committee=Committee)
 
     try:
-        g=GSL.objects.filter(committee=Committee).order_by('date')
-        r=RSL.objects.filter(committee=Committee).order_by('date')
+        g = GSL.objects.filter(committee=Committee).order_by('date')
+        r = RSL.objects.filter(committee=Committee).order_by('date')
 
         for r_ in r:
-            rsl=rsl+'<div class="btn">'+r_.country+'</div>'
+            rsl = rsl + '<div class="btn">' + r_.country + '</div>'
         for g_ in g:
-            gsl=gsl+'<div class="btn">'+g_.country+'</div>'
+            gsl = gsl + '<div class="btn">' + g_.country + '</div>'
 
     except:
 
         pass
 
-    nlist=''
+    nlist = ''
     try:
-        n=Notifications.objects.filter(committee=Committee).order_by('-date')
+        n = Notifications.objects.filter(committee=Committee).order_by('-date')
         for n_ in n:
-
-            nlist=nlist+'('+n_.date.strftime("%H:%M:%S")+')'+n_.country+':'+n_.message+'<br>'
+            nlist = nlist + '(' + n_.date.strftime("%H:%M:%S") + ')' + n_.country + ':' + n_.message + '<br>'
 
     except Exception as e:
 
         pass
 
-    modlist=''
-    mnum=1
+    modlist = ''
+    mnum = 1
 
     try:
 
-        m=FloorMods.objects.filter(committee=Committee).order_by('date')
+        m = FloorMods.objects.filter(committee=Committee).order_by('date')
 
         for mod in m:
-
-            modlist=modlist+str(mnum)+'. '+mod.mod+'<br>'
-            mnum=mnum+1
+            modlist = modlist + str(mnum) + '. ' + mod.mod + '<br>'
+            mnum = mnum + 1
 
     except:
 
         pass
 
-    dict={
+    dict = {
 
-        'countrylist':list,
-        'current_topic':c.topic,
-        'speaking_mode':c.speaking_mode,
-        'current_mod':c.current_mod,
-        'notifications':nlist,
-        'gsl':gsl,
-        'rsl':rsl,
-        'timer_status':t.status,
-        'timer_duration':t.duration,
-        'total_time':t.total_time,
-        'inbox':inbox_text,
-        'mods':modlist,
-        'zoom_link':c.zoom_link,
-        'drive_link':c.drive_link
+        'countrylist': list,
+        'current_topic': c.topic,
+        'speaking_mode': c.speaking_mode,
+        'current_mod': c.current_mod,
+        'notifications': nlist,
+        'gsl': gsl,
+        'rsl': rsl,
+        'timer_status': t.status,
+        'timer_duration': t.duration,
+        'total_time': t.total_time,
+        'inbox': inbox_text,
+        'mods': modlist,
+        'zoom_link': c.zoom_link,
+        'drive_link': c.drive_link
 
     }
 
     return json.dumps(dict)
 
+
 @sync_to_async
-
-def essentialinfo_dais(Committee,Country):
-
-    inbox_text=''
-    rsl=''
-    gsl=''
-    list=''
+def essentialinfo_dais(Committee, Country):
+    inbox_text = ''
+    rsl = ''
+    gsl = ''
+    list = ''
     try:
 
-        inbox=Messages.objects.filter(Q(committee=Committee),Q(recipient=Country)|Q(sender=Country))
+        inbox = Messages.objects.filter(Q(committee=Committee), Q(recipient=Country) | Q(sender=Country))
 
         for i in inbox:
-
-            inbox_text=inbox_text+'('+i.sender+' to '+i.recipient+')'+i.message+'<br>'
+            inbox_text = inbox_text + '(' + i.sender + ' to ' + i.recipient + ')' + i.message + '<br>'
 
     except:
 
@@ -147,91 +122,92 @@ def essentialinfo_dais(Committee,Country):
 
     try:
 
-        att=Attendance.objects.filter(committee=Committee).exclude(status="Absent").order_by('country').order_by('-placard')
+        att = Attendance.objects.filter(committee=Committee).exclude(status="Absent").order_by('country').order_by(
+            '-placard')
 
         for a in att:
 
-            plcrd=a.placard
+            plcrd = a.placard
 
-            if plcrd=="Placard Raised":
+            if plcrd == "Placard Raised":
 
-                plcrd='<span class="dot"></span>'
+                plcrd = '<span class="dot"></span>'
 
             else:
 
-                plcrd=''
+                plcrd = ''
 
-            list=list+'<div class="btn">'+a.country+' | '+a.status+' | Recognized: '+str(a.recognized)+' | '+plcrd+'</div>\n'
+            list = list + '<div class="btn">' + a.country + ' | ' + a.status + ' | Recognized: ' + str(
+                a.recognized) + ' | ' + plcrd + '</div>\n'
 
     except:
 
         pass
 
-    c=CommitteeControl.objects.get(committee=Committee)
-    t=Timer.objects.get(committee=Committee)
+    c = CommitteeControl.objects.get(committee=Committee)
+    t = Timer.objects.get(committee=Committee)
 
     try:
-        g=GSL.objects.filter(committee=Committee).order_by('date')
-        r=RSL.objects.filter(committee=Committee).order_by('date')
+        g = GSL.objects.filter(committee=Committee).order_by('date')
+        r = RSL.objects.filter(committee=Committee).order_by('date')
 
         for r_ in r:
-            rsl=rsl+'<div class="btn">'+r_.country+'</div>'
+            rsl = rsl + '<div class="btn">' + r_.country + '</div>'
         for g_ in g:
-            gsl=gsl+'<div class="btn">'+g_.country+'</div>'
+            gsl = gsl + '<div class="btn">' + g_.country + '</div>'
 
 
     except:
 
         pass
 
-    nlist=''
+    nlist = ''
     try:
-        n=Notifications.objects.filter(committee=Committee).order_by('-date')
+        n = Notifications.objects.filter(committee=Committee).order_by('-date')
 
         for n_ in n:
-
-            nlist=nlist+'('+n_.date.strftime("%H:%M:%S")+')'+n_.country+':'+n_.message+'<br>'
+            nlist = nlist + '(' + n_.date.strftime("%H:%M:%S") + ')' + n_.country + ':' + n_.message + '<br>'
 
     except Exception as e:
 
         pass
 
-    modlist=''
-    mnum=1
+    modlist = ''
+    mnum = 1
 
     try:
 
-        m=FloorMods.objects.filter(committee=Committee).order_by('date')
+        m = FloorMods.objects.filter(committee=Committee).order_by('date')
 
         for mod in m:
-
-            modlist=modlist+str(mnum)+'. '+mod.mod+'<br>'
-            mnum=mnum+1
+            modlist = modlist + str(mnum) + '. ' + mod.mod + '<br>'
+            mnum = mnum + 1
 
     except:
 
         pass
 
-    dict={
+    dict = {
 
-        'countrylist':list,
-        'current_topic':c.topic,
-        'speaking_mode':c.speaking_mode,
-        'current_mod':c.current_mod,
-        'notifications':nlist,
-        'gsl':gsl,
-        'rsl':rsl,
-        'timer_status':t.status,
-        'timer_duration':t.duration,
-        'total_time':t.total_time,
-        'inbox':inbox_text,
-        'mods':modlist,
-        'zoom_link':c.zoom_link,
-        'drive_link':c.drive_link
+        'countrylist': list,
+        'current_topic': c.topic,
+        'speaking_mode': c.speaking_mode,
+        'current_mod': c.current_mod,
+        'notifications': nlist,
+        'gsl': gsl,
+        'rsl': rsl,
+        'timer_status': t.status,
+        'timer_duration': t.duration,
+        'total_time': t.total_time,
+        'inbox': inbox_text,
+        'mods': modlist,
+        'zoom_link': c.zoom_link,
+        'drive_link': c.drive_link
 
     }
 
     return json.dumps(dict)
+
 
 class Delegate(AsyncWebsocketConsumer):
 
@@ -239,23 +215,28 @@ class Delegate(AsyncWebsocketConsumer):
 
         await self.accept()
 
-    async def receive(self,text_data):
+    async def receive(self, text_data):
 
-        json_data=json.loads(text_data)
+        json_data = json.loads(text_data)
 
-        uuid=json_data['uuid']
+        iteration = int(json_data['iteration'])
 
-        committee=json_data['committee']
+        committee = json_data['committee']
 
-        country=json_data['country']
+        country = json_data['country']
 
-        if not(await u_auth(committee,country,uuid)):
+        committee_iteration = CommitteeControl.objects.get(committee=committee).iteration
 
-            await self.close()
+        if iteration != committee_iteration:
 
-        einfo=await essentialinfo(committee,country)
+            einfo = await essentialinfo(committee, country)
 
-        await self.send(einfo)
+            await self.send(einfo)
+
+        else:
+
+            self.send("NULL")
+
 
 class Dais(AsyncWebsocketConsumer):
 
@@ -263,20 +244,24 @@ class Dais(AsyncWebsocketConsumer):
 
         await self.accept()
 
-    async def receive(self,text_data):
+    async def receive(self, text_data):
 
-        json_data=json.loads(text_data)
+        json_data = json.loads(text_data)
 
-        uuid=json_data['uuid']
+        iteration = int(json_data['iteration'])
 
-        committee=json_data['committee']
+        committee = json_data['committee']
 
-        country=json_data['country']
+        country = json_data['country']
 
-        if not(await u_auth(committee,country,uuid)):
+        committee_iteration = CommitteeControl.objects.get(committee=committee).iteration
 
-            await self.close()
+        if iteration != committee_iteration:
 
-        einfo=await essentialinfo_dais(committee,country)
+            einfo = await essentialinfo_dais(committee, country)
 
-        await self.send(einfo)
+            await self.send(einfo)
+
+        else:
+
+            self.send("NULL")
