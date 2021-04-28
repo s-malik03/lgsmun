@@ -1,53 +1,66 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from django.template import RequestContext
-from .models import User
-from hashlib import sha256
-from uuid import uuid4
+from .models import UserInformation
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 
 # Create your views here.
 
+
+def homepage(request):
+
+    return HttpResponse('')
+
+
 def index(request):
 
-    request_context={}
+    request_context={'invalid':' '}
     return render(request,'login/login.html',request_context)
+
+
+def register(request):
+
+    request_context = {'username_taken': ' '}
+    return render(request, 'login/register.html', request_context)
+
+
+def create_user(request):
+
+    try:
+
+        User.objects.get(username=request.POST['username'])
+        return render(request, 'login/register.html', {'username_taken': 'This username is already taken!'})
+
+    except User.DoesNotExist:
+
+        user = User.objects.create_user(username=request.POST['username'], email=request.POST['email'], password=request.POST['password'])
+        user.save()
+        additional_information = UserInformation(user=user, role='delegate',
+                                                 mobile=request.POST['mobile'],
+                                                 grade=request.POST['grade'],
+                                                 school=request.POST['school'])
+        additional_information.save()
+        return redirect('login')
+
 
 def post_login(request):
 
-    request_context={}
+    user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
 
-    if request.method=="POST":
+    if user is not None:
 
-        uinfo=request.POST
-
-        try:
-
-            uinfo=User.objects.get(email__icontains=request.POST["email"])
-
-        except:
-
-            return HttpResponse("invalid email or password")
-
-        password=uinfo.password
-
-        if password==sha256(request.POST["password"].encode('utf-8')).hexdigest():
-
-            request.session['uid']=uinfo.email
-            request.session['committee']=uinfo.committee
-            request.session['country']=uinfo.country
-            uinfo.uuid=str(uuid4())
-            uinfo.save()
-            request.session['uuid']=uinfo.uuid
-            if uinfo.role=='admin':
-                request.session['utype']='admin'
-                return redirect('/menu/admin')
-            elif uinfo.role=='dais':
-                request.session['utype']='dais'
-                return redirect('/menu/dais')
-            else:
-                request.session['utype']='delegate'
-                return redirect('/menu/delegate')
-
+        login(request, user)
+        uinfo = UserInformation.objects.get(user=user)
+        if uinfo.role == 'admin':
+            request.session['utype'] = 'admin'
+            return redirect('/menu/admin')
+        elif uinfo.role == 'dais':
+            request.session['utype'] = 'dais'
+            return redirect('/menu/dais')
         else:
+            request.session['utype'] = 'delegate'
+            return redirect('/menu/delegate')
 
-            return HttpResponse('invalid email or password')
+    else:
+
+        return render(request, 'login/login.html', {'invalid': 'Invalid Username or Password'})

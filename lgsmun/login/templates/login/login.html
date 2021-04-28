@@ -8,11 +8,15 @@
   </head>
   <body>
 <div class="login-box">
-  <h1>Login</h1>
+  <h1>Login</h1><br>
   <form action="post_login" method="POST">{% csrf_token %}
+    <div class="textbox">
+          {{invalid}}
+    </div>
+
   <div class="textbox">
     <i class="fas fa-user"></i>
-    <input type="text" placeholder="E-Mail" id="email" name="email">
+    <input type="text" placeholder="Username" id="email" name="username">
   </div>
 
   <div class="textbox">
@@ -21,7 +25,9 @@
   </div>
 
   <input type="submit" class="btn" value="Sign in">
+    No account? Click <a href="register">here</a> to register.
 </div>
 </form>
+
   </body>
 </html>
