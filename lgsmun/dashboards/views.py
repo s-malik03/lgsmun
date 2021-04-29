@@ -17,6 +17,7 @@ def index(request):
 def set_zoom_link(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     c.zoom_link = request.POST['zoom_link']
+    c.iteration += 1
     c.save()
     return HttpResponse("Successful")
 
@@ -25,6 +26,7 @@ def set_zoom_link(request):
 def set_drive_link(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     c.drive_link = request.POST['drive_link']
+    c.iteration += 1
     c.save()
     return HttpResponse("Successful")
 
@@ -150,6 +152,8 @@ def markattendance(request):
     att.save()
 
     c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration+=1
+    c.save()
 
     return redirect('delegate')
 
@@ -180,14 +184,15 @@ def getattendance(request):
 
 
 # GSL
-@login_required
 def add_to_gsl(Committee, Country):
     g = GSL(country=Country, committee=Committee)
     g.save()
+    c = CommitteeControl.objects.get(committee=Committee)
+    c.iteration += 1
+    c.save()
     return ""
 
 
-@login_required
 def remove_from_gsl(Committee):
     try:
 
@@ -198,18 +203,24 @@ def remove_from_gsl(Committee):
 
         pass
 
+    c = CommitteeControl.objects.get(committee=Committee)
+    c.iteration += 1
+    c.save()
+
     return ""
 
 
 # RSL
-@login_required
+
 def add_to_rsl(Committee, Country):
     r = RSL(country=Country, committee=Committee)
     r.save()
+    c = CommitteeControl.objects.get(committee=Committee)
+    c.iteration += 1
+    c.save()
     return ""
 
 
-@login_required
 def remove_from_rsl(Committee):
     try:
 
@@ -219,6 +230,10 @@ def remove_from_rsl(Committee):
     except:
 
         pass
+
+    c = CommitteeControl.objects.get(committee=Committee)
+    c.iteration += 1
+    c.save()
 
     return ""
 
@@ -259,6 +274,7 @@ def set_current_mod(request):
     r = RSL.objects.filter(committee=request.session['committee'])
     r.delete()
     c.current_mod = request.POST["current_mod"]
+    c.iteration+=1
     c.save()
     return HttpResponse("Successful")
 
@@ -267,6 +283,7 @@ def set_current_mod(request):
 def remove_current_mod(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     c.current_mod = "No Moderated Caucus in Progress"
+    c.iteration+=1
     c.save()
     return HttpResponse("Successful")
 
@@ -301,6 +318,9 @@ def timer(request):
 @login_required
 def start_timer(request):
     t = Timer.objects.get(committee=request.session['committee'])
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration+=1
+    c.save()
     t.status = 'start'
     t.save()
     return HttpResponse("Successful")
@@ -311,6 +331,9 @@ def pause_timer(request):
     t = Timer.objects.get(committee=request.session['committee'])
     t.status = 'pause'
     t.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
     return HttpResponse("Successful")
 
 
@@ -319,6 +342,9 @@ def stop_timer(request):
     t = Timer.objects.get(committee=request.session['committee'])
     t.status = 'stop'
     t.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
     return HttpResponse("Successful")
 
 
@@ -327,6 +353,9 @@ def reset_total(request):
     t = Timer.objects.get(committee=request.session['committee'])
     t.total_time = 0
     t.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
     return HttpResponse("Successful")
 
 
@@ -335,6 +364,9 @@ def set_total_time(request):
     t = Timer.objects.get(committee=request.session['committee'])
     t.total_time = int(request.POST['duration'])
     t.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
     return HttpResponse("Successful")
 
 
@@ -343,6 +375,9 @@ def set_speaker_time(request):
     t = Timer.objects.get(committee=request.session['committee'])
     t.duration = int(request.POST['duration'])
     t.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
     return HttpResponse("Successful")
 
 
@@ -352,6 +387,9 @@ def speaking_mode(request):
     sm = CommitteeControl.objects.get(committee=request.session['committee'])
     sm.speaking_mode = request.POST["speaking_mode"]
     sm.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
     return HttpResponse("Successful")
 
 
@@ -359,6 +397,9 @@ def speaking_mode(request):
 def set_current_topic(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     c.topic = request.POST["topic"]
+    c.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
     c.save()
     return HttpResponse("Successful")
 
@@ -368,6 +409,9 @@ def enable_motions(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     c.allow_motions = True
     c.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
     return HttpResponse("Successful")
 
 
@@ -375,6 +419,9 @@ def enable_motions(request):
 def disable_motions(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     c.allow_motions = False
+    c.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
     c.save()
     return HttpResponse("Successful")
 
@@ -460,6 +507,9 @@ def raise_placard(request):
     att = Attendance.objects.get(country=request.session['country'], committee=request.session['committee'])
     att.placard = "Placard Raised"
     att.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
     return HttpResponse("Successful")
 
 
@@ -467,6 +517,9 @@ def lower_placard(request):
     att = Attendance.objects.get(country=request.session['country'], committee=request.session['committee'])
     att.placard = ""
     att.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
     return HttpResponse("Successful")
 
 
@@ -482,6 +535,10 @@ def send_notification(request):
         n = Notifications(country=request.session['country'], committee=request.session['committee'],
                           message=request.POST['notification'])
         n.save()
+
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
     return HttpResponse("Successful")
 
 
@@ -492,6 +549,10 @@ def send_message(request):
             inbox = Messages(committee=request.session['committee'], sender=request.session['country'],
                              recipient=request.POST['recipient'], message=request.POST['message'])
             inbox.save()
+
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
     return HttpResponse("Successful")
 
 
@@ -521,6 +582,9 @@ def committee_log(request):
 def add_mod(request):
     mod = FloorMods(mod=request.POST["mod"], committee=request.session["committee"])
     mod.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
     return HttpResponse("Successful")
 
 
@@ -537,6 +601,10 @@ def remove_mod(request):
 
         pass
 
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
+
     return HttpResponse("Successful")
 
 
@@ -550,6 +618,10 @@ def clear_mod(request):
     except:
 
         pass
+
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
 
     return HttpResponse("Successful")
 

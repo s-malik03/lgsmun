@@ -96,7 +96,8 @@ def essentialinfo(Committee, Country):
         'inbox': inbox_text,
         'mods': modlist,
         'zoom_link': c.zoom_link,
-        'drive_link': c.drive_link
+        'drive_link': c.drive_link,
+        'iteration': c.iteration
 
     }
 
@@ -202,11 +203,26 @@ def essentialinfo_dais(Committee, Country):
         'inbox': inbox_text,
         'mods': modlist,
         'zoom_link': c.zoom_link,
-        'drive_link': c.drive_link
+        'drive_link': c.drive_link,
+        'iteration': c.iteration
 
     }
 
     return json.dumps(dict)
+
+
+@sync_to_async
+def check_iteration(committee, iteration):
+
+    committee_iteration = CommitteeControl.objects.get(committee=committee).iteration
+
+    if committee_iteration==iteration:
+
+        return False
+
+    else:
+
+        return True
 
 
 class Delegate(AsyncWebsocketConsumer):
@@ -225,9 +241,9 @@ class Delegate(AsyncWebsocketConsumer):
 
         country = json_data['country']
 
-        committee_iteration = CommitteeControl.objects.get(committee=committee).iteration
+        iter_test = await check_iteration(committee,iteration)
 
-        if iteration != committee_iteration:
+        if iter_test:
 
             einfo = await essentialinfo(committee, country)
 
@@ -254,11 +270,11 @@ class Dais(AsyncWebsocketConsumer):
 
         country = json_data['country']
 
-        committee_iteration = CommitteeControl.objects.get(committee=committee).iteration
+        iter_test = await check_iteration(committee, iteration)
 
-        if iteration != committee_iteration:
+        if iter_test:
 
-            einfo = await essentialinfo_dais(committee, country)
+            einfo = await essentialinfo(committee, country)
 
             await self.send(einfo)
 
