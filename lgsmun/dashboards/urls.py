@@ -44,5 +44,11 @@ urlpatterns = [
     path('set_zoom_link', views.set_zoom_link, name='set_zoom_link'),
     path('set_drive_link', views.set_drive_link, name='set_drive_link'),
     path('unraise_all_placard', views.unraise_all_placard, name='unraise_all_placard'),
+    path('controlpanel',views.controlpanel, name='controlpanel'),
+    path('create_committee', views.create_committee, name='create_committee'),
+    path('editcommittee',views.editcommittee, name='editcommittee'),
+    path('delete_committee', views.delete_committee, name='delete_committee'),
+    path('add_to_committee',views.add_to_committee, name='add_to_committee'),
+    path('remove_from_committee', views.remove_from_committee, name='remove_from_committee')
 
 ]

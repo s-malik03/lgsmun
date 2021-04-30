@@ -10,6 +10,7 @@
 <body><form action="adminjoinsession" method="GET">
   <div class="login-box">
     <h1>Admin Menu</h1>
+    <input href="/dashboards/controlpanel" type="button" class="btn" value="Committee Control Panel" onclick="window.location.href='/dashboards/controlpanel'">
     <h5>Join Committee: </h5>
     <select name="committee" id="committees">
       {% for c in committees %}

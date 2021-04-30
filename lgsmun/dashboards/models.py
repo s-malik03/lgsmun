@@ -68,7 +68,7 @@ class Vote(models.Model):
 
 class Timer(models.Model):
     committee = models.CharField(max_length=100)
-    status = models.CharField(max_length=100)
+    status = models.CharField(max_length=100, default='stop')
     duration = models.IntegerField(default=0)
     total_time = models.IntegerField(default=0)
 

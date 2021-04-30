@@ -68,10 +68,7 @@ def setpassword(request):
 def adminjoinsession(request):
     request_context = {}
     request.session['committee'] = request.GET["committee"]
-    uinfo = User.objects.get(email=request.session['uid'])
-    uinfo.committee = request.GET['committee']
-    uinfo.save()
-    update_session_auth_hash(request, uinfo)
+    request.session['country']='Dais'
     return redirect('/dashboards/dais')
 
 

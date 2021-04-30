@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import *
 # from lgsmun.login.models import UserInformation
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.db.models import Q
 
 
@@ -11,6 +12,79 @@ from django.db.models import Q
 
 def index(request):
     return HttpResponse("hi")
+
+
+def controlpanel(request):
+
+    c = CommitteeControl.objects.all()
+    committees=[]
+    for committee in c:
+
+        committees.append(committee.committee)
+
+    return render(request,'ctrlpanel.html', {'committees':committees})
+
+
+def editcommittee(request):
+
+    if 'committee' in request.GET:
+
+        request.session['committee'] = request.GET['committee']
+
+    users = UserCommittee.objects.filter(committee=request.session['committee'])
+
+    memberlist=[]
+
+    for u in users:
+
+        memberlist.append(u.user.username)
+
+    return render(request, 'editcommittee.html', {'members':memberlist, 'committee':request.session['committee']})
+
+
+@login_required
+def delete_committee(request):
+    committee_name = request.POST['committee']
+    c = CommitteeControl.objects.get(committee=committee_name)
+    c.delete()
+    return redirect('controlpanel')
+
+
+@login_required
+def create_committee(request):
+    committee_name = request.POST['committee']
+
+    try:
+
+        CommitteeControl.objects.get(committee=committee_name)
+        return HttpResponse("This committee already exists!")
+
+    except:
+
+        c = CommitteeControl(committee=committee_name)
+        c.save()
+        request.session['committee']=committee_name
+        return redirect('editcommittee')
+
+
+@login_required
+def add_to_committee(request):
+    username = request.POST['username']
+    committee = request.POST['committee']
+    country = request.POST['country']
+    new_member = UserCommittee(user=User.objects.get(username=username), committee=committee, country=country)
+    new_member.save()
+
+    return redirect('editcommittee')
+
+
+@login_required
+def remove_from_committee(request):
+    username = request.POST['username']
+    committee = request.POST['committee']
+    member = UserCommittee.objects.get(user=User.objects.get(username=username), committee=committee)
+    member.delete()
+    return redirect('editcommittee')
 
 
 @login_required
@@ -152,7 +226,7 @@ def markattendance(request):
     att.save()
 
     c = CommitteeControl.objects.get(committee=request.session['committee'])
-    c.iteration+=1
+    c.iteration += 1
     c.save()
 
     return redirect('delegate')
@@ -274,7 +348,7 @@ def set_current_mod(request):
     r = RSL.objects.filter(committee=request.session['committee'])
     r.delete()
     c.current_mod = request.POST["current_mod"]
-    c.iteration+=1
+    c.iteration += 1
     c.save()
     return HttpResponse("Successful")
 
@@ -283,7 +357,7 @@ def set_current_mod(request):
 def remove_current_mod(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     c.current_mod = "No Moderated Caucus in Progress"
-    c.iteration+=1
+    c.iteration += 1
     c.save()
     return HttpResponse("Successful")
 
@@ -319,7 +393,7 @@ def timer(request):
 def start_timer(request):
     t = Timer.objects.get(committee=request.session['committee'])
     c = CommitteeControl.objects.get(committee=request.session['committee'])
-    c.iteration+=1
+    c.iteration += 1
     c.save()
     t.status = 'start'
     t.save()
@@ -435,7 +509,7 @@ def dais(request):
 
     try:
 
-        countries = User.objects.filter(committee=request.session['committee']).exclude(country='Dais').order_by(
+        countries = UserCommittee.objects.filter(committee=request.session['committee']).exclude(country='Dais').order_by(
             'country').values('country').distinct()
         for c in countries:
             country_matrix.append(c['country'])
@@ -444,8 +518,8 @@ def dais(request):
 
         pass
 
-    request_context = {'committee': request.session['committee'], 'country': request.session['country'],
-                       'country_matrix': country_matrix, 'uuid': request.session['uuid']}
+    request_context = {'committee': request.session['committee'], 'country': 'Dais',
+                       'country_matrix': country_matrix, 'uuid': 'none'}
     if request.session['utype'] == 'admin':
         return render(request, 'admin.html', request_context)
     return render(request, 'dais.html', request_context)
@@ -479,7 +553,7 @@ def delegate(request):
 
     try:
 
-        countries = User.objects.filter(committee=request.session['committee']).exclude(country='Dais').order_by(
+        countries = UserCommittee.objects.filter(committee=request.session['committee']).exclude(country='Dais').order_by(
             'country').values('country').distinct()
         for c in countries:
             country_matrix.append(c['country'])
