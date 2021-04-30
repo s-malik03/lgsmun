@@ -1,10 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="{% static 'dais.js' %}"></script>
-        <style>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'dais.js' %}"></script>
+    <style>
         body{
           background: url("{% static 'bg.jpg' %}");
           overflow: auto;
@@ -172,85 +172,133 @@
             color:black;
             text-align:center;
         }
-        </style>
-    </head>
 
-    <body onbeforeunload="ws.close();">
-        <input type="hidden" id="country" value="{{country}}"/>
-        <input type="hidden" id="uuid" value="{{uuid}}"/>
-        <div id = "boxes">
-            <h1 id="committee_name">{{committee}}</h1>
+    </style>
+</head>
 
-            <div id = "leftbox">
-                <h2>Inbox:</h2>
-                <p><div id="inbox" class="overflow"></div></p><br>
-                <textarea placeholder="Message" class="message" id="message"/></textarea><br><br>
-                Send to:<br><select class="selectbtn" id="recipient" name="recipient">
-                  {% for c in country_matrix %}
-                  <option value="{{c}}">{{c}}</option>
-                  {% endfor %}
-</select><br>
-                <input type="button" class="btn" value="Send Message" onclick="sendmessage()"/>
+<body onbeforeunload="ws.close();">
+<input type="hidden" id="country" value="{{country}}"/>
+<input type="hidden" id="uuid" value="{{uuid}}"/>
+<div id="boxes">
+    <h1 id="committee_name">{{committee}}</h1>
 
-            </div>
+    <div id="leftbox">
+        <h2>Inbox:</h2>
+        <p>
+        <div id="inbox" class="overflow"></div>
+        </p><br>
+        <textarea placeholder="Message" class="message" id="message"/></textarea><br><br>
+        Send to:<br><select class="selectbtn" id="recipient" name="recipient">
+        {% for c in country_matrix %}
+        <option value="{{c}}">{{c}}</option>
+        {% endfor %}
+    </select><br>
+        <input type="button" class="btn" value="Send Message" onclick="sendmessage()"/>
 
-            <div id = "middlebox">
+    </div>
 
-              <div id="leftbox2">
+    <div id="middlebox">
 
-                <h2>Topic: <div id="current_topic">No Topic Has Been Set</div></h2>
-                <h4>Set topic:<input type="text" class="inputbox" placeholder="Topic" id="set_topic"/><input class="btn" type="button" value="Set" onclick="set_topic();"/></h4>
-                <h3>Speaking Mode: <div id="speaking_mode">Idle</div></h3>
-                <h4>Set Speaking Mode:
-                  <select class="selectbtn" id="set_speaking_mode" name="Set Speaking Mode">
+        <div id="leftbox2">
+
+            <h2>Topic:
+                <div id="current_topic">No Topic Has Been Set</div>
+            </h2>
+            <h4>Set topic:<input type="text" class="inputbox" placeholder="Topic" id="set_topic"/><input class="btn"
+                                                                                                         type="button"
+                                                                                                         value="Set"
+                                                                                                         onclick="set_topic();"/>
+            </h4>
+            <h3>Speaking Mode:
+                <div id="speaking_mode">Idle</div>
+            </h3>
+            <h4>Set Speaking Mode:
+                <select class="selectbtn" id="set_speaking_mode" name="Set Speaking Mode">
                     <option value="Idle">Idle</option>
                     <option value="GSL">GSL</option>
                     <option value="Mod">Mod</option>
                     <option value="UnMod">UnMod</option>
-                  </select><br>
-                  <input type="button" value="Set" class="btn" onclick="set_speaking_mode();"/></h4>
-                <h4>Current Mod: <div id="current_mod">No Moderated Caucus in Progress</div></h4>
-                <h4>Set Current Mod:<br><input type="text" placeholder="Current Mod" class="inputbox" id="set_mod"/><input type="button" class="btn" value="Set" onclick="set_mod();"/></h4>
-                <h4>Total Time:<br><div id="total_minutes"></div>:<div id="total_seconds"></div>
-                <h4>Set Total Time:<br><input type="number" class="numbox" min="0" max="60" id="t_min"/>:<input type="number" class="numbox" min="0" max="60" id="t_sec"/> <input type="button" class="btn" value="Set" onclick="set_total_time();"/> <input type="button" class="btn" value="Reset" onclick="fetch('reset_total');"/></h4>
-                <h4>Speaker Time:<br><div id="minutes"></div>:<div id="seconds"></div></h4>
-                  <input type="button" class="btn" value="start" onclick="fetch('start_timer');"/>
-                  <input type="button" class="btn" value="pause" onclick="fetch('pause_timer');"/>
-                  <input type="button" class="btn" value="stop" onclick="fetch('stop_timer');"/>
-                <h4>Set Speaker Time:<br><input type="number" class="numbox" min="0" max="60" id="min"/>:<input type="number" min="0" class="numbox" max="60" id="sec"/> <input type="button" class="btn" value="Set" onclick="set_speaker_time();"/></h4>
+                </select><br>
+                <input type="button" value="Set" class="btn" onclick="set_speaking_mode();"/></h4>
+            <h4>Current Mod:
+                <div id="current_mod">No Moderated Caucus in Progress</div>
+            </h4>
+            <h4>Set Current Mod:<br><input type="text" placeholder="Current Mod" class="inputbox" id="set_mod"/><input
+                    type="button" class="btn" value="Set" onclick="set_mod();"/></h4>
+            <h4>Total Time:<br>
+                <div id="total_minutes"></div>
+                :
+                <div id="total_seconds"></div>
+                <h4>Set Total Time:<br><input type="number" class="numbox" min="0" max="60" id="t_min"/>:<input
+                        type="number" class="numbox" min="0" max="60" id="t_sec"/> <input type="button" class="btn"
+                                                                                          value="Set"
+                                                                                          onclick="set_total_time();"/>
+                    <input type="button" class="btn" value="Reset" onclick="fetch('reset_total');"/></h4>
+                <h4>Speaker Time:<br>
+                    <div id="minutes"></div>
+                    :
+                    <div id="seconds"></div>
+                </h4>
+                <input type="button" class="btn" value="start" onclick="fetch('start_timer');"/>
+                <input type="button" class="btn" value="pause" onclick="fetch('pause_timer');"/>
+                <input type="button" class="btn" value="stop" onclick="fetch('stop_timer');"/>
+                <h4>Set Speaker Time:<br><input type="number" class="numbox" min="0" max="60" id="min"/>:<input
+                        type="number" min="0" class="numbox" max="60" id="sec"/> <input type="button" class="btn"
+                                                                                        value="Set"
+                                                                                        onclick="set_speaker_time();"/>
+                </h4>
                 <h4>Add Speaker:<br><select class="selectbtn" id="speaker" name="speaker">
-                  {% for c in country_matrix %}
-                  <option value="{{c}}">{{c}}</option>
-                  {% endfor %}
-</select><br><input type="button" class="btn" value="Add" onclick="add_speaker();"/></h4>
+                    {% for c in country_matrix %}
+                    <option value="{{c}}">{{c}}</option>
+                    {% endfor %}
+                </select><br><input type="button" class="btn" value="Add" onclick="add_speaker();"/></h4>
                 <input type="button" class="btn" value="Remove From Top of List" onclick="fetch('remove_speaker');"/>
                 <h4>Send Notification:</h4>
                 <textarea class="message" placeholder="Notification" id="noti"></textarea><br><br>
                 <input type="button" class="btn" value="Send Notifcation" onclick="send_notification();"/><br>
-            </div>
-            <div id="rightbox2">
-              <h3>RSL: <div id="rsl"> </div></h3>
-              <h3>GSL: <div id="gsl"> </div></h3>
-              <h3>Floor Mods: <div class="overflow" id="mod_table"> </div></h3>
-              <input type="text" placeholder="Non-Voted Mods" class="inputbox" id="mod_val"/><input type="button" class="btn" value="Add" onclick="floor_mod();"/><br>
-              <input type="button" class="btn" value=""/><br>
-              Mod Number: <br><input type="number" class="numbox" min="0" max="60" id="modnum"/><input type="button" class="btn" value="Remove Mod" onclick="remove_mod();"/><input type="button" class="btn" value="Clear List" onclick="fetch('clear_mod');"/>
-            </div>
-          </div>
-
-            <div id = "rightbox">
-                <h2>Notifications:</h2>
-                <div id="notifications" class="overflow"> </div><br>
-                <input type="button" class="btn" value="Lower All Placards" onclick="fetch('unraise_all_placard');"/>
-                <h2>Delegates Present:</h2>
-                <div id="att" class="overflow">No one present.</div><br>
-                <input type="button" class="btn" value="Chat Log" onclick=" window.open('chat_log','_blank')"><br>
-                <input type="button" class="btn" value="Committee Log" onclick=" window.open('committee_log','_blank')"><br>
-                <input type="text" class="inputbox" placeholder="Zoom Link" id="zl"/><input type="button" class="btn" value="Set" onclick="set_zoom_link();"/><br>
-                <input type="text" class="inputbox" placeholder="Drive Link" id="dl"/><input type="button" class="btn" value="Set" onclick="set_drive_link();"/><br><br>
-                <input type="button" class="btn" value="Log Out" onclick="window.location.href='logout'"><br>
-                <input type="button" class="btn" value="Menu" onclick="window.location.href='/menu/admin'"><br>
-            </div>
         </div>
-    </body>
+        <div id="rightbox2">
+            <h3>RSL:
+                <div id="rsl"></div>
+            </h3>
+            <h3>GSL:
+                <div id="gsl"></div>
+            </h3>
+            <h3>Floor Mods:
+                <div class="overflow" id="mod_table"></div>
+            </h3>
+            <input type="text" placeholder="Non-Voted Mods" class="inputbox" id="mod_val"/><input type="button"
+                                                                                                  class="btn"
+                                                                                                  value="Add"
+                                                                                                  onclick="floor_mod();"/><br>
+            <input type="button" class="btn" value=""/><br>
+            Mod Number: <br><input type="number" class="numbox" min="0" max="60" id="modnum"/><input type="button"
+                                                                                                     class="btn"
+                                                                                                     value="Remove Mod"
+                                                                                                     onclick="remove_mod();"/><input
+                type="button" class="btn" value="Clear List" onclick="fetch('clear_mod');"/>
+        </div>
+    </div>
+
+    <div id="rightbox">
+        <h2>Notifications:</h2>
+        <div id="notifications" class="overflow"></div>
+        <br>
+        <input type="button" class="btn" value="Lower All Placards" onclick="fetch('unraise_all_placard');"/>
+        <h2>Delegates Present:</h2>
+        <div id="att" class="overflow">No one present.</div>
+        <br>
+        <input type="button" class="btn" value="Chat Log" onclick=" window.open('chat_log','_blank')"><br>
+        <input type="button" class="btn" value="Committee Log" onclick=" window.open('committee_log','_blank')"><br>
+        <input type="text" class="inputbox" placeholder="Zoom Link" id="zl"/><input type="button" class="btn"
+                                                                                    value="Set"
+                                                                                    onclick="set_zoom_link();"/><br>
+        <input type="text" class="inputbox" placeholder="Drive Link" id="dl"/><input type="button" class="btn"
+                                                                                     value="Set"
+                                                                                     onclick="set_drive_link();"/><br><br>
+        <input type="button" class="btn" value="Log Out" onclick="window.location.href='logout'"><br>
+        <input type="button" class="btn" value="Menu" onclick="window.location.href='/menu/admin'"><br>
+    </div>
+</div>
+</body>
 </html>

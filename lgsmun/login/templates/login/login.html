@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
-  </head>
-  <body>
+</head>
+<body>
 <div class="login-box">
-  <h1>Login</h1><br>
-  <form action="post_login" method="POST">{% csrf_token %}
-    <div class="textbox">
-          {{invalid}}
-    </div>
+    <h1>Login</h1><br>
+    <form action="post_login" method="POST">{% csrf_token %}
+        <div class="textbox">
+            {{invalid}}
+        </div>
 
-  <div class="textbox">
-    <i class="fas fa-user"></i>
-    <input type="text" placeholder="Username" id="email" name="username">
-  </div>
+        <div class="textbox">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Username" id="email" name="username">
+        </div>
 
-  <div class="textbox">
-    <i class="fas fa-lock"></i>
-    <input type="password" placeholder="Password" id="password" name="password">
-  </div>
+        <div class="textbox">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" id="password" name="password">
+        </div>
 
-  <input type="submit" class="btn" value="Sign in">
-    No account? Click <a href="register">here</a> to register.
+        <input type="submit" class="btn" value="Sign in">
+        No account? Click <a href="register">here</a> to register.
 </div>
 </form>
 
-  </body>
+</body>
 </html>

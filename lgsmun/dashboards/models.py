@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 
 class UserCommittee(models.Model):
-
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     committee = models.CharField(max_length=100)
     country = models.CharField(max_length=100)

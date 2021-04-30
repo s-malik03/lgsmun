@@ -213,10 +213,9 @@ def essentialinfo_dais(Committee, Country):
 
 @sync_to_async
 def check_iteration(committee, iteration):
-
     committee_iteration = CommitteeControl.objects.get(committee=committee).iteration
 
-    if committee_iteration==iteration:
+    if committee_iteration == iteration:
 
         return False
 
@@ -241,7 +240,7 @@ class Delegate(AsyncWebsocketConsumer):
 
         country = json_data['country']
 
-        iter_test = await check_iteration(committee,iteration)
+        iter_test = await check_iteration(committee, iteration)
 
         if iter_test:
 

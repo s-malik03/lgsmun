@@ -1,10 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="{% static 'delegate.js' %}"></script>
-        <style>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'delegate.js' %}"></script>
+    <style>
             body{
 
               background: url("{% static 'bg.jpg' %}");
@@ -144,63 +144,85 @@
                 color:black;
                 text-align:center;
             }
-        </style>
-    </head>
 
-    <body onbeforeunload="fetch('logout');ws.close();">
-        <input type="hidden" id="country" value="{{country}}"/>
-        <input type="hidden" id="uuid" value="{{uuid}}"/>
-        <div id = "boxes">
-            <h1 id="committee_name">{{committee}}</h1>
+    </style>
+</head>
 
-            <div id = "leftbox">
-                <h2>Inbox:</h2>
-                <p><div class="overflow" id="inbox"></div></p><br>
-                <textarea class="textarea" placeholder="Message" id="message"/></textarea><br>
-                Send to:<br><select id="recipient" class="selectbtn" name="recipient">
-                {% for c in country_matrix %}
-                <option value="{{c}}">{{c}}</option>
-                {% endfor %}
-</select><br>
-                <input type="button" class="btn" value="Send Message" onclick="sendmessage()"/>
+<body onbeforeunload="fetch('logout');ws.close();">
+<input type="hidden" id="country" value="{{country}}"/>
+<input type="hidden" id="uuid" value="{{uuid}}"/>
+<div id="boxes">
+    <h1 id="committee_name">{{committee}}</h1>
 
-            </div>
+    <div id="leftbox">
+        <h2>Inbox:</h2>
+        <p>
+        <div class="overflow" id="inbox"></div>
+        </p><br>
+        <textarea class="textarea" placeholder="Message" id="message"/></textarea><br>
+        Send to:<br><select id="recipient" class="selectbtn" name="recipient">
+        {% for c in country_matrix %}
+        <option value="{{c}}">{{c}}</option>
+        {% endfor %}
+    </select><br>
+        <input type="button" class="btn" value="Send Message" onclick="sendmessage()"/>
 
-            <div id = "middlebox">
+    </div>
 
-              <div id="leftbox2">
+    <div id="middlebox">
 
-                <h2>Topic: <div id="current_topic">No Topic Has Been Set</div></h2>
-                <h3>Speaking Mode: <div id="speaking_mode">Idle</div></h3>
-                <h4>Current Mod: <div id="current_mod">No Moderated Caucus in Progress</div></h4>
-                <h4>Total Time:<br><div id="total_minutes"></div>:<div id="total_seconds"></div>
-                <h4>Speaker Time:<br><div id="minutes"></div>:<div id="seconds"></div>
-                <h4>Raise Point:</h4>
-                <select class="selectbtn" id="point">
-                  <option value="Point of Parliamentary Inquiry">Point of Parliamentary Inquiry</option>
-                  <option value="Point of Personal Privelege">Point of Personal Privelege</option>
-                  <option value="Point of Order">Point of Order</option>
-                </select><br>
-                <input type="button" class="btn" value="Raise Point" onclick="raise_point()"/><br>
-                <h3>Floor Mods: <div class="overflow" id="mod_table"> </div></h3>
-            </div>
-            <div id="rightbox2">
-              <h3>RSL: <div id="rsl"> </div></h3>
-              <h3>GSL: <div id="gsl"> </div></h3>
-            </div>
-          </div>
+        <div id="leftbox2">
 
-            <div id = "rightbox">
-                <h2>Notifications:</h2>
-                <div id="notifications" class="overflow"> </div>
-                <h2>Delegates Present:</h2>
-                <div id="att" class="overflow">No one present.</div><br>
-                <input type="button" class="btn" value="Raise Placard" onclick="fetch('raise_placard')"><br><br>
-                <input type="button" class="btn" value="Lower Placard" onclick="fetch('lower_placard')"><br><br>
-                <input type="button" class="btn" value="Zoom Link" onclick=" window.open(zoom_link,'_blank')"><br><br>
-                <input type="button" class="btn" value="Drive Link" onclick=" window.open(drive_link,'_blank')"><br><br>
-                <input type="button" class="btn" value="Log Out" onclick="window.location.href='logout'"><br><br>
-            </div>
+            <h2>Topic:
+                <div id="current_topic">No Topic Has Been Set</div>
+            </h2>
+            <h3>Speaking Mode:
+                <div id="speaking_mode">Idle</div>
+            </h3>
+            <h4>Current Mod:
+                <div id="current_mod">No Moderated Caucus in Progress</div>
+            </h4>
+            <h4>Total Time:<br>
+                <div id="total_minutes"></div>
+                :
+                <div id="total_seconds"></div>
+                <h4>Speaker Time:<br>
+                    <div id="minutes"></div>
+                    :
+                    <div id="seconds"></div>
+                    <h4>Raise Point:</h4>
+                    <select class="selectbtn" id="point">
+                        <option value="Point of Parliamentary Inquiry">Point of Parliamentary Inquiry</option>
+                        <option value="Point of Personal Privelege">Point of Personal Privelege</option>
+                        <option value="Point of Order">Point of Order</option>
+                    </select><br>
+                    <input type="button" class="btn" value="Raise Point" onclick="raise_point()"/><br>
+                    <h3>Floor Mods:
+                        <div class="overflow" id="mod_table"></div>
+                    </h3>
         </div>
-    </body>
+        <div id="rightbox2">
+            <h3>RSL:
+                <div id="rsl"></div>
+            </h3>
+            <h3>GSL:
+                <div id="gsl"></div>
+            </h3>
+        </div>
+    </div>
+
+    <div id="rightbox">
+        <h2>Notifications:</h2>
+        <div id="notifications" class="overflow"></div>
+        <h2>Delegates Present:</h2>
+        <div id="att" class="overflow">No one present.</div>
+        <br>
+        <input type="button" class="btn" value="Raise Placard" onclick="fetch('raise_placard')"><br><br>
+        <input type="button" class="btn" value="Lower Placard" onclick="fetch('lower_placard')"><br><br>
+        <input type="button" class="btn" value="Zoom Link" onclick=" window.open(zoom_link,'_blank')"><br><br>
+        <input type="button" class="btn" value="Drive Link" onclick=" window.open(drive_link,'_blank')"><br><br>
+        <input type="button" class="btn" value="Log Out" onclick="window.location.href='logout'"><br><br>
+    </div>
+</div>
+</body>
 </html>

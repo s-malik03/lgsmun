@@ -3,44 +3,38 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <title></title>
-  <link rel="stylesheet" href="{% static 'style.css' %}">
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-  <div class="login-box">
+<div class="login-box">
     <h1>Committee Editor for {{committee}}</h1>
     <h5>Add Member:</h5>
     <form action="add_to_committee" method="POST">
-      {% csrf_token %}
-      <input type="hidden" value="{{committee}}" name="committee">
-      Username:
-      <input type="text" placeholder="Username" name="username">
-      Country:
-      <input type="text" placeholder="Country" name="country">
-      <input type="submit" value="Add">
+        {% csrf_token %}
+        <input type="hidden" value="{{committee}}" name="committee">
+        Username:
+        <input type="text" placeholder="Username" name="username">
+        Country:
+        <input type="text" placeholder="Country" name="country">
+        <input type="submit" value="Add">
     </form>
     <form action="remove_from_committee" method="POST">
-    <h5>Members(Click to Remove): </h5>
-      <input type="hidden" value="{{committee}}" name="committee">
-      {% csrf_token %}
-      {% for m in members %}
-      <input type="submit" class="btn" value="{{m}}" name="username"><br>
-      {% endfor %}
-    <br>
+        <h5>Members(Click to Remove): </h5>
+        <input type="hidden" value="{{committee}}" name="committee">
+        {% csrf_token %}
+        {% for m in members %}
+        <input type="submit" class="btn" value="{{m}}" name="username"><br>
+        {% endfor %}
+        <br>
     </form>
     <h5>Delete Committee:</h5>
     <form action="delete_committee" method="POST">
-      {% csrf_token %}
-      <input type="submit" value="{{committee}}" name="committee">
+        {% csrf_token %}
+        <input type="submit" value="{{committee}}" name="committee">
     </form>
-  </div>
-
-
-
-
-
-
+</div>
 
 
 </body>

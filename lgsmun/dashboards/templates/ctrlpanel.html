@@ -3,40 +3,32 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <title></title>
-  <link rel="stylesheet" href="{% static 'style.css' %}">
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-  <div class="login-box">
+<div class="login-box">
     <h1>Control Panel</h1>
     <form action="create_committee" method="POST">
-      <h5>Create New Committee:</h5>
-      {% csrf_token %}
-      <input type="text" placeholder="Name" name="committee"></input>
-      <input type="submit" value="Submit">
+        <h5>Create New Committee:</h5>
+        {% csrf_token %}
+        <input type="text" placeholder="Name" name="committee"></input>
+        <input type="submit" value="Submit">
     </form>
     <form action="editcommittee" method="GET">
-      {% csrf_token %}
-    <h5>Select Committee: </h5>
-    <select name="committee" id="committees">
-      {% for c in committees %}
-      <option value="{{c}}">{{c}}</option>
-      {% endfor %}
-    </select>
-    <br>
-    <i class="fas fa-lock"></i>
-    <input type="submit" class="btn" value="Select">
-  </form>
-  </div>
-
-
-
-
-
-
-
-
+        {% csrf_token %}
+        <h5>Select Committee: </h5>
+        <select name="committee" id="committees">
+            {% for c in committees %}
+            <option value="{{c}}">{{c}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <i class="fas fa-lock"></i>
+        <input type="submit" class="btn" value="Select">
+    </form>
+</div>
 
 
 </body>

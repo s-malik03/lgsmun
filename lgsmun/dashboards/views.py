@@ -15,31 +15,26 @@ def index(request):
 
 
 def controlpanel(request):
-
     c = CommitteeControl.objects.all()
-    committees=[]
+    committees = []
     for committee in c:
-
         committees.append(committee.committee)
 
-    return render(request,'ctrlpanel.html', {'committees':committees})
+    return render(request, 'ctrlpanel.html', {'committees': committees})
 
 
 def editcommittee(request):
-
     if 'committee' in request.GET:
-
         request.session['committee'] = request.GET['committee']
 
     users = UserCommittee.objects.filter(committee=request.session['committee'])
 
-    memberlist=[]
+    memberlist = []
 
     for u in users:
-
         memberlist.append(u.user.username)
 
-    return render(request, 'editcommittee.html', {'members':memberlist, 'committee':request.session['committee']})
+    return render(request, 'editcommittee.html', {'members': memberlist, 'committee': request.session['committee']})
 
 
 @login_required
@@ -63,7 +58,7 @@ def create_committee(request):
 
         c = CommitteeControl(committee=committee_name)
         c.save()
-        request.session['committee']=committee_name
+        request.session['committee'] = committee_name
         return redirect('editcommittee')
 
 
@@ -509,7 +504,8 @@ def dais(request):
 
     try:
 
-        countries = UserCommittee.objects.filter(committee=request.session['committee']).exclude(country='Dais').order_by(
+        countries = UserCommittee.objects.filter(committee=request.session['committee']).exclude(
+            country='Dais').order_by(
             'country').values('country').distinct()
         for c in countries:
             country_matrix.append(c['country'])
@@ -553,7 +549,8 @@ def delegate(request):
 
     try:
 
-        countries = UserCommittee.objects.filter(committee=request.session['committee']).exclude(country='Dais').order_by(
+        countries = UserCommittee.objects.filter(committee=request.session['committee']).exclude(
+            country='Dais').order_by(
             'country').values('country').distinct()
         for c in countries:
             country_matrix.append(c['country'])
