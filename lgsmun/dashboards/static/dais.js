@@ -123,7 +123,7 @@ var total_count=0;
 var status='';
 function timer(){
 
-  if(status!='pause'){
+  if((status!='pause') && (status!='stop')){
 
     $('#minutes').html(Math.trunc(counter/60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
     $('#seconds').html((counter%60).toLocaleString(undefined, {minimumIntegerDigits: 2}));

@@ -145,10 +145,11 @@
                 text-align:center;
             }
 
+
     </style>
 </head>
 
-<body onbeforeunload="fetch('logout');ws.close();">
+<body onbeforeunload="fetch('getabsent');ws.close();">
 <input type="hidden" id="country" value="{{country}}"/>
 <input type="hidden" id="uuid" value="{{uuid}}"/>
 <div id="boxes">
@@ -221,7 +222,7 @@
         <input type="button" class="btn" value="Lower Placard" onclick="fetch('lower_placard')"><br><br>
         <input type="button" class="btn" value="Zoom Link" onclick=" window.open(zoom_link,'_blank')"><br><br>
         <input type="button" class="btn" value="Drive Link" onclick=" window.open(drive_link,'_blank')"><br><br>
-        <input type="button" class="btn" value="Log Out" onclick="window.location.href='logout'"><br><br>
+        <input type="button" class="btn" value="Log Out" onclick="window.location.href='/signout'"><br><br>
     </div>
 </div>
 </body>

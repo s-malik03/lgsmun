@@ -14,6 +14,14 @@ def index(request):
     return HttpResponse("hi")
 
 
+def getabsent(request):
+    att = Attendance.objects.get(country=request.session['country'], committee=request.session['committee'])
+    att.status = 'Absent'
+    att.save()
+
+    return HttpResponse('Successful')
+
+
 def controlpanel(request):
     c = CommitteeControl.objects.all()
     committees = []
@@ -57,6 +65,8 @@ def create_committee(request):
     except:
 
         c = CommitteeControl(committee=committee_name)
+        t = Timer(committee=committee_name)
+        t.save()
         c.save()
         request.session['committee'] = committee_name
         return redirect('editcommittee')
@@ -204,7 +214,7 @@ def hub(request):
 def markattendance(request):
     request.session['committee'] = request.GET['committee']
     user = request.user
-    committee_info = UserCommittee.objects.get(user=user)
+    committee_info = UserCommittee.objects.get(user=user, committee=request.GET['committee'])
     request.session['country'] = committee_info.country
     if request.session['utype'] != 'delegate':
         return HttpResponse('Access Denied')
@@ -546,6 +556,11 @@ def delegate(request):
         return HttpResponse("Access Denied")
 
     country_matrix = ['Dais']
+
+    att = Attendance.objects.get(country=request.session['country'], committee=request.session['committee'])
+
+    att.status = 'Present'
+    att.save()
 
     try:
 

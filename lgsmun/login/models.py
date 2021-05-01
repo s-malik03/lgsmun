@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class UserInformation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True)
     role = models.CharField(max_length=20)
     mobile = models.CharField(max_length=25)
     grade = models.CharField(max_length=20)
