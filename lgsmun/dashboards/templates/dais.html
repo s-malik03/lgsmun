@@ -227,18 +227,18 @@
             <h4>Set Current Mod:<br><input type="text" placeholder="Current Mod" class="inputbox" id="set_mod"/><input
                     type="button" class="btn" value="Set" onclick="set_mod();"/></h4>
             <h4>Total Time:<br>
-                <div id="total_minutes"></div>
+                <div id="total_minutes">00</div>
                 :
-                <div id="total_seconds"></div>
+                <div id="total_seconds">00</div>
                 <h4>Set Total Time:<br><input type="number" class="numbox" min="0" max="60" id="t_min"/>:<input
                         type="number" class="numbox" min="0" max="60" id="t_sec"/> <input type="button" class="btn"
                                                                                           value="Set"
                                                                                           onclick="set_total_time();"/>
                     <input type="button" class="btn" value="Reset" onclick="fetch('reset_total');"/></h4>
                 <h4>Speaker Time:<br>
-                    <div id="minutes"></div>
+                    <div id="minutes">00</div>
                     :
-                    <div id="seconds"></div>
+                    <div id="seconds">00</div>
                 </h4>
                 <input type="button" class="btn" value="start" onclick="fetch('start_timer');"/>
                 <input type="button" class="btn" value="pause" onclick="fetch('pause_timer');"/>

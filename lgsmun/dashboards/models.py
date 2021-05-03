@@ -6,6 +6,11 @@ class UserCommittee(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     committee = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
+    mods_raised = models.IntegerField(default=0)
+    points_raised = models.IntegerField(default=0)
+    placards_raised = models.IntegerField(default=0)
+    messages_sent = models.IntegerField(default=0)
+    added_to_sl = models.IntegerField(default=0)
 
 
 class Attendance(models.Model):

@@ -38,6 +38,8 @@ function send_notification(){
 function set_total_time(){
   var m=parseInt($('#t_min').val());
   var s=parseInt($('#t_sec').val());
+  $('#total_minutes').html(m.toLocaleString(undefined, {minimumIntegerDigits: 2}));
+  $('#total_seconds').html(s.toLocaleString(undefined, {minimumIntegerDigits: 2}));
   s=s+(m*60);
   $.post("set_total_time",{
     'duration':s.toString(),
@@ -140,6 +142,7 @@ function timer(){
 }
 }
 var ws= new WebSocket("ws://"+window.location.host+'/ws/dais/');
+var z=0;
 var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':0};
 ws.onopen=function(){
   ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':0};

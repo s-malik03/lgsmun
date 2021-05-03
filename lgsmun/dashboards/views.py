@@ -40,7 +40,7 @@ def editcommittee(request):
     memberlist = []
 
     for u in users:
-        memberlist.append(u.user.username)
+        memberlist.append(u.user.username+'|'+u.country)
 
     return render(request, 'editcommittee.html', {'members': memberlist, 'committee': request.session['committee']})
 
@@ -85,7 +85,7 @@ def add_to_committee(request):
 
 @login_required
 def remove_from_committee(request):
-    username = request.POST['username']
+    username = request.POST['username'].split('|')[0]
     committee = request.POST['committee']
     member = UserCommittee.objects.get(user=User.objects.get(username=username), committee=committee)
     member.delete()
@@ -269,6 +269,13 @@ def add_to_gsl(Committee, Country):
     c = CommitteeControl.objects.get(committee=Committee)
     c.iteration += 1
     c.save()
+    try:
+        user = UserCommittee.objects.get(committee=Committee, country=Country)
+        user.added_to_sl += 1
+        user.save()
+
+    except:
+        pass
     return ""
 
 
@@ -297,7 +304,14 @@ def add_to_rsl(Committee, Country):
     c = CommitteeControl.objects.get(committee=Committee)
     c.iteration += 1
     c.save()
-    return ""
+    try:
+        user = UserCommittee.objects.get(committee=Committee, country=Country)
+        user.added_to_sl += 1
+        user.save()
+
+    except:
+        pass
+    return HttpResponse("")
 
 
 def remove_from_rsl(Committee):
@@ -593,6 +607,9 @@ def raise_placard(request):
     att = Attendance.objects.get(country=request.session['country'], committee=request.session['committee'])
     att.placard = "Placard Raised"
     att.save()
+    user = UserCommittee.objects.get(committee=request.session['committee'], country=request.session['country'])
+    user.placards_raised += 1
+    user.save()
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     c.iteration += 1
     c.save()
@@ -625,6 +642,13 @@ def send_notification(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     c.iteration += 1
     c.save()
+    try:
+        user = UserCommittee.objects.get(committee=request.session['committee'], country=request.session['country'])
+        user.points_raised += 1
+        user.save()
+
+    except:
+        pass
     return HttpResponse("Successful")
 
 
@@ -639,6 +663,15 @@ def send_message(request):
     c = CommitteeControl.objects.get(committee=request.session['committee'])
     c.iteration += 1
     c.save()
+    try:
+        user = UserCommittee.objects.get(committee=request.session['committee'], country=request.session['country'])
+        user.messages_sent += 1
+        user.save()
+
+    except:
+
+        pass
+
     return HttpResponse("Successful")
 
 
