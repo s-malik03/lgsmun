@@ -50,6 +50,8 @@ urlpatterns = [
     path('delete_committee', views.delete_committee, name='delete_committee'),
     path('add_to_committee', views.add_to_committee, name='add_to_committee'),
     path('remove_from_committee', views.remove_from_committee, name='remove_from_committee'),
-    path('getabsent', views.getabsent, name='getabsent')
+    path('getabsent', views.getabsent, name='getabsent'),
+    path('grantaward', views.grantaward, name='grantaward'),
+    path('save_stats',views.save_stats, name='save_stats')
 
 ]

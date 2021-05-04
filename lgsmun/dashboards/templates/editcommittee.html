@@ -29,6 +29,23 @@
         {% endfor %}
         <br>
     </form>
+    <h5>Grant Awards:</h5>
+    <form action="grantaward" method="POST">{% csrf_token %}
+    <select name="country">
+        {% for c in countries %}
+        <option value="{{c}}">{{c}}</option>
+        {% endfor %}
+    </select>
+        <select name="award">
+            <option value="BD">BD</option>
+            <option value="OD">OD</option>
+            <option value="HM">HM</option>
+            <option value="SM">SM</option>
+            <option value="">None</option>
+        </select>
+        <input type="submit" class="btn" value="Grant Award">
+    </form>
+    <input type="button" class="btn" value="Save Stats and Delete Committee" onclick="window.location.href='save_stats'">
     <h5>Delete Committee:</h5>
     <form action="delete_committee" method="POST">
         {% csrf_token %}

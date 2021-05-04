@@ -5,7 +5,7 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
-
+import pandas
 
 # general
 
@@ -13,6 +13,47 @@ from django.db.models import Q
 def index(request):
     return HttpResponse("hi")
 
+
+def save_stats(request):
+
+    df = pandas.read_csv('metrics.csv')
+    users = UserCommittee.objects.filter(committee=request.session['committee'])
+    for u in users:
+
+        if u.award=='':
+
+            award='none'
+
+        else:
+
+            award = u.award
+
+        df = df.append({'award':award,
+                       'mods':u.mods_raised,
+                       'placards':u.placards_raised,
+                       'points':u.points_raised,
+                       'recognitions': u.added_to_sl,
+                       'messages': u.messages_sent},
+                       ignore_index=True)
+
+    df.to_csv('metrics.csv', index=False)
+
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.delete()
+    users = UserCommittee.objects.filter(committee=request.session['committee'])
+    users.delete()
+    return redirect('controlpanel')
+
+
+def grantaward(request):
+
+    user = UserCommittee.objects.get(country=request.POST['country'], committee=request.session['committee'])
+    user.award = request.POST['award']
+    user.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.awards_finalized = True
+    c.save()
+    return redirect('editcommittee')
 
 def getabsent(request):
     att = Attendance.objects.get(country=request.session['country'], committee=request.session['committee'])
@@ -35,14 +76,24 @@ def editcommittee(request):
     if 'committee' in request.GET:
         request.session['committee'] = request.GET['committee']
 
-    users = UserCommittee.objects.filter(committee=request.session['committee'])
+    users = UserCommittee.objects.filter(
+        committee=request.session['committee']
+    ).order_by('country').order_by('-award')
 
     memberlist = []
 
-    for u in users:
-        memberlist.append(u.user.username+'|'+u.country)
+    countrylist = []
 
-    return render(request, 'editcommittee.html', {'members': memberlist, 'committee': request.session['committee']})
+    for u in users:
+        countrylist.append(u.country)
+        if u.award != '':
+            memberlist.append(u.user.username + '|' + u.country+'|'+u.award)
+
+        else:
+
+            memberlist.append(u.user.username+'|'+u.country)
+
+    return render(request, 'editcommittee.html', {'members': memberlist, 'committee': request.session['committee'],'countries':countrylist})
 
 
 @login_required
@@ -50,6 +101,8 @@ def delete_committee(request):
     committee_name = request.POST['committee']
     c = CommitteeControl.objects.get(committee=committee_name)
     c.delete()
+    users = UserCommittee.objects.filter(committee=committee_name)
+    users.delete()
     return redirect('controlpanel')
 
 

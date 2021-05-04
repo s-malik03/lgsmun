@@ -11,6 +11,7 @@ class UserCommittee(models.Model):
     placards_raised = models.IntegerField(default=0)
     messages_sent = models.IntegerField(default=0)
     added_to_sl = models.IntegerField(default=0)
+    award = models.CharField(default='', max_length=50)
 
 
 class Attendance(models.Model):
@@ -62,6 +63,7 @@ class CommitteeControl(models.Model):
     zoom_link = models.CharField(default='', max_length=100)
     drive_link = models.CharField(default='', max_length=100)
     iteration = models.IntegerField(default=0)
+    awards_finalized = models.BooleanField(default=False)
 
 
 class Vote(models.Model):
