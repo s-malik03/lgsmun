@@ -54,7 +54,7 @@ var total_count=0;
 var status='';
 function timer(){
 
-  if(status!='pause'){
+  if((status!='pause')&&(status!='stop')){
 
     $('#minutes').html(Math.trunc(counter/60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
     $('#seconds').html((counter%60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
@@ -71,13 +71,14 @@ function timer(){
 }
 }
 var ws= new WebSocket("ws://"+window.location.host+'/ws/delegate/');
-var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val()};
+var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':-1};
 ws.onopen=function(){
-  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val()};
+  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':-1};
   console.log(ess_data);
 ws.send(JSON.stringify(ess_data));
 };
 ws.onmessage=async function(event){
+if(event.data!="NULL"){
   var data=JSON.parse(event.data);
   console.log(data);
   $('#att').html(data.countrylist);
@@ -89,6 +90,7 @@ ws.onmessage=async function(event){
   $('#rsl').html(data.rsl);
   $('#inbox').html(data.inbox);
   $('#mod_table').html(data.mods);
+  ess_data['iteration']=data.iteration;
   zoom_link=data.zoom_link;
   drive_link=data.drive_link;
   status=data.timer_status;
@@ -105,8 +107,11 @@ ws.onmessage=async function(event){
     status=data.timer_status;
     duration=0;
     counter=0;
-  }
+  }}
   await sleep(1000);
   ws.send(JSON.stringify(ess_data));
+  console.log(ess_data);
+  console.log('sent');
 };
+setInterval(function(){ws.send(JSON.stringify(ess_data));},1000);
 setInterval(timer,1000);

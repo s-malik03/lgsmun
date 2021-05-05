@@ -1,0 +1,61 @@
+{% load static %}
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+<div class="login-box">
+    <h1>Committee Editor for {{committee}}</h1>
+    <h5>Add Member:</h5>
+    <form action="add_to_committee" method="POST">
+        {% csrf_token %}
+        <input type="hidden" value="{{committee}}" name="committee">
+        Username:
+        <input type="text" placeholder="Username" name="username">
+        Country:
+        <input type="text" placeholder="Country" name="country">
+        <input type="submit" value="Add">
+    </form>
+    <form action="remove_from_committee" method="POST">
+        <h5>Members(Click to Remove): </h5>
+        <input type="hidden" value="{{committee}}" name="committee">
+        {% csrf_token %}
+        {% for m in members %}
+        <input type="submit" class="btn" value="{{m}}" name="username"><br>
+        {% endfor %}
+        <br>
+    </form>
+    <h5>Grant Awards:</h5>
+    <form action="grantaward" method="POST">{% csrf_token %}
+    <select name="country">
+        {% for c in countries %}
+        <option value="{{c}}">{{c}}</option>
+        {% endfor %}
+    </select>
+        <select name="award">
+            <option value="BD">BD</option>
+            <option value="OD">OD</option>
+            <option value="HM">HM</option>
+            <option value="SM">SM</option>
+            <option value="">None</option>
+        </select>
+        <input type="submit" class="btn" value="Grant Award">
+    </form>
+    <input type="button" class="btn" value="Save Stats and Delete Committee" onclick="window.location.href='save_stats'">
+    <h5>Delete Committee:</h5>
+    <form action="delete_committee" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="{{committee}}" name="committee">
+    </form>
+    <input type="button" class="btn" onclick="window.location.href='/menu/admin'" value="Menu">
+    <input type="button" class="btn" onclick="window.location.href='/signout'" value="Log Out">
+
+</div>
+
+
+</body>
+</html>

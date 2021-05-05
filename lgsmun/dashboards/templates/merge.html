@@ -3,53 +3,49 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <title></title>
-  <link rel="stylesheet" href="{% static 'style.css' %}">
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
-<body><form action="merge" method="GET">
-  <div class="login-box">
-    <br><br><br><br><br><br>
-    <br><br><br><br><br><br>
-    <br><br><br><br><br><br>
-    <br><br><br>
-    <h1>Merging Menu</h1><h5>Committees: </h5>
-    <select name="committee1" id="committees">
-      {% for c in committees %}
-      <option value="{{c}}">{{c}}</option>
-      {% endfor %}
-    </select>
-    <select name="committee2" id="committees">
-          {% for c in committees %}
-          <option value="{{c}}">{{c}}</option>
-          {% endfor %}
-    </select>
-    <h5>Merging to: </h5>
-    <select name="new_committee" id="committees">
-          {% for c in committees %}
-          <option value="{{c}}">{{c}}</option>
-          {% endfor %}
-    </select>
-    <input type="submit" class="btn" value="Merge">
-  </form>
-  <form action="unmerge" method="GET">
+<body>
+<form action="merge" method="GET">
+    <div class="login-box">
+        <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+        <br><br><br>
+        <h1>Merging Menu</h1><h5>Committees: </h5>
+        <select name="committee1" id="committees">
+            {% for c in committees %}
+            <option value="{{c}}">{{c}}</option>
+            {% endfor %}
+        </select>
+        <select name="committee2" id="committees">
+            {% for c in committees %}
+            <option value="{{c}}">{{c}}</option>
+            {% endfor %}
+        </select>
+        <h5>Merging to: </h5>
+        <select name="new_committee" id="committees">
+            {% for c in committees %}
+            <option value="{{c}}">{{c}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" class="btn" value="Merge">
+</form>
+<form action="unmerge" method="GET">
     <h5>Unmerge: </h5>
     <select name="committee" id="committees">
-      {% for c in committees %}
-      <option value="{{c}}">{{c}}</option>
-      {% endfor %}
+        {% for c in committees %}
+        <option value="{{c}}">{{c}}</option>
+        {% endfor %}
     </select>
     <input type="submit" class="btn" value="Unmerge">
-  </form>
-  </div>
+</form>
+</div>
 
 
-
-
-
-
-  </form>
-
+</form>
 
 
 </body>

@@ -38,6 +38,8 @@ function send_notification(){
 function set_total_time(){
   var m=parseInt($('#t_min').val());
   var s=parseInt($('#t_sec').val());
+  $('#total_minutes').html(m.toLocaleString(undefined, {minimumIntegerDigits: 2}));
+  $('#total_seconds').html(s.toLocaleString(undefined, {minimumIntegerDigits: 2}));
   s=s+(m*60);
   $.post("set_total_time",{
     'duration':s.toString(),
@@ -123,7 +125,7 @@ var total_count=0;
 var status='';
 function timer(){
 
-  if(status!='pause'){
+  if((status!='pause') && (status!='stop')){
 
     $('#minutes').html(Math.trunc(counter/60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
     $('#seconds').html((counter%60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
@@ -140,13 +142,16 @@ function timer(){
 }
 }
 var ws= new WebSocket("ws://"+window.location.host+'/ws/dais/');
-var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val()};
+var z=0;
+var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':0};
 ws.onopen=function(){
-  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val()};
+  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':0};
   console.log(ess_data);
 ws.send(JSON.stringify(ess_data));
 };
+
 ws.onmessage=async function(event){
+  if(event.data!="NULL"){
   var data=JSON.parse(event.data);
   console.log(data);
   $('#att').html(data.countrylist);
@@ -158,6 +163,7 @@ ws.onmessage=async function(event){
   $('#rsl').html(data.rsl);
   $('#inbox').html(data.inbox);
   $('#mod_table').html(data.mods);
+  ess_data['iteration']=data.iteration;
   status=data.timer_status;
   if(parseInt(data.total_time)!=total_time){
     total_time=parseInt(data.total_time);
@@ -173,7 +179,10 @@ ws.onmessage=async function(event){
     duration=general_s;
     counter=general_s;
   }
+  }
   await sleep(1000);
   ws.send(JSON.stringify(ess_data));
+  console.log(ess_data);
 };
+setInterval(function(){ws.send(JSON.stringify(ess_data));},1000);
 setInterval(timer,1000);

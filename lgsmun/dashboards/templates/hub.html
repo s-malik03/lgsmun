@@ -1,0 +1,32 @@
+{% load static %}
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+<form action="markattendance" method="GET">
+    <div class="login-box">
+        <h1>Welcome to the LGSMUN Portal</h1>
+        <h3>Your committees: </h3>
+        <br>
+        {% for c in committees %}
+        <input name="committee" type="submit" class="btn" value="{{c}}"
+               onclick="window.location.href='joincommittee'"><br>
+        {% empty %}
+        <h5>No committees to show.</h5>
+        {% endfor %}
+        <h3>Log out:</h3>
+        <input type="button" class="btn" onclick="window.location.href='/signout'" value="Log Out">
+    </div>
+</form>
+
+
+</form>
+
+
+</body>
+</html>
