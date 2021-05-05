@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+      *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+      }
+      body{
+        overflow:auto;
+        padding: 0 20px;
+        background: #0f4c75;
+      }
+      ::selection{
+        background: rgba(23,162,184,0.3);
+      }
+      .wrapper{
+        width: 100%;
+        margin: 200px auto;
+        padding: 25px 30px 30px 30px;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+      }
+      .wrapper header{
+        font-size: 30px;
+        font-weight: 600;
+        padding-bottom: 20px;
+      }
+      .wrapper nav{
+        position: relative;
+        width: 80%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+      }
+      .wrapper nav label{
+        display: block;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        color: #0f4c75;
+        font-size: 17px;
+        border-radius: 5px;
+        margin: 0 5px;
+        transition: all 0.3s ease;
+      }
+      .wrapper nav label:hover{
+        background: rgba(23,162,184,0.3);
+      }
+      #home:checked ~ nav label.home,
+      #blog:checked ~ nav label.blog,
+      #code:checked ~ nav label.code,
+      #help:checked ~ nav label.help,
+        #about:checked ~ nav label.about{
+        color: #fff;
+      }
+      nav label i{
+        padding-right: 7px;
+      }
+      nav .slider{
+        position: absolute;
+        height: 100%;
+        width: 20%;
+        left: 0;
+        bottom: 0;
+        z-index: 0;
+        border-radius: 5px;
+        background: #0f4c75;
+        transition: all 0.3s ease;
+      }
+      input[type="radio"]{
+        display: none;
+      }
+      #blog:checked ~ nav .slider{
+        left: 20%;
+      }
+      #code:checked ~ nav .slider{
+        left: 40%;
+      }
+      #help:checked ~ nav .slider{
+        left: 60%;
+      }
+      #about:checked ~ nav .slider{
+        left: 80%;
+      }
+      section .content{
+        display: none;
+        background: #fff;
+      }
+      #home:checked ~ section .content-1,
+      #blog:checked ~ section .content-2,
+      #code:checked ~ section .content-3,
+      #help:checked ~ section .content-4,
+      #about:checked ~ section .content-5{
+        display: block;
+      }
+      section .content .title{
+        font-size: 21px;
+        font-weight: 500;
+        margin: 30px 0 10px 0;
+      }
+      section .content p{
+      text-align: justify;
+      }
+      .message {
+        border: none;
+        outline: none;
+        background: none;
+        border: 2px solid #0f4c75;
+        border-radius: 5px;
+        padding: 7px 4px;
+        color: #000;
+        font-size: 16px;
+        width: 96%;
+        height: 100px;
+        float: center;
+        margin: 5 0 0px;
+        overflow: auto;
+      }
+      .selectbtn{
+        border-radius: 10px;
+        background: #0f4c75;
+        color: #fff;
+        display: block;
+        width: 36%;
+        padding: 0 8px;
+        height: 35px;
+        text-align: left;
+        position: center;
+        box-sizing: border-box;
+        outline: none;
+        border: none;
+      }
+      .btn{
+        background: none;
+        text-align:center;
+        margin: 10px 0px;
+        padding: 7px;
+        border-radius: 6px;
+        border: 2px solid #0f4c75;
+      }
+      ::-webkit-scrollbar{width: 10px; background: #fff}
+      ::-webkit-scrollbar-track{
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb{
+        color: white;
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3)
+      }
+      .inputbox{
+        border: none;
+        border-bottom: 2px solid #0f4c75;
+        outline: none;
+        background: none;
+        color: black;
+        font-size: 15px;
+        width: 40%;
+        float: left;
+      }
+      .overflow {
+        color: white;
+        background: none;
+        border: 2px solid #0f4c75;
+        border-radius: 10px;
+        width: 96%;
+        height: 230px;
+        padding: 10px 10px;
+        overflow: hidden;
+        overflow-y: auto;
+      }
+    </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>LGSMUN</header>
+    <input type="radio" name="slider" checked id="home">
+    <input type="radio" name="slider" id="blog">
+    <input type="radio" name="slider" id="code">
+    <input type="radio" name="slider" id="help">
+    <input type="radio" name="slider" id="about">
+    <nav>
+      <label for="home" class="home"><i class="fas fa-home"></i>Info</label>
+      <label for="blog" class="blog"><i class="fas fa-blog"></i>GSL/RSL</label>
+      <label for="code" class="code"><i class="fas fa-code"></i>MODs</label>
+      <label for="help" class="help"><i class="far fa-envelope"></i>Placard</label>
+      <label for="about" class="about"><i class="far fa-user"></i>Chat</label>
+      <div class="slider"></div>
+    </nav>
+    <section>
+<!--INFO---------------------------------------------------------->
+      <div class="content content-1">
+        <div class="topic">
+        <div class="title">Topic:
+            <div id="current_topic">No Topic Has Been Set</div></div>
+        <p>Set topic: <br><input type="text" class="inputbox" placeholder="Topic" id="set_topic"/><br><input class="btn"
+                                                                                                     type="button"
+                                                                                                     value="Set"
+                                                                                                     onclick="set_topic();"/></p>
+      </div>
+      <div>
+      <div class="title">Current Moderated Caucus:
+          <div id="current_topic">No Moderated Caucus in Progress</div></div>
+      <p>Set Current Mod:<br><input type="text" placeholder="Current Mod" class="inputbox" id="set_mod"/><br><input type="button" class="btn" value="Set" onclick="set_mod();"/>
+     <div class="topic2">
+     <div class="title">Notifications:</div>
+     <p><div id="notifications" class="overflow"></div>
+     </div>
+     <div class="topic2">
+     <div class="title">Send Notifications:</div>
+     <p><textarea class="message" placeholder="Notification" id="noti"></textarea><br>
+     <input type="button" class="btn" value="Send Notifcation" onclick="send_notification();"/><br>
+     </div>
+   </div>
+ </div>
+<!--RSL/GSL--------------------------------------------------------->
+      <div class="content content-2">
+        <div class="title">This is a Blog content</div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit amet. Possimus doloris nesciunt mollitia culpa sint itaque, vitae praesentium assumenda suscipit fugit doloremque adipisci doloribus, sequi facere itaque cumque accusamus, quam molestias sed provident quibusdam nam deleniti. Autem eaque aut impedit eo nobis quia, eos sequi tempore! Facere ex repellendus, laboriosam perferendise. Enim quis illo harum, exercitationem nam totam fugit omnis natus quam totam, repudiandae dolor laborum! Commodi?</p>
+      </div>
+      <div class="content content-3">
+        <div class="title">This is a Code content</div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, debitis nesciunt! Consectetur officiis, libero nobis dolorem pariatur quisquam temporibus. Labore quaerat neque facere itaque laudantium odit veniam consectetur numquam delectus aspernatur, perferendis repellat illo sequi excepturi quos ipsam aliquid est consequuntur.</p>
+      </div>
+      <div class="content content-4">
+        <div class="title">This is a Help content</div>
+        <p>Lorem ipsum dolor sit amet, consecetur adipisicing elit. Enim reprehenderit null itaq, odio repellat asperiores vel voluptatem magnam praesentium, eveniet iure ab facere officiis. Quod sequi vel, rem quam provident soluta nihil, eos. Illo oditu omnis cumque praesentium voluptate maxime voluptatibus facilis nulla ipsam quidem mollitia! Veniam, fuga, possimus. Commodi, fugiat aut ut quorioms stu necessitatibus, cumque laborum rem provident tenetur.</p>
+      </div>
+<!--Chatbox--------------------------------------------------------------->
+      <div class="content content-5">
+        <div class="title">Inbox:</div>
+        <div id="leftbox">
+            <div id="inbox" class="overflow"></div><br>
+            <textarea placeholder="Message" class="message" id="message"/></textarea>
+            <p>Send to:<br><select class="selectbtn" id="recipient" name="recipient">
+            {% for c in country_matrix %}
+            <option value="{{c}}">{{c}}</option>
+            {% endfor %}
+        </select>
+            <input type="button" class="btn" value="Send Message" onclick="sendmessage()"/><br>
+            <input type="button" class="btn" value="Chat Log" onclick=" window.open('chat_log','_blank')"><br>
+            <input type="button" class="btn" value="Committee Log" onclick=" window.open('committee_log','_blank')"><br>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>
