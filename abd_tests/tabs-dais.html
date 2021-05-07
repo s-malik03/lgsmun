@@ -151,15 +151,12 @@
         border-radius: 6px;
         border: 2px solid #0f4c75;
       }
-      ::-webkit-scrollbar{width: 10px; background: #fff}
-      ::-webkit-scrollbar-track{
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-        border-radius: 10px;
+      ::-webkit-scrollbar{
+        width: 12px;
       }
       ::-webkit-scrollbar-thumb{
-        color: white;
+        background: #bbe1fa;
         border-radius: 10px;
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3)
       }
       .inputbox{
         border: none;
@@ -181,6 +178,46 @@
         padding: 10px 10px;
         overflow: hidden;
         overflow-y: auto;
+      }
+      .GSL {
+        float:left;
+        color: white;
+        background: none;
+        border: 2px solid #0f4c75;
+        border-radius: 10px;
+        width: 46%;
+        height: 230px;
+        padding: 10px 10px;
+        overflow: hidden;
+        overflow-y: auto;
+      }
+      .RSL {
+        color: white;
+        background: none;
+        border: 2px solid #0f4c75;
+        border-radius: 10px;
+        width: 46%;
+        height: 230px;
+        padding: 10px 10px;
+        transform: translate(10%);
+        overflow: hidden;
+        overflow-y: auto;
+      }
+      .rsltitle{
+        font-size: 21px;
+        transform: translate(48%);
+        font-weight: 500;
+        margin: 30px 0 10px 0;
+      }
+      .gsltitle{
+        font-size: 21px;
+        float:left;
+        font-weight: 500;
+        margin: 30px 0 10px 0;
+      }
+      .rsl_gsl {
+        width: 100%;
+        transform: translate(50%, -1000px);
       }
     </style>
 </head>
@@ -211,6 +248,8 @@
                                                                                                      value="Set"
                                                                                                      onclick="set_topic();"/></p>
       </div>
+      <div class="title">Speaking Mode:</div>
+        <div id="speaking_mode">Idle</div>
       <div>
       <div class="title">Current Moderated Caucus:
           <div id="current_topic">No Moderated Caucus in Progress</div></div>
@@ -228,11 +267,30 @@
  </div>
 <!--RSL/GSL--------------------------------------------------------->
       <div class="content content-2">
-        <div class="title">This is a Blog content</div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit amet. Possimus doloris nesciunt mollitia culpa sint itaque, vitae praesentium assumenda suscipit fugit doloremque adipisci doloribus, sequi facere itaque cumque accusamus, quam molestias sed provident quibusdam nam deleniti. Autem eaque aut impedit eo nobis quia, eos sequi tempore! Facere ex repellendus, laboriosam perferendise. Enim quis illo harum, exercitationem nam totam fugit omnis natus quam totam, repudiandae dolor laborum! Commodi?</p>
+        <div class="title">Set Speaking Mode:</div>
+        <p><select class="selectbtn" id="set_speaking_mode" name="Set Speaking Mode">
+            <option value="Idle">Idle</option>
+            <option value="GSL">GSL</option>
+            <option value="Mod">Mod</option>
+            <option value="UnMod">UnMod</option>
+        </select></p>
+        <div class="gsltitle">GSL</div>
+        <div class="rsltitle">RSL</div>
+        <p><div id="gsl" class="GSL"></div></p>
+        <p><div id="rsl" class="RSL"></div></p>
+        <div class="gsl_rsl">
+          <div class="title">Add Speaker:</div>
+          <p><select class="selectbtn" id="speaker" name="speaker">
+              {% for c in country_matrix %}
+              <option value="{{c}}">{{c}}</option>
+              {% endfor %}
+          </select><input type="button" class="btn" value="Add" onclick="add_speaker();"/>
+          <input type="button" class="btn" value="Remove From Top of List" onclick="fetch('remove_speaker');"/></p>
+        </div>
       </div>
+<!--MODS---------------------------------------------------------------->
       <div class="content content-3">
-        <div class="title">This is a Code content</div>
+        <div class="title">GSL</div>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, debitis nesciunt! Consectetur officiis, libero nobis dolorem pariatur quisquam temporibus. Labore quaerat neque facere itaque laudantium odit veniam consectetur numquam delectus aspernatur, perferendis repellat illo sequi excepturi quos ipsam aliquid est consequuntur.</p>
       </div>
       <div class="content content-4">
