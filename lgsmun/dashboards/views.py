@@ -93,7 +93,11 @@ def editcommittee(request):
 
             memberlist.append(u.user.username+'|'+u.country)
 
-    return render(request, 'editcommittee.html', {'members': memberlist, 'committee': request.session['committee'],'countries':countrylist})
+    return render(request, 'editcommittee.html',
+                  {'members': memberlist,
+                   'committee': request.session['committee'],
+                   'countries':countrylist,
+                   'username':request.user.username})
 
 
 @login_required
@@ -259,7 +263,7 @@ def hub(request):
     for c in committees:
         committee_info.append(c.committee)
 
-    request_context = {'committees': committee_info}
+    request_context = {'committees': committee_info,'username':request.user.username}
     return render(request, 'hub.html', request_context)
 
 
@@ -592,7 +596,7 @@ def dais(request):
         pass
 
     request_context = {'committee': request.session['committee'], 'country': 'Dais',
-                       'country_matrix': country_matrix, 'uuid': 'none'}
+                       'country_matrix': country_matrix, 'uuid': 'none', 'username':request.user.username}
     if request.session['utype'] == 'admin':
         return render(request, 'admin.html', request_context)
     return render(request, 'dais.html', request_context)
@@ -642,7 +646,7 @@ def delegate(request):
         pass
 
     request_context = {'committee': request.session['committee'], 'country': request.session['country'],
-                       'country_matrix': country_matrix, 'uuid': 'none'}
+                       'country_matrix': country_matrix, 'uuid': 'none', 'username':request.user.username}
     return render(request, 'delegate.html', request_context)
 
 
