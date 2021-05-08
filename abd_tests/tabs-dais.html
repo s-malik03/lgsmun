@@ -23,16 +23,34 @@
       }
       .wrapper{
         width: 100%;
-        margin: 200px auto;
+        margin-bottom: 200px;
+        margin-top: 200px;
         padding: 25px 30px 30px 30px;
         border-radius: 5px;
         background: #fff;
         box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
       }
+      .wrapper1{
+        width: 100%;
+        margin-top: 10px;
+        height: 650px;
+        padding: 25px 30px 30px 30px;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+      }
+      .wrapper1 header{
+        font-size: 30px;
+        font-weight: 600;
+        text-align: center;
+        padding-bottom: 20px;
+      }
       .wrapper header{
         font-size: 30px;
         font-weight: 600;
         padding-bottom: 20px;
+        text-align: left;
+        transform: translate(-30%);
       }
       .wrapper nav{
         position: relative;
@@ -114,6 +132,20 @@
       section .content p{
       text-align: justify;
       }
+      .wrapper1 .wrapperp1{
+        text-align: center;
+        font-size: 20px;
+        transform: translate(-30%, -200px);
+      }
+      .wrapper1 .wrapperp2{
+        text-align: center;
+        font-size: 20px;
+        transform: translate(30%, -325px);
+      }
+      .wrapper1 .buttonmaster{
+        font-size: 20px;
+        transform: translate(32%, -325px);
+      }
       .message {
         border: none;
         outline: none;
@@ -168,6 +200,16 @@
         width: 40%;
         float: left;
       }
+      .inputbox1{
+        border: none;
+        border-bottom: 2px solid #0f4c75;
+        outline: none;
+        background: none;
+        color: black;
+        font-size: 15px;
+        width: 100%;
+        float: left;
+      }
       .overflow {
         color: white;
         background: none;
@@ -219,11 +261,376 @@
         width: 100%;
         transform: translate(50%, -1000px);
       }
+      .countdown-container {
+      background: #b6e8ff;
+      transform: translate(-70%);
+      padding: 24px;
+      color: #1d3357;
+      font-family: "Roboto", sans-serif;
+      width: 300px;
+      box-sizing: border-box;
+      margin: 0 auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 22px -8px rgba(0, 0, 0, 0.6);
+    }
+    .countdown-container1 {
+    background: #b6e8ff;
+    padding: 24px;
+    transform: translate(70%, -235px);
+    color: #1d3357;
+    font-family: "Roboto", sans-serif;
+    width: 300px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 22px -8px rgba(0, 0, 0, 0.6);
+  }
+
+    .countdown-container .countdown-heading {
+      text-align: center;
+      font-size: 32px;
+      margin: 0px 0;
+    }
+    .countdown-container1 .countdown-heading {
+      text-align: center;
+      font-size: 32px;
+      margin: 0px 0;
+    }
+
+    .countdown-container .countdown-details {
+      text-align: center;
+    }
+
+    .timer {
+      background: #1d3357;
+      color: #f1faee;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      text-align: right;
+      border-radius: 10px;
+    }
+
+    .timer .number {
+      font-size: 56px;
+      font-weight: bold;
+    }
+
+    .timer .unit {
+      color: #a8dadc;
+    }
+    .numbox{
+      border: none;
+      margin: 7px;
+      border: 2px solid #0f4c75;
+      border-radius: 6px;
+      outline: none;
+      background: none;
+      color: black;
+      font-size: 17px;
+      width: 10%;
+    }
+    .button {
+    display: flex;
+    float: left;
+    height: 50px;
+    width:9%;
+    padding: 0;
+    margin: 10px;
+    background: #0f4c75;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    font-family: "Quicksand", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background: #3282b8;
+  }
+
+  .button:active {
+    background: #0f4c75;
+  }
+
+  .button__text,
+  .button__icon {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 24px;
+    color: #fff;
+    height: 100%;
+  }
+
+  .button__icon {
+    font-size: 1.5em;
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+      ::selection{
+        background: rgba(23,162,184,0.3);
+      }
+      * {box-sizing: border-box;}
+
+      /* Button used to open the chat form - fixed at the bottom of the page */
+      .open-button {
+        background-color: #1b262c;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        opacity: 0.8;
+        position: fixed;
+        font-size: 20px;
+        bottom: 23px;
+        right: 28px;
+        width: 280px;
+      }
+
+      /* The popup chat - hidden by default */
+      .chat-popup {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        right: 15px;
+        border: 3px solid #f1f1f1;
+        z-index: 9;
+      }
+
+      /* Add styles to the form container */
+      .form-container {
+        max-width: 300px;
+        padding: 10px;
+        background-color: white;
+      }
+
+      /* Full-width textarea */
+      .form-container textarea {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        border: none;
+        background: #f1f1f1;
+        resize: none;
+        min-height: 200px;
+      }
+
+      /* When the textarea gets focus, do something */
+      .form-container textarea:focus {
+        background-color: #ddd;
+        outline: none;
+      }
+
+      /* Set a style for the submit/send button */
+      .form-container .btn {
+        background-color: #04AA6D;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom:10px;
+        opacity: 0.8;
+      }
+
+      /* Add a red background color to the cancel button */
+      .form-container .cancel {
+        background-color: red;
+      }
+
+      /* Add some hover effects to buttons */
+      .form-container .btn:hover, .open-button:hover {
+        opacity: 1;
+      }
+      a{
+            text-decoration: none;
+        }
+        header{
+            display: -webkit-flex;
+            display: -moz-flex;
+            display: -ms-flex;
+            display: -o-flex;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 70px;
+        }
+        .logo{
+            cursor: pointer;
+            size: 30px;
+        }
+        .nav-area{
+            list-style: none;
+        }
+        .nav-area li{
+            display: inline-block;
+            padding: 0 15px;
+            text-transform: uppercase;
+        }
+        .nav-area li a{
+            transition: all .3s ease 0s;
+            color: #fff;
+        }
+        .nav-area li a:hover{
+            color: #006C87;
+        }
+        .btn-area {
+            cursor: pointer;
+            color: #fff;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 10px 30px;
+            border-radius: 5px;
+            background: #006C87;
+        }
+        .h1wow{
+          color:white;
+          text-align: center;
+
+
+        }
+
     </style>
 </head>
+<body onbeforeunload="ws.close();">
+<input type="hidden" id="country" value="{{country}}"/>
+<input type="hidden" id="uuid" value="{{uuid}}"/>
 <body>
+
+  <header>
+        <img class="logo" width="100" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
+        <nav>
+            <ul class="nav-area">
+<li><a href="#">home</a></li>
+<li><a href="#">About</a></li>
+<li><a href="onclick="window.location.href='/menu/admin'"">Menu</a></li>
+</ul>
+</nav>
+        <p>{{username}}
+        <a href="#" class="btn-area">logout</a>
+
+    </header>
+<h1 class="h1wow" id="committee_name">{{committee}}</h1>
+  <!---links------------------------------------------------------>
+  <button class="open-button" onclick="openForm()">Links</button>
+  <div class="chat-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>Links</h1>
+
+
+    <input type="text" class="inputbox1" placeholder="Zoom Link" id="zl"/><input type="button" class="btn"
+                                                                                value="Set"
+                                                                                onclick="set_zoom_link();"/><br>
+    <input type="text" class="inputbox1" placeholder="Drive Link" id="dl"/><input type="button" class="btn"
+                                                                               value="Set"
+                                                                               onclick="set_drive_link();"/>
+                                                                               <input type="button" class="btn" value="Zoom Link" onclick=" window.open(zoom_link,'_blank')"><br>
+                                                                               <input type="button" class="btn" value="Drive Link" onclick=" window.open(drive_link,'_blank')"><br>
+<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+  <!------------------------------------------------------------>
+  <div class="wrapper1">
+    <header>TIMER</header>
+    <div class="countdown-container">
+    <h2 class="countdown-heading">Total Time</h2>
+    <p class="countdown-details"></p>
+
+    <div class="timer">
+      <div class="minutes">
+        <div class="number">
+          <div id="total_minutes">00</div>
+        </div>
+        <div class="unit">
+          Minutes
+        </div>
+      </div>
+
+      <div class="seconds">
+        <div class="number">
+          <div id="total_seconds">00</div>
+        </div>
+        <div class="unit">
+          Seconds
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="countdown-container1">
+  <h2 class="countdown-heading">Speaker Time</h2>
+  <p class="countdown-details"></p>
+
+  <div class="timer">
+    <div class="minutes">
+      <div class="number">
+        <div id="minutes">00</div>
+      </div>
+      <div class="unit">
+        Minutes
+      </div>
+    </div>
+
+    <div class="seconds">
+      <div class="number">
+        <div id="seconds">00</div>
+      </div>
+      <div class="unit">
+        Seconds
+      </div>
+    </div>
+  </div>
+</div>
+<p class="wrapperp1">Set Total Time:<br>
+  <input type="number" placeholder="Minutes" class="numbox" min="0" max="60" id="t_min"/>:<input
+          type="number" placeholder="Seconds" class="numbox" min="0" max="60" id="t_sec"/><br><input type="button" class="btn"
+                                                                            value="Set"
+                                                                            onclick="set_total_time();"/>
+      <input type="button" class="btn" value="Reset" onclick="fetch('reset_total');"/>
+</p>
+    <p class="wrapperp2">Set Speaker Time:<br>
+      <input type="number" placeholder="Minutes" class="numbox" min="0" max="60" id="min"/>:<input
+              type="number" placeholder="Seconds" min="0" class="numbox" max="60" id="sec"/><br><input type="button" class="btn"
+                                                                              value="Set"                                                                        onclick="set_speaker_time();"/>
+    </p>
+  <p class="buttonmaster">
+    <button type="button" class="button" onclick="fetch('start_timer');">
+  <span class="button__text">Start</span>
+  <span class="button__icon">
+    <ion-icon name="play-circle-outline"></ion-icon>
+  </span>
+</button>
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+<button type="button" class="button" onclick="fetch('pause_timer');">
+<span class="button__text">Pause</span>
+<span class="button__icon">
+<ion-icon name="pause-circle-outline"></ion-icon>
+</span>
+</button>
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+<button type="button" class="button" onclick="fetch('stop_timer');">
+<span class="button__text">Stop</span>
+<span class="button__icon">
+<ion-icon name="stop-circle-outline"></ion-icon>
+</span>
+</button>
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+  </p></div>
   <div class="wrapper">
-    <header>LGSMUN</header>
+    <header>DASHBOARD</header>
     <input type="radio" name="slider" checked id="home">
     <input type="radio" name="slider" id="blog">
     <input type="radio" name="slider" id="code">
@@ -290,12 +697,23 @@
       </div>
 <!--MODS---------------------------------------------------------------->
       <div class="content content-3">
-        <div class="title">GSL</div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, debitis nesciunt! Consectetur officiis, libero nobis dolorem pariatur quisquam temporibus. Labore quaerat neque facere itaque laudantium odit veniam consectetur numquam delectus aspernatur, perferendis repellat illo sequi excepturi quos ipsam aliquid est consequuntur.</p>
+        <div class="title">Floor MODs:</div>
+        <p><div class="overflow" id="mod_table"></div><br>
+          <input type="text" placeholder="Non-Voted Mods" class="inputbox" id="mod_val"/><input type="button"
+                                                                                                class="btn"
+                                                                                                value="Add"
+                                                                                                onclick="floor_mod();"/><br>
+          Mod Number: <br><input type="number" class="numbox" min="0" max="60" id="modnum"/><input type="button"
+                                                                                                   class="btn"
+                                                                                                   value="Remove Mod"
+                                                                                                   onclick="remove_mod();"/><br><input
+              type="button" class="btn" value="Clear List" onclick="fetch('clear_mod');"/></p>
       </div>
+<!--PLACARD------------------------------------------------------------->
       <div class="content content-4">
-        <div class="title">This is a Help content</div>
-        <p>Lorem ipsum dolor sit amet, consecetur adipisicing elit. Enim reprehenderit null itaq, odio repellat asperiores vel voluptatem magnam praesentium, eveniet iure ab facere officiis. Quod sequi vel, rem quam provident soluta nihil, eos. Illo oditu omnis cumque praesentium voluptate maxime voluptatibus facilis nulla ipsam quidem mollitia! Veniam, fuga, possimus. Commodi, fugiat aut ut quorioms stu necessitatibus, cumque laborum rem provident tenetur.</p>
+        <div class="title">Delegates Present:</div>
+        <p><div id="att" class="overflow">No one present.</div>
+        <input type="button" class="btn" value="Lower All Placards" onclick="fetch('unraise_all_placard');"/></p>
       </div>
 <!--Chatbox--------------------------------------------------------------->
       <div class="content content-5">
