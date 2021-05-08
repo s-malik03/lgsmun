@@ -224,6 +224,17 @@
         overflow: hidden;
         overflow-y: auto;
       }
+      .overflow2 {
+        color: black;
+        background: none;
+        border: 2px solid #0f4c75;
+        border-radius: 10px;
+        width: 96%;
+        height: 500px;
+        padding: 10px 10px;
+        overflow: hidden;
+        overflow-y: auto;
+      }
       .GSL {
         float:left;
         color: white;
@@ -429,7 +440,7 @@
 
       /* Set a style for the submit/send button */
       .form-container .btn {
-        background-color: #04AA6D;
+        background-color: #0f4c75;
         color: white;
         padding: 16px 20px;
         border: none;
@@ -493,8 +504,12 @@
         .h1wow{
           color:white;
           text-align: center;
+          font-size: 60px;
 
 
+        }
+        .username{
+          color:white;
         }
 
     </style>
@@ -513,7 +528,7 @@
 <li><a onclick="window.location.href='/menu/admin'">Menu</a></li>
 </ul>
 </nav>
-        <p>{{username}}
+        <p class="username">{{username}}
         <a href="#" onclick="window.location.href='/signout'" class="btn-area">logout</a>
 
     </header>
@@ -530,9 +545,8 @@
                                                                                 onclick="set_zoom_link();"/><br>
     <input type="text" class="inputbox1" placeholder="Drive Link" id="dl"/><input type="button" class="btn"
                                                                                value="Set"
-                                                                               onclick="set_drive_link();"/>
-                                                                               <input type="button" class="btn" value="Zoom Link" onclick=" window.open(zoom_link,'_blank')"><br>
-                                                                               <input type="button" class="btn" value="Drive Link" onclick=" window.open(drive_link,'_blank')"><br>
+                                                                               onclick="set_drive_link();"/><br>
+
 <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
 </div>
@@ -716,7 +730,7 @@ function closeForm() {
 <!--PLACARD------------------------------------------------------------->
       <div class="content content-4">
         <div class="title">Delegates Present:</div>
-        <p><div id="att" class="overflow">No one present.</div>
+        <p><div id="att" class="overflow2">No one present.</div>
         <input type="button" class="btn" value="Lower All Placards" onclick="fetch('unraise_all_placard');"/></p>
       </div>
 <!--Chatbox--------------------------------------------------------------->
