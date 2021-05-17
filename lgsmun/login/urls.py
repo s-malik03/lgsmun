@@ -8,5 +8,7 @@ urlpatterns = [
     path('create_user', views.create_user, name='create_user'),
     path('register', views.register, name='register'),
     path('', views.homepage, name='homepage'),
-    path('signout', views.signout, name='signout')
+    path('signout', views.signout, name='signout'),
+    path('verify/<str:vcode>', views.verify, name='verify'),
+    path('remove_unverified', views.remove_unverified, name='remove_unverified')
 ]
