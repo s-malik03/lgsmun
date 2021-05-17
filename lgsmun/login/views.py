@@ -52,6 +52,31 @@ def create_user(request):
 
     except User.DoesNotExist:
 
+        if not request.POST['username']:
+
+            return render(request, 'login/register.html', {'username_taken': 'Please provide a username!'})
+
+        elif len(request.POST['password'])<8:
+
+            return render(request, 'login/register.html',
+                          {'username_taken': 'You must provide a password of at least 8 characters!'})
+
+        elif not request.POST['email']:
+
+            return render(request, 'login/register.html', {'username_taken': 'Please provide a valid E-mail address.'})
+
+        elif not request.POST['mobile']:
+
+            return render(request, 'login/register.html', {'username_taken': 'Please provide a valid mobile number!'})
+
+        elif not request.POST['grade']:
+
+            return render(request, 'login/register.html', {'username_taken': 'Please provide your current grade!'})
+
+        elif not request.POST['school']:
+
+            return render(request, 'login/register.html', {'username_taken': 'Please provide the name of your institution!'})
+
         user = User.objects.create_user(username=request.POST['username'], email=request.POST['email'],
                                         password=request.POST['password'])
         user.save()
