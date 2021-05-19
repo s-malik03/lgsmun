@@ -25,10 +25,10 @@
         background: rgba(23,162,184,0.3);
       }
       .wrapper{
-        width: 95%;
-        margin-left: 40px;
+        width: 90%;
+        margin-left: 80px;
         margin-bottom: 200px;
-        margin-top: 200px;
+        margin-top: -100px;
         padding: 25px 30px 30px 30px;
         border-radius: 5px;
         background: #fff;
@@ -37,7 +37,7 @@
       .wrapper1{
         width: 100%;
         margin-top: 10px;
-        height: 650px;
+        height: 400px;
         padding: 25px 30px 30px 30px;
         border-radius: 5px;
         background: #fff;
@@ -54,7 +54,7 @@
         font-weight: 600;
         padding-bottom: 20px;
         text-align: left;
-        transform: translate(-46.5%);
+        transform: translate(-4%);
       }
       .wrapper nav{
         position: relative;
@@ -262,7 +262,7 @@
       }
       .rsltitle{
         font-size: 21px;
-        transform: translate(48%);
+        transform: translate(48%, -77%);
         font-weight: 500;
         margin: 30px 0 10px 0;
       }
@@ -270,6 +270,7 @@
         font-size: 21px;
         float:left;
         font-weight: 500;
+        margin-left: 10px
         margin: 30px 0 10px 0;
       }
       .rsl_gsl {
@@ -446,7 +447,7 @@
         padding: 16px 20px;
         border: none;
         cursor: pointer;
-        width: 100%;
+        width: 280px;
         margin-bottom:10px;
         opacity: 0.8;
       }
@@ -505,7 +506,7 @@
         .h1wow{
           color:white;
           text-align: center;
-          font-size: 60px;
+          font-size: 33px;
 
 
         }
@@ -525,7 +526,7 @@
         <nav>
             <ul class="nav-area">
 <li><a href="#">home</a></li>
-<li><a onclick="window.location.href='/menu/admin'">Menu</a></li>
+<li><a href="#">About</a></li>
 </ul>
 </nav>
         <p class="username">{{username}}
@@ -538,14 +539,8 @@
   <div class="chat-popup" id="myForm">
   <form action="/action_page.php" class="form-container">
     <h1>Links</h1>
-
-
-    <input type="text" class="inputbox1" placeholder="Zoom Link" id="zl"/><input type="button" class="btn"
-                                                                                value="Set"
-                                                                                onclick="set_zoom_link();"/><br>
-    <input type="text" class="inputbox1" placeholder="Drive Link" id="dl"/><input type="button" class="btn"
-                                                                               value="Set"
-                                                                               onclick="set_drive_link();"/><br>
+    <input type="button" class="btn" value="Zoom Link" onclick=" window.open(zoom_link,'_blank')"><br><br>
+    <input type="button" class="btn" value="Drive Link" onclick=" window.open(drive_link,'_blank')"><br><br>
 
 <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
@@ -611,41 +606,7 @@ function closeForm() {
     </div>
   </div>
 </div>
-<p class="wrapperp1">Set Total Time:<br>
-  <input type="number" placeholder="Minutes" class="numbox" min="0" max="60" id="t_min"/>:<input
-          type="number" placeholder="Seconds" class="numbox" min="0" max="60" id="t_sec"/><br><input type="button" class="btn"
-                                                                            value="Set"
-                                                                            onclick="set_total_time();"/>
-      <input type="button" class="btn" value="Reset" onclick="fetch('reset_total');"/>
-</p>
-    <p class="wrapperp2">Set Speaker Time:<br>
-      <input type="number" placeholder="Minutes" class="numbox" min="0" max="60" id="min"/>:<input
-              type="number" placeholder="Seconds" min="0" class="numbox" max="60" id="sec"/><br><input type="button" class="btn"
-                                                                              value="Set"                                                                        onclick="set_speaker_time();"/>
-    </p>
-  <p class="buttonmaster">
-    <button type="button" class="button" onclick="fetch('start_timer');">
-  <span class="button__text">Start</span>
-  <span class="button__icon">
-    <ion-icon name="play-circle-outline"></ion-icon>
-  </span>
-</button>
-<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
-<button type="button" class="button" onclick="fetch('pause_timer');">
-<span class="button__text">Pause</span>
-<span class="button__icon">
-<ion-icon name="pause-circle-outline"></ion-icon>
-</span>
-</button>
-<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
-<button type="button" class="button" onclick="fetch('stop_timer');">
-<span class="button__text">Stop</span>
-<span class="button__icon">
-<ion-icon name="stop-circle-outline"></ion-icon>
-</span>
-</button>
-<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
-  </p></div>
+
   <div class="wrapper">
     <header>DASHBOARD</header>
     <input type="radio" name="slider" checked id="home">
@@ -667,71 +628,49 @@ function closeForm() {
         <div class="topic">
         <div class="title">Topic:
             <div id="current_topic">No Topic Has Been Set</div></div>
-        <p>Set topic: <br><input type="text" class="inputbox" placeholder="Topic" id="set_topic"/><br><input class="btn"
-                                                                                                     type="button"
-                                                                                                     value="Set"
-                                                                                                     onclick="set_topic();"/></p>
       </div>
       <div class="title">Speaking Mode:</div>
         <div id="speaking_mode">Idle</div>
       <div>
       <div class="title">Current Moderated Caucus:
           <div id="current_mod">No Moderated Caucus in Progress</div></div>
-      <p>Set Current Mod:<br><input type="text" placeholder="Current Mod" class="inputbox" id="set_mod"/><br><input type="button" class="btn" value="Set" onclick="set_mod();"/>
      <div class="topic2">
      <div class="title">Notifications:</div>
      <p><div id="notifications" class="overflow"></div>
      </div>
      <div class="topic2">
-     <div class="title">Send Notifications:</div>
-     <p><textarea class="message" placeholder="Notification" id="noti"></textarea><br>
-     <input type="button" class="btn" value="Send Notifcation" onclick="send_notification();"/><br>
      </div>
    </div>
  </div>
 <!--RSL/GSL--------------------------------------------------------->
       <div class="content content-2">
-        <div class="title">Set Speaking Mode:</div>
-        <p><select class="selectbtn" id="set_speaking_mode" name="Set Speaking Mode">
-            <option value="Idle">Idle</option>
-            <option value="GSL">GSL</option>
-            <option value="Mod">Mod</option>
-            <option value="UnMod">UnMod</option>
-        </select>
-      <input type="button" value="Set" class="btn" onclick="set_speaking_mode();"/></p>
+        <div class="title">Speakers:</div>
         <div class="gsltitle">GSL</div>
         <div class="rsltitle">RSL</div>
-        <p><div id="gsl" class="GSL"></div></p>
-        <p><div id="rsl" class="RSL"></div></p>
+        <p><div id="gsl" class="GSL"></div>
+        <p><div id="rsl" class="RSL"></div>
         <div class="gsl_rsl">
-          <div class="title">Add Speaker:</div>
-          <p><select class="selectbtn" id="speaker" name="speaker">
-              {% for c in country_matrix %}
-              <option value="{{c}}">{{c}}</option>
-              {% endfor %}
-          </select><input type="button" class="btn" value="Add" onclick="add_speaker();"/>
-          <input type="button" class="btn" value="Remove From Top of List" onclick="fetch('remove_speaker');"/></p>
+          <div class="title">Raise Point:</div>
+          <select class="selectbtn" id="point">
+              <option value="Point of Parliamentary Inquiry">Point of Parliamentary Inquiry</option>
+              <option value="Point of Personal Privelege">Point of Personal Privelege</option>
+              <option value="Point of Order">Point of Order</option>
+          </select>
+          <input type="button" class="btn" value="Raise Point" onclick="raise_point()"/><br>
         </div>
       </div>
 <!--MODS---------------------------------------------------------------->
       <div class="content content-3">
         <div class="title">Floor MODs:</div>
         <p><div class="overflow" id="mod_table"></div><br>
-          <input type="text" placeholder="Non-Voted Mods" class="inputbox" id="mod_val"/><input type="button"
-                                                                                                class="btn"
-                                                                                                value="Add"
-                                                                                                onclick="floor_mod();"/><br>
-          Mod Number: <br><input type="number" class="numbox" min="0" max="60" id="modnum"/><input type="button"
-                                                                                                   class="btn"
-                                                                                                   value="Remove Mod"
-                                                                                                   onclick="remove_mod();"/><br><input
-              type="button" class="btn" value="Clear List" onclick="fetch('clear_mod');"/></p>
       </div>
 <!--PLACARD------------------------------------------------------------->
       <div class="content content-4">
         <div class="title">Delegates Present:</div>
+        <input type="button" class="btn" value="Raise Placard" onclick="fetch('raise_placard')"><br>
+        <input type="button" class="btn" value="Lower Placard" onclick="fetch('lower_placard')"><br>
         <p><div id="att" class="overflow2">No one present.</div>
-        <input type="button" class="btn" value="Lower All Placards" onclick="fetch('unraise_all_placard');"/></p>
+
       </div>
 <!--Chatbox--------------------------------------------------------------->
       <div class="content content-5">
@@ -745,8 +684,6 @@ function closeForm() {
             {% endfor %}
         </select>
             <input type="button" class="btn" value="Send Message" onclick="sendmessage()"/><br>
-            <input type="button" class="btn" value="Chat Log" onclick=" window.open('chat_log','_blank')"><br>
-            <input type="button" class="btn" value="Committee Log" onclick=" window.open('committee_log','_blank')"><br>
         </div>
 
       </div>
