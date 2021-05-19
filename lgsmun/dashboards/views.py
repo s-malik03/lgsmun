@@ -657,6 +657,10 @@ def unraise_all_placard(request):
         a.placard = ''
         a.save()
 
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
+
     return HttpResponse("Successful")
 
 
