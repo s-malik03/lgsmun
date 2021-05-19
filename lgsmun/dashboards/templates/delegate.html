@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{% static 'dais.js' %}"></script>
+    <script src="{% static 'delegate.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
@@ -405,7 +405,13 @@
         right: 28px;
         width: 280px;
       }
-
+      .dot {
+      height: 15px;
+      width: 15px;
+      background-color: #0f4c75;
+      border-radius: 50%;
+      display: inline-block;
+    }
       /* The popup chat - hidden by default */
       .chat-popup {
         display: none;
