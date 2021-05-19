@@ -90,8 +90,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_SSL = True
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'egames.lgs@gmail.com'
-EMAIL_HOST_PASSWORD = 'lahoregrammar123'
+EMAIL_HOST_USER = 'none'
+EMAIL_HOST_PASSWORD = 'none'
 
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
