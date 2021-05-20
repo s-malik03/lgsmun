@@ -54,12 +54,14 @@ var total_count=0;
 var status='';
 function timer(){
 
-  if((status!='pause')&&(status!='stop')){
-
-    $('#minutes').html(Math.trunc(counter/60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
+$('#minutes').html(Math.trunc(counter/60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
     $('#seconds').html((counter%60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
     $('#total_minutes').html(Math.trunc(total_count/60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
     $('#total_seconds').html((total_count%60).toLocaleString(undefined, {minimumIntegerDigits: 2}));
+
+  if((status!='pause')&&(status!='stop')){
+
+
     if (counter!=0){
     counter=counter-1;
     if ((total_count!=0 && status=='start')){
