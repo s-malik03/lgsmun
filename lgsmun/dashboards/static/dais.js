@@ -144,9 +144,9 @@ $('#minutes').html(Math.trunc(counter/60).toLocaleString(undefined, {minimumInte
 }
 var ws= new WebSocket("ws://"+window.location.host+'/ws/dais/');
 var z=0;
-var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':0};
+var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':0, 'total_time':total_count, 'speaker_time':counter};
 ws.onopen=function(){
-  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':0};
+  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':0, 'total_time':total_count, 'speaker_time':counter};
   console.log(ess_data);
 ws.send(JSON.stringify(ess_data));
 };
@@ -165,6 +165,8 @@ ws.onmessage=async function(event){
   $('#inbox').html(data.inbox);
   $('#mod_table').html(data.mods);
   ess_data['iteration']=data.iteration;
+  ess_data['total_time']=total_count;
+  ess_data['speaker_time']=counter;
   status=data.timer_status;
   if(parseInt(data.total_time)!=total_time){
     total_time=parseInt(data.total_time);
@@ -186,5 +188,6 @@ ws.onmessage=async function(event){
   ws.send(JSON.stringify(ess_data));
   console.log(ess_data);
 };
-setInterval(function(){ws.send(JSON.stringify(ess_data));},1000);
+setInterval(function(){ess_data['total_time']=total_count;
+  ess_data['speaker_time']=counter;ws.send(JSON.stringify(ess_data));},1000);
 setInterval(timer,1000);

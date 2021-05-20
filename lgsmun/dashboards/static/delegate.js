@@ -73,9 +73,9 @@ $('#minutes').html(Math.trunc(counter/60).toLocaleString(undefined, {minimumInte
 }
 }
 var ws= new WebSocket("ws://"+window.location.host+'/ws/delegate/');
-var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':-1};
+var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':-1, 'total_time':total_count, 'speaker_time':counter};
 ws.onopen=function(){
-  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':-1};
+  ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':-1, 'total_time':total_count, 'speaker_time':counter};
   console.log(ess_data);
 ws.send(JSON.stringify(ess_data));
 };
@@ -93,6 +93,8 @@ if(event.data!="NULL"){
   $('#inbox').html(data.inbox);
   $('#mod_table').html(data.mods);
   ess_data['iteration']=data.iteration;
+  ess_data['total_time']=total_count;
+  ess_data['speaker_time']=counter;
   zoom_link=data.zoom_link;
   drive_link=data.drive_link;
   status=data.timer_status;
@@ -115,5 +117,6 @@ if(event.data!="NULL"){
   console.log(ess_data);
   console.log('sent');
 };
-setInterval(function(){ws.send(JSON.stringify(ess_data));},1000);
+setInterval(function(){ess_data['total_time']=total_count;
+  ess_data['speaker_time']=counter;ws.send(JSON.stringify(ess_data));},1000);
 setInterval(timer,1000);

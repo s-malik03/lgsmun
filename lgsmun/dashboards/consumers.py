@@ -224,6 +224,26 @@ def check_iteration(committee, iteration):
         return True
 
 
+@sync_to_async
+def two_cent_time(committee, total_time, speaker_time):
+
+    timer = Timer.objects.get(committee=committee)
+
+    offset_total = int(timer.total_time) - int(total_time)
+
+    offset_speaker = int(timer.duration) - int(speaker_time)
+
+    if 1 <= offset_total < 5:
+        timer.total_time = total_time
+
+    if 1 <= offset_speaker < 5:
+        timer.duration = speaker_time
+
+    timer.save()
+
+    return 0
+
+
 class Delegate(AsyncWebsocketConsumer):
 
     async def connect(self):
@@ -239,6 +259,12 @@ class Delegate(AsyncWebsocketConsumer):
         committee = json_data['committee']
 
         country = json_data['country']
+
+        total_time = json_data['total_time']
+
+        speaker_time = json_data['speaker_time']
+
+        tct = await two_cent_time(committee, total_time, speaker_time)
 
         iter_test = await check_iteration(committee, iteration)
 
@@ -268,6 +294,12 @@ class Dais(AsyncWebsocketConsumer):
         committee = json_data['committee']
 
         country = json_data['country']
+
+        total_time = json_data['total_time']
+
+        speaker_time = json_data['speaker_time']
+
+        tct = await two_cent_time(committee, total_time, speaker_time)
 
         iter_test = await check_iteration(committee, iteration)
 
