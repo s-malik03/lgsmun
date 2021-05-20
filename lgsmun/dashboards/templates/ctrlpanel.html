@@ -2,7 +2,7 @@
 <html>
 
 <head>
-
+  <img class="logo" style="width:10%;" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -10,15 +10,15 @@
 <body>
 <div class="login-box">
     <h1>Control Panel</h1>
-    <form action="create_committee" method="POST">
-        <h5>Create New Committee:</h5>
+    <form class="header1" action="create_committee" method="POST">
+        Create New Committee:<br>
         {% csrf_token %}
-        <input type="text" placeholder="Name" name="committee"></input>
-        <input type="submit" value="Submit">
+        <div class="textbox"><input type="text" placeholder="Name" name="committee"></input></div>
+        <input type="submit" class="btn" value="Submit">
     </form>
-    <form action="editcommittee" method="GET">
+    <form  class="header1"action="editcommittee" method="GET">
         {% csrf_token %}
-        <h5>Select Committee: </h5>
+        Select Committee: <br>
         <select name="committee" id="committees">
             {% for c in committees %}
             <option value="{{c}}">{{c}}</option>
@@ -27,7 +27,6 @@
         <br>
         <i class="fas fa-lock"></i>
         <input type="submit" class="btn" value="Select">
-
     </form>
     <input type="button" class="btn" onclick="window.location.href='/menu/admin'" value="Menu">
 </div>
