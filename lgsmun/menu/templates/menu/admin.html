@@ -2,7 +2,7 @@
 <html>
 
 <head>
-
+  <img class="logo" style="width:10%;" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -13,14 +13,14 @@
         <h1>Admin Menu</h1>
         <input href="/dashboards/controlpanel" type="button" class="btn" value="Committee Control Panel"
                onclick="window.location.href='/dashboards/controlpanel'">
-        <h5>Join Committee: </h5>
+        <div class="header1">Join Committee: </div>
         <select name="committee" id="committees">
             {% for c in committees %}
             <option value="{{c}}">{{c}}</option>
             {% endfor %}
         </select>
         <br>
-        <i class="fas fa-lock"></i>
+
         <input type="submit" class="btn" value="Join">
         <input href="changepassword" type="button" class="btn" value="Change Password"
                onclick="window.location.href='changepassword'">

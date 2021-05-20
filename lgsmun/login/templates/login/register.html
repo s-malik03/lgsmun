@@ -6,47 +6,47 @@
     <title></title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
+  <img class="logo" style="width:10%;" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
 <body>
 <div class="login-box">
     <h1>Register</h1>
-    <form action="create_user" method="POST">{% csrf_token %}
+    <div class="header1"><form action="create_user" method="POST">{% csrf_token %}
         <div class="textbox">
             {{username_taken}}
         </div>
         <div class="textbox">
-            <i class="fas fa-user"></i>
-            <input type="text" placeholder="Username" id="username" name="username">
+
+            <input type="text" required placeholder="Username" id="username" name="username">
         </div>
 
         <div class="textbox">
-            <i class="fas fa-user"></i>
-            <input type="text" placeholder="E-Mail" id="email" name="email">
+
+            <input type="text" required placeholder="E-Mail" id="email" name="email">
         </div>
 
         <div class="textbox">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Password" id="password" name="password">
+
+            <input type="password" required placeholder="Password" id="password" name="password">
         </div>
         <div class="textbox">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Confirm Password" id="confirm_password" name="confirm_password">
+
+            <input type="password" required placeholder="Confirm Password" id="confirm_password" name="confirm_password">
         </div>
 
         <div class="textbox">
-            <i class="fas fa-lock"></i>
-            <input type="text" placeholder="Mobile Number" id="mobile" name="mobile">
+
+            <input type="text" required placeholder="Mobile Number" id="mobile" name="mobile">
         </div>
 
         <div class="textbox">
-            <i class="fas fa-lock"></i>
-            <input type="text" placeholder="Grade" id="grade" name="grade">
+
+            <input type="text" required placeholder="Grade" id="grade" name="grade">
         </div>
 
         <div class="textbox">
-            <i class="fas fa-lock"></i>
-            <input type="text" placeholder="School" id="school" name="school">
-        </div>
 
+            <input type="text" required placeholder="School" id="school" name="school">
+        </div>
         <input type="submit" class="btn" value="Register">
 </div>
 </form>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-
+  <img class="logo" style="width:10%;" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -10,46 +10,46 @@
 <body>
 <div class="login-box">
     <h1>Committee Editor for {{committee}}</h1>
-    <h5>Add Member:</h5>
-    <form action="add_to_committee" method="POST">
+    <div class="header1">Add Member:</div>
+    <form class="header1" action="add_to_committee" method="POST">
         {% csrf_token %}
+        <div class="textbox">
         <input type="hidden" value="{{committee}}" name="committee">
-        Username:
-        <input type="text" placeholder="Username" name="username">
-        Country:
-        <input type="text" placeholder="Country" name="country">
-        <input type="submit" value="Add">
+        <input type="text" placeholder="Username" name="username"><br><br>
+        <input type="text" placeholder="Country" name="country"><br></div>
+        <input type="button" class="btn" value="Add">
     </form>
-    <form action="remove_from_committee" method="POST">
-        <h5>Members(Click to Remove): </h5>
+    <form class="header1" action="remove_from_committee" method="POST">
+        Members(Click to Remove): <br>
         <input type="hidden" value="{{committee}}" name="committee">
         {% csrf_token %}
         {% for m in members %}
         <input type="submit" class="btn" value="{{m}}" name="username"><br>
         {% endfor %}
         <br>
+        Grant Awards:
     </form>
-    <h5>Grant Awards:</h5>
+
     <form action="grantaward" method="POST">{% csrf_token %}
     <select name="country">
         {% for c in countries %}
         <option value="{{c}}">{{c}}</option>
         {% endfor %}
-    </select>
+    </select><br>
         <select name="award">
             <option value="BD">BD</option>
             <option value="OD">OD</option>
             <option value="HM">HM</option>
             <option value="SM">SM</option>
             <option value="">None</option>
-        </select>
+        </select><br>
         <input type="submit" class="btn" value="Grant Award">
     </form>
     <input type="button" class="btn" value="Save Stats and Delete Committee" onclick="window.location.href='save_stats'">
     <h5>Delete Committee:</h5>
     <form action="delete_committee" method="POST">
         {% csrf_token %}
-        <input type="submit" value="{{committee}}" name="committee">
+        <input type="submit" class="btn" value="{{committee}}" name="committee">
     </form>
     <input type="button" class="btn" onclick="window.location.href='/menu/admin'" value="Menu">
     <input type="button" class="btn" onclick="window.location.href='/signout'" value="Log Out">
