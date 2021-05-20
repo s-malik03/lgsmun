@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+      *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+      }
+      body{
+        overflow:auto;
+        padding: 0 20px;
+        background: #0f4c75;
+      }
+      .countdown-container {
+      background: #b6e8ff;
+      transform: translate(-70%);
+      padding: 24px;
+      color: #1d3357;
+      font-family: "Roboto", sans-serif;
+      width: 300px;
+      box-sizing: border-box;
+      margin: 0 auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 22px -8px rgba(0, 0, 0, 0.6);
+    }
+    .countdown-container1 {
+    background: #b6e8ff;
+    padding: 24px;
+    transform: translate(70%, -235px);
+    color: #1d3357;
+    font-family: "Roboto", sans-serif;
+    width: 300px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 22px -8px rgba(0, 0, 0, 0.6);
+  }
+
+    .countdown-container .countdown-heading {
+      text-align: center;
+      font-size: 32px;
+      margin: 0px 0;
+    }
+    .countdown-container1 .countdown-heading {
+      text-align: center;
+      font-size: 32px;
+      margin: 0px 0;
+    }
+
+    .countdown-container .countdown-details {
+      text-align: center;
+    }
+
+    .timer {
+      background: #1d3357;
+      color: #f1faee;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      text-align: right;
+      border-radius: 10px;
+    }
+
+    .timer .number {
+      font-size: 56px;
+      font-weight: bold;
+    }
+
+    .timer .unit {
+      color: #a8dadc;
+    }
+
+    .countdown-btn {
+      background: #dc2e2e;
+      text-decoration: none;
+      padding: 16px 32px;
+      display: block;
+      margin: 32px -24px -24px -24px;
+      color: #f1faee;
+      font-weight: bold;
+      text-align: center;
+      transition: background-color 500ms;
+    }
+
+    .countdown-btn:hover {
+      background: #e03f3f;
+    }
+      ::selection{
+        background: rgba(23,162,184,0.3);
+      }
+      .wrapper{
+        width: 100%;
+        margin: 200px auto;
+        padding: 25px 30px 30px 30px;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+      }
+      .wrapper header{
+        font-size: 30px;
+        font-weight: 600;
+        text-align: center;
+        padding-bottom: 20px;
+
+      }
+      .wrapper nav{
+        position: relative;
+        width: 80%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+      }
+      .wrapper nav label{
+        display: block;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        color: #0f4c75;
+        font-size: 17px;
+        border-radius: 5px;
+        margin: 0 5px;
+        transition: all 0.3s ease;
+      }
+
+      </style>
+    </head>
+    <body>
+      <div class="wrapper">
+        <header>TIMER</header>
+        <div class="countdown-container">
+        <h2 class="countdown-heading">Total Time</h2>
+        <p class="countdown-details"></p>
+
+        <div class="timer">
+          <div class="minutes">
+            <div class="number">
+              00
+            </div>
+            <div class="unit">
+              Minutes
+            </div>
+          </div>
+
+          <div class="seconds">
+            <div class="number">
+              00
+            </div>
+            <div class="unit">
+              Seconds
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="countdown-container1">
+      <h2 class="countdown-heading">Speaker Time</h2>
+      <p class="countdown-details"></p>
+
+      <div class="timer">
+        <div class="minutes">
+          <div class="number">
+            00
+          </div>
+          <div class="unit">
+            Minutes
+          </div>
+        </div>
+
+        <div class="seconds">
+          <div class="number">
+            00
+          </div>
+          <div class="unit">
+            Seconds
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    </body>
+    </html>

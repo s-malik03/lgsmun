@@ -1,10 +1,7 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{% static 'dais.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
@@ -17,7 +14,7 @@
         font-family: 'Poppins', sans-serif;
       }
       body{
-        overflow-x: hidden;
+        overflow:auto;
         padding: 0 20px;
         background: #0f4c75;
       }
@@ -25,8 +22,7 @@
         background: rgba(23,162,184,0.3);
       }
       .wrapper{
-        width: 95%;
-        margin-left: 40px;
+        width: 100%;
         margin-bottom: 200px;
         margin-top: 200px;
         padding: 25px 30px 30px 30px;
@@ -43,13 +39,6 @@
         background: #fff;
         box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
       }
-      .dot {
-      height: 15px;
-      width: 15px;
-      background-color: #0f4c75;
-      border-radius: 50%;
-      display: inline-block;
-    }
       .wrapper1 header{
         font-size: 30px;
         font-weight: 600;
@@ -61,7 +50,7 @@
         font-weight: 600;
         padding-bottom: 20px;
         text-align: left;
-        transform: translate(-46.5%);
+        transform: translate(-30%);
       }
       .wrapper nav{
         position: relative;
@@ -222,23 +211,12 @@
         float: left;
       }
       .overflow {
-        color: black;
+        color: white;
         background: none;
         border: 2px solid #0f4c75;
         border-radius: 10px;
         width: 96%;
         height: 230px;
-        padding: 10px 10px;
-        overflow: hidden;
-        overflow-y: auto;
-      }
-      .overflow2 {
-        color: black;
-        background: none;
-        border: 2px solid #0f4c75;
-        border-radius: 10px;
-        width: 96%;
-        height: 500px;
         padding: 10px 10px;
         overflow: hidden;
         overflow-y: auto;
@@ -448,7 +426,7 @@
 
       /* Set a style for the submit/send button */
       .form-container .btn {
-        background-color: #0f4c75;
+        background-color: #04AA6D;
         color: white;
         padding: 16px 20px;
         border: none;
@@ -512,12 +490,8 @@
         .h1wow{
           color:white;
           text-align: center;
-          font-size: 60px;
 
 
-        }
-        .username{
-          color:white;
         }
 
     </style>
@@ -532,11 +506,12 @@
         <nav>
             <ul class="nav-area">
 <li><a href="#">home</a></li>
-<li><a onclick="window.location.href='/menu/admin'">Menu</a></li>
+<li><a href="#">About</a></li>
+<li><a href="onclick="window.location.href='/menu/admin'"">Menu</a></li>
 </ul>
 </nav>
-        <p class="username">{{username}}
-        <a href="#" onclick="window.location.href='/signout'" class="btn-area">logout</a>
+        <p>{{username}}
+        <a href="#" class="btn-area">logout</a>
 
     </header>
 <h1 class="h1wow" id="committee_name">{{committee}}</h1>
@@ -552,8 +527,9 @@
                                                                                 onclick="set_zoom_link();"/><br>
     <input type="text" class="inputbox1" placeholder="Drive Link" id="dl"/><input type="button" class="btn"
                                                                                value="Set"
-                                                                               onclick="set_drive_link();"/><br>
-
+                                                                               onclick="set_drive_link();"/>
+                                                                               <input type="button" class="btn" value="Zoom Link" onclick=" window.open(zoom_link,'_blank')"><br>
+                                                                               <input type="button" class="btn" value="Drive Link" onclick=" window.open(drive_link,'_blank')"><br>
 <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
 </div>
@@ -683,7 +659,7 @@ function closeForm() {
         <div id="speaking_mode">Idle</div>
       <div>
       <div class="title">Current Moderated Caucus:
-          <div id="current_mod">No Moderated Caucus in Progress</div></div>
+          <div id="current_topic">No Moderated Caucus in Progress</div></div>
       <p>Set Current Mod:<br><input type="text" placeholder="Current Mod" class="inputbox" id="set_mod"/><br><input type="button" class="btn" value="Set" onclick="set_mod();"/>
      <div class="topic2">
      <div class="title">Notifications:</div>
@@ -704,8 +680,7 @@ function closeForm() {
             <option value="GSL">GSL</option>
             <option value="Mod">Mod</option>
             <option value="UnMod">UnMod</option>
-        </select>
-      <input type="button" value="Set" class="btn" onclick="set_speaking_mode();"/></p>
+        </select></p>
         <div class="gsltitle">GSL</div>
         <div class="rsltitle">RSL</div>
         <p><div id="gsl" class="GSL"></div></p>
@@ -737,7 +712,7 @@ function closeForm() {
 <!--PLACARD------------------------------------------------------------->
       <div class="content content-4">
         <div class="title">Delegates Present:</div>
-        <p><div id="att" class="overflow2">No one present.</div>
+        <p><div id="att" class="overflow">No one present.</div>
         <input type="button" class="btn" value="Lower All Placards" onclick="fetch('unraise_all_placard');"/></p>
       </div>
 <!--Chatbox--------------------------------------------------------------->
