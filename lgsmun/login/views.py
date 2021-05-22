@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import UserInformation
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 import string
 import random
@@ -47,7 +48,6 @@ def index(request):
 def register(request):
     request_context = {'username_taken': ' '}
     return render(request, 'login/register.html', request_context)
-
 
 def create_user(request):
     try:
