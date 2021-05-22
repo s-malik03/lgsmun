@@ -9,7 +9,7 @@ from django.contrib import messages
 
 
 # Create your views here.
-
+@login_required
 def admin(request):
     if request.session['utype'] != 'admin':
         return HttpResponse('Access denied')
@@ -22,19 +22,19 @@ def admin(request):
     request_context = {'committees': committee_matrix,'username':request.user.username}
     return render(request, 'menu/admin.html', request_context)
 
-
+@login_required
 def dais(request):
     if request.session['utype'] != 'dais':
         return HttpResponse('Access denied')
     request_context = {'username':request.user.username}
     return render(request, 'menu/dais.html', request_context)
 
-
+@login_required
 def delegate(request):
     request_context = {'username':request.user.username}
     return render(request, 'menu/delegate.html', request_context)
 
-
+@login_required
 def changepassword(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -65,6 +65,7 @@ def setpassword(request):
     return redirect('/menu/' + request.session['utype'])
 
 
+@login_required
 def adminjoinsession(request):
     request_context = {}
     request.session['committee'] = request.GET["committee"]

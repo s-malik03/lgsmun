@@ -63,6 +63,7 @@ def getabsent(request):
     return HttpResponse('Successful')
 
 
+@login_required
 def controlpanel(request):
     c = CommitteeControl.objects.all()
     committees = []
@@ -72,6 +73,7 @@ def controlpanel(request):
     return render(request, 'ctrlpanel.html', {'committees': committees})
 
 
+@login_required
 def editcommittee(request):
     if 'committee' in request.GET:
         request.session['committee'] = request.GET['committee']
@@ -736,6 +738,7 @@ def send_message(request):
     return HttpResponse("Successful")
 
 
+@login_required
 def chat_log(request):
     inbox = Messages.objects.filter(committee=request.session['committee']).order_by('date')
 
@@ -748,6 +751,7 @@ def chat_log(request):
     return HttpResponse(backlog)
 
 
+@login_required
 def committee_log(request):
     notis = Notifications.objects.filter(committee=request.session['committee']).order_by('date')
 
