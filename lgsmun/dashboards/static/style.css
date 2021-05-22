@@ -87,3 +87,7 @@ body{
   border: none;
   font-family: "montserrat",sans-serif;
 }
+
+#gsl, #rsl{
+    color: black;
+}
