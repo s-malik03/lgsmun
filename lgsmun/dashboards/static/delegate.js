@@ -72,6 +72,7 @@ $('#minutes').html(Math.trunc(counter/60).toLocaleString(undefined, {minimumInte
 }
 }
 }
+var prevchat='';
 var ws= new WebSocket("ws://"+window.location.host+'/ws/delegate/');
 var ess_data={'committee':$('#committee_name').html(),'country':$('#country').val(),'uuid':$('#uuid').val(), 'iteration':-1, 'total_time':total_count, 'speaker_time':counter};
 ws.onopen=function(){
@@ -91,6 +92,11 @@ if(event.data!="NULL"){
   $('#gsl').html(data.gsl);
   $('#rsl').html(data.rsl);
   $('#inbox').html(data.inbox);
+  if((data.inbox!=prevchat)&&(current_state!='chat')){
+    $('#Chat').html("Chat <span class='whitedot'></span>");
+  }
+  prevchat=data.inbox;
+  updateScroll();
   $('#mod_table').html(data.mods);
   ess_data['iteration']=data.iteration;
   ess_data['total_time']=total_count;
@@ -120,3 +126,12 @@ if(event.data!="NULL"){
 setInterval(function(){ess_data['total_time']=total_count;
   ess_data['speaker_time']=counter;ws.send(JSON.stringify(ess_data));},1000);
 setInterval(timer,1000);
+function updateScroll(){
+    $('#inbox').scrollTop($('#inbox')[0].scrollHeight);
+    clearInterval(updateScroll);
+}
+function remove_chat_dot(){
+$('#Chat').html("Chat");
+$('#inbox').html(prevchat);
+}
+var current_state='';
