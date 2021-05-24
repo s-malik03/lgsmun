@@ -533,7 +533,7 @@
 <body onbeforeunload="ws.close();">
 <input type="hidden" id="country" value="{{country}}"/>
 <input type="hidden" id="uuid" value="{{uuid}}"/>
-<body>
+<body onbeforeunload="fetch('getabsent');">
 
   <header>
         <img class="logo" width="100" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
