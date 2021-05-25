@@ -150,7 +150,7 @@ ws.onopen=function(){
   console.log(ess_data);
 ws.send(JSON.stringify(ess_data));
 };
-
+var prevchat='';
 ws.onmessage=async function(event){
   if(event.data!="NULL"){
   var data=JSON.parse(event.data);
@@ -163,6 +163,11 @@ ws.onmessage=async function(event){
   $('#gsl').html(data.gsl);
   $('#rsl').html(data.rsl);
   $('#inbox').html(data.inbox);
+  if((data.inbox!=prevchat)&&(current_state!='chat')){
+    $('#Chat').html("Chat <span class='whitedot'></span>");
+  }
+  updateScroll();
+  prevchat=data.inbox;
   $('#mod_table').html(data.mods);
   ess_data['iteration']=data.iteration;
   ess_data['total_time']=total_count;
@@ -191,3 +196,14 @@ ws.onmessage=async function(event){
 setInterval(function(){ess_data['total_time']=total_count;
   ess_data['speaker_time']=counter;ws.send(JSON.stringify(ess_data));},1000);
 setInterval(timer,1000);
+function updateScroll(){
+    $('#inbox').scrollTop($('#inbox')[0].scrollHeight);
+    clearInterval(scrollinterval);
+}
+function remove_chat_dot(){
+$('#Chat').html("Chat");
+$('#inbox').html(prevchat);
+$('#inbox').scrollTop($('#inbox')[0].scrollHeight);
+}
+var current_state='';
+var scrollinterval;

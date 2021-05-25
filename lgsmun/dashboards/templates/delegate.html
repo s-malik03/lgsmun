@@ -407,6 +407,12 @@
         right: 28px;
         width: 280px;
       }
+      .whitedot {
+      height: 15px;
+      width: 15px;
+      background-color: #0f4c75;
+      border-radius: 50%;
+      display: inline-block;}
       .dot {
       height: 15px;
       width: 15px;
@@ -524,7 +530,7 @@
 
     </style>
 </head>
-<body onbeforeunload="ws.close();">
+<body onbeforeunload="ws.close();fetch('getabsent');">
 <input type="hidden" id="country" value="{{country}}"/>
 <input type="hidden" id="uuid" value="{{uuid}}"/>
 <body>
@@ -622,11 +628,11 @@ function closeForm() {
     <input type="radio" name="slider" id="help">
     <input type="radio" name="slider" id="about">
     <nav>
-      <label for="home" class="home"><i class="fas fa-home"></i>Info</label>
-      <label for="blog" class="blog"><i class="fas fa-blog"></i>GSL/RSL</label>
-      <label for="code" class="code"><i class="fas fa-code"></i>MODs</label>
-      <label for="help" class="help"><i class="far fa-envelope"></i>Placard</label>
-      <label for="about" class="about"><i class="far fa-user"></i>Chat</label>
+      <label for="home" class="home" onclick="current_state=''"><i class="fas fa-home"></i>Info</label>
+      <label for="blog" class="blog" onclick="current_state=''"><i class="fas fa-blog"></i>GSL/RSL</label>
+      <label for="code" class="code" onclick="current_state=''"><i class="fas fa-code"></i>MODs</label>
+      <label for="help" class="help" onclick="current_state=''"><i class="far fa-envelope"></i>Placard</label>
+      <label for="about" class="about" id="Chat" onclick="current_state='chat';remove_chat_dot();scrollinterval=setInterval(updateScroll,200);"><i class="far fa-user"></i>Chat</label>
       <div class="slider"></div>
     </nav>
     <section>

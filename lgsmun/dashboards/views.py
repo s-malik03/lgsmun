@@ -59,6 +59,9 @@ def getabsent(request):
     att = Attendance.objects.get(country=request.session['country'], committee=request.session['committee'])
     att.status = 'Absent'
     att.save()
+    c = CommitteeControl.objects.get(committee=request.session['committee'])
+    c.iteration += 1
+    c.save()
 
     return HttpResponse('Successful')
 
