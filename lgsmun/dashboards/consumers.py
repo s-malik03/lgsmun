@@ -244,6 +244,24 @@ def two_cent_time(committee, total_time, speaker_time):
     return 0
 
 
+@sync_to_async
+def goabsent(committee, country):
+
+    att = Attendance.objects.get(country=country, committee=committee)
+
+    att.status = 'Absent'
+
+    c = CommitteeControl.objects.get(committee=committee)
+
+    c.iteration += 1
+
+    att.save()
+
+    c.save()
+
+    return 0
+
+
 class Delegate(AsyncWebsocketConsumer):
 
     async def connect(self):
@@ -259,6 +277,10 @@ class Delegate(AsyncWebsocketConsumer):
         committee = json_data['committee']
 
         country = json_data['country']
+
+        self.country = country
+
+        self.committee = committee
 
         total_time = json_data['total_time']
 
@@ -277,6 +299,10 @@ class Delegate(AsyncWebsocketConsumer):
         else:
 
             self.send("NULL")
+
+    async def disconnect(self, code):
+
+        g = await goabsent(self.committee, self.country)
 
 
 class Dais(AsyncWebsocketConsumer):
