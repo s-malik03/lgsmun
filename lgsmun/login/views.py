@@ -19,6 +19,11 @@ def signout(request):
     return redirect('/')
 
 
+def home(request):
+
+    return render(request, 'login/home.html', {})
+
+
 def homepage(request):
     if request.user.is_authenticated:
 
