@@ -112,7 +112,7 @@ def create_user(request):
                                ",\nWelcome to the LGSMUN debate portal. Your password is: \n" +
                                request.POST['password'] +
                                "\nTo complete your registration please click on the link below to verify your account\n" +
-                               '127.0.0.1:8000/verify/'+vcode
+                               'http://lgsesports.tk/verify/'+vcode
                   )
 
         return redirect('login')
