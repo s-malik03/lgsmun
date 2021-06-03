@@ -9,21 +9,41 @@ import random
 from django.core.mail import send_mail
 import datetime
 from pytz import timezone
+import re
+
 
 # Create your views here.
 
 
+def checkmobile(view):
+    def check_device(request):
+
+        user_agent = re.compile(r".*(iphone|mobile|androidtouch)", re.IGNORECASE)
+
+        if user_agent.match(request.META['HTTP_USER_AGENT']):
+
+            return HttpResponse('This site is not accessible on mobile devices.')
+
+        else:
+
+            return view(request)
+
+    return check_device
+
+
+@checkmobile
 def signout(request):
     logout(request)
 
     return redirect('/')
 
 
+@checkmobile
 def home(request):
-
     return render(request, 'login/home.html', {})
 
 
+@checkmobile
 def homepage(request):
     if request.user.is_authenticated:
 
@@ -45,15 +65,19 @@ def homepage(request):
     return HttpResponse('')
 
 
+@checkmobile
 def index(request):
     request_context = {'invalid': ' '}
     return render(request, 'login/login.html', request_context)
 
 
+@checkmobile
 def register(request):
     request_context = {'username_taken': ' '}
     return render(request, 'login/register.html', request_context)
 
+
+@checkmobile
 def create_user(request):
     try:
 
@@ -66,7 +90,7 @@ def create_user(request):
 
             return render(request, 'login/register.html', {'username_taken': 'Please provide a username!'})
 
-        elif len(request.POST['password'])<8:
+        elif len(request.POST['password']) < 8:
 
             return render(request, 'login/register.html',
                           {'username_taken': 'You must provide a password of at least 8 characters!'})
@@ -90,7 +114,8 @@ def create_user(request):
 
         elif not request.POST['school']:
 
-            return render(request, 'login/register.html', {'username_taken': 'Please provide the name of your institution!'})
+            return render(request, 'login/register.html',
+                          {'username_taken': 'Please provide the name of your institution!'})
 
         user = User.objects.create_user(username=request.POST['username'], email=request.POST['email'],
                                         password=request.POST['password'])
@@ -102,7 +127,6 @@ def create_user(request):
         vcode = ''
 
         for i in range(12):
-
             vcode += random.choice(string.ascii_letters)
 
         additional_information.verification_code = vcode
@@ -113,16 +137,25 @@ def create_user(request):
                   fail_silently=True,
                   from_email='lgsesports@gmail.com',
                   message='Dear ' +
+<<<<<<< HEAD
                                request.POST['username'] +
                                ",\nWelcome to the LGSMUN debate portal. Your password is: \n" +
                                request.POST['password'] +
                                "\nTo complete your registration please click on the link below to verify your account\n" +
                                'http://lgsesports.tk/verify/'+vcode
+=======
+                          request.POST['username'] +
+                          ",\nWelcome to the LGSMUN debate portal. Your password is: \n" +
+                          request.POST['password'] +
+                          "\nTo complete your registration please click on the link below to verify your account\n" +
+                          '127.0.0.1:8000/verify/' + vcode
+>>>>>>> 96b6bfb163cb7df019455825abb62f3157ba0d77
                   )
 
         return redirect('login')
 
 
+@checkmobile
 def post_login(request):
     user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
 
@@ -145,8 +178,8 @@ def post_login(request):
         return render(request, 'login/login.html', {'invalid': 'Invalid Username or Password'})
 
 
+@checkmobile
 def verify(request, vcode):
-
     try:
 
         user = UserInformation.objects.get(verification_code=vcode)
@@ -159,8 +192,8 @@ def verify(request, vcode):
         return HttpResponse("Unable to Verify Account!")
 
 
+@checkmobile
 def remove_unverified(request):
-
     users = UserInformation.objects.filter(verified=False)
     for u in users:
         tz = timezone('Asia/Karachi')
