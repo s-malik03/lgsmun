@@ -19,20 +19,23 @@ def admin(request):
     for c in committees:
         committee_matrix.append(c['committee'])
 
-    request_context = {'committees': committee_matrix,'username':request.user.username}
+    request_context = {'committees': committee_matrix, 'username': request.user.username}
     return render(request, 'menu/admin.html', request_context)
+
 
 @login_required
 def dais(request):
     if request.session['utype'] != 'dais':
         return HttpResponse('Access denied')
-    request_context = {'username':request.user.username}
+    request_context = {'username': request.user.username}
     return render(request, 'menu/dais.html', request_context)
+
 
 @login_required
 def delegate(request):
-    request_context = {'username':request.user.username}
+    request_context = {'username': request.user.username}
     return render(request, 'menu/delegate.html', request_context)
+
 
 @login_required
 def changepassword(request):
@@ -48,7 +51,7 @@ def changepassword(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'menu/changepassword.html', {
-        'form': form, 'username':request.user.username
+        'form': form, 'username': request.user.username
     })
 
 

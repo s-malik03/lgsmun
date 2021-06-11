@@ -137,11 +137,11 @@ def create_user(request):
                   fail_silently=True,
                   from_email='lgsesports@gmail.com',
                   message='Dear ' +
-                   request.POST['username'] +
-                   ",\nWelcome to the LGSMUN debate portal. Your password is: \n" +
-                   request.POST['password'] +
-                   "\nTo complete your registration please click on the link below to verify your account\n" +
-                   'http://lgsesports.tk/verify/'+vcode
+                          request.POST['username'] +
+                          ",\nWelcome to the LGSMUN debate portal. Your password is: \n" +
+                          request.POST['password'] +
+                          "\nTo complete your registration please click on the link below to verify your account\n" +
+                          'http://lgsesports.tk/verify/' + vcode
                   )
 
         return redirect('login')

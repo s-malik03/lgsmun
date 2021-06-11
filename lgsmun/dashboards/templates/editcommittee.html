@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <img class="logo" style="width:10%;" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
+    <img class="logo" style="width:10%;" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -14,9 +14,9 @@
     <form class="header1" action="add_to_committee" method="POST">
         {% csrf_token %}
         <div class="textbox">
-        <input type="hidden" value="{{committee}}" name="committee">
-        <input type="text" placeholder="Username" name="username"><br><br>
-        <input type="text" placeholder="Country" name="country"><br></div>
+            <input type="hidden" value="{{committee}}" name="committee">
+            <input type="text" placeholder="Username" name="username"><br><br>
+            <input type="text" placeholder="Country" name="country"><br></div>
         <input type="submit" class="btn" value="Add">
     </form>
     <form class="header1" action="remove_from_committee" method="POST">
@@ -31,11 +31,11 @@
     </form>
 
     <form action="grantaward" method="POST">{% csrf_token %}
-    <select name="country">
-        {% for c in countries %}
-        <option value="{{c}}">{{c}}</option>
-        {% endfor %}
-    </select><br>
+        <select name="country">
+            {% for c in countries %}
+            <option value="{{c}}">{{c}}</option>
+            {% endfor %}
+        </select><br>
         <select name="award">
             <option value="BD">BD</option>
             <option value="OD">OD</option>
@@ -45,7 +45,8 @@
         </select><br>
         <input type="submit" class="btn" value="Grant Award">
     </form>
-    <input type="button" class="btn" value="Save Stats and Delete Committee" onclick="window.location.href='save_stats'">
+    <input type="button" class="btn" value="Save Stats and Delete Committee"
+           onclick="window.location.href='save_stats'">
     <h5>Delete Committee:</h5>
     <form action="delete_committee" method="POST">
         {% csrf_token %}

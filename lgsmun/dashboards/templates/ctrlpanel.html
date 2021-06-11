@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <img class="logo" style="width:10%;" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
+    <img class="logo" style="width:10%;" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -16,7 +16,7 @@
         <div class="textbox"><input type="text" placeholder="Name" name="committee"></input></div>
         <input type="submit" class="btn" value="Submit">
     </form>
-    <form  class="header1"action="editcommittee" method="GET">
+    <form class="header1" action="editcommittee" method="GET">
         {% csrf_token %}
         Select Committee: <br>
         <select name="committee" id="committees">

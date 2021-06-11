@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <img class="logo" style="width:10%;" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
+    <img class="logo" style="width:10%;" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -12,15 +12,15 @@
     <div class="login-box">
         <h1>Welcome to the LGSMUN Portal</h1>
         <div class="header1">Your committees:<br>
-        {% for c in committees %}
-        <input name="committee" type="submit" class="btn" value="{{c}}"
-               onclick="window.location.href='joincommittee'"><br>
-        {% empty %}
-        <h5>No committees to show.</h5>
-        {% endfor %}
-        <br>Log out:<br>
-        <input type="button" class="btn" onclick="window.location.href='/signout'" value="Log Out">
-    </div>
+            {% for c in committees %}
+            <input name="committee" type="submit" class="btn" value="{{c}}"
+                   onclick="window.location.href='joincommittee'"><br>
+            {% empty %}
+            <h5>No committees to show.</h5>
+            {% endfor %}
+            <br>Log out:<br>
+            <input type="button" class="btn" onclick="window.location.href='/signout'" value="Log Out">
+        </div>
 </form>
 
 

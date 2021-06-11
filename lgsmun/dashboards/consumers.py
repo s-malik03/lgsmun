@@ -226,7 +226,6 @@ def check_iteration(committee, iteration):
 
 @sync_to_async
 def two_cent_time(committee, total_time, speaker_time):
-
     timer = Timer.objects.get(committee=committee)
 
     offset_total = int(timer.total_time) - int(total_time)
@@ -246,7 +245,6 @@ def two_cent_time(committee, total_time, speaker_time):
 
 @sync_to_async
 def goabsent(committee, country):
-
     att = Attendance.objects.get(country=country, committee=committee)
 
     att.status = 'Absent'

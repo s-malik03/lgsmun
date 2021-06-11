@@ -528,6 +528,7 @@
           color:white;
         }
 
+
     </style>
 </head>
 <body onbeforeunload="ws.close();fetch('getabsent');">
@@ -535,28 +536,28 @@
 <input type="hidden" id="uuid" value="{{uuid}}"/>
 <body>
 
-  <header>
-        <img class="logo" width="100" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
-        <nav>
-            <ul class="nav-area">
-<li><a href="/">home</a></li>
-</ul>
-</nav>
-        <p class="username">{{username}}
+<header>
+    <img class="logo" width="100" src="https://iconape.com/wp-content/files/cf/194499/png/194499.png" alt="">
+    <nav>
+        <ul class="nav-area">
+            <li><a href="/">home</a></li>
+        </ul>
+    </nav>
+    <p class="username">{{username}}
         <a href="#" onclick="window.location.href='/signout'" class="btn-area">logout</a>
 
-    </header>
+</header>
 <h1 class="h1wow" id="committee_name">{{committee}}</h1>
-  <!---links------------------------------------------------------>
-  <button class="open-button" onclick="openForm()">Links</button>
-  <div class="chat-popup" id="myForm">
-  <form action="/action_page.php" class="form-container">
-    <h1>Links</h1>
-    <input type="button" class="btn" value="Zoom Link" onclick=" window.open(zoom_link,'_blank')"><br><br>
-    <input type="button" class="btn" value="Drive Link" onclick=" window.open(drive_link,'_blank')"><br><br>
+<!---links------------------------------------------------------>
+<button class="open-button" onclick="openForm()">Links</button>
+<div class="chat-popup" id="myForm">
+    <form action="/action_page.php" class="form-container">
+        <h1>Links</h1>
+        <input type="button" class="btn" value="Zoom Link" onclick=" window.open(zoom_link,'_blank')"><br><br>
+        <input type="button" class="btn" value="Drive Link" onclick=" window.open(drive_link,'_blank')"><br><br>
 
-<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-  </form>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
 </div>
 
 <script>
@@ -567,142 +568,156 @@ function openForm() {
 function closeForm() {
   document.getElementById("myForm").style.display = "none";
 }
+
 </script>
-  <!------------------------------------------------------------>
-  <div class="wrapper1">
+<!------------------------------------------------------------>
+<div class="wrapper1">
     <header>TIMER</header>
     <div class="countdown-container">
-    <h2 class="countdown-heading">Total Time</h2>
-    <p class="countdown-details"></p>
+        <h2 class="countdown-heading">Total Time</h2>
+        <p class="countdown-details"></p>
 
-    <div class="timer">
-      <div class="minutes">
-        <div class="number">
-          <div id="total_minutes">00</div>
-        </div>
-        <div class="unit">
-          Minutes
-        </div>
-      </div>
+        <div class="timer">
+            <div class="minutes">
+                <div class="number">
+                    <div id="total_minutes">00</div>
+                </div>
+                <div class="unit">
+                    Minutes
+                </div>
+            </div>
 
-      <div class="seconds">
-        <div class="number">
-          <div id="total_seconds">00</div>
+            <div class="seconds">
+                <div class="number">
+                    <div id="total_seconds">00</div>
+                </div>
+                <div class="unit">
+                    Seconds
+                </div>
+            </div>
         </div>
-        <div class="unit">
-          Seconds
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="countdown-container1">
-  <h2 class="countdown-heading">Speaker Time</h2>
-  <p class="countdown-details"></p>
+    <div class="countdown-container1">
+        <h2 class="countdown-heading">Speaker Time</h2>
+        <p class="countdown-details"></p>
 
-  <div class="timer">
-    <div class="minutes">
-      <div class="number">
-        <div id="minutes">00</div>
-      </div>
-      <div class="unit">
-        Minutes
-      </div>
+        <div class="timer">
+            <div class="minutes">
+                <div class="number">
+                    <div id="minutes">00</div>
+                </div>
+                <div class="unit">
+                    Minutes
+                </div>
+            </div>
+
+            <div class="seconds">
+                <div class="number">
+                    <div id="seconds">00</div>
+                </div>
+                <div class="unit">
+                    Seconds
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="seconds">
-      <div class="number">
-        <div id="seconds">00</div>
-      </div>
-      <div class="unit">
-        Seconds
-      </div>
+    <div class="wrapper">
+        <header>DASHBOARD</header>
+        <input type="radio" name="slider" checked id="home">
+        <input type="radio" name="slider" id="blog">
+        <input type="radio" name="slider" id="code">
+        <input type="radio" name="slider" id="help">
+        <input type="radio" name="slider" id="about">
+        <nav>
+            <label for="home" class="home" onclick="current_state=''"><i class="fas fa-home"></i>Info</label>
+            <label for="blog" class="blog" onclick="current_state=''"><i class="fas fa-blog"></i>GSL/RSL</label>
+            <label for="code" class="code" onclick="current_state=''"><i class="fas fa-code"></i>MODs</label>
+            <label for="help" class="help" onclick="current_state=''"><i class="far fa-envelope"></i>Placard</label>
+            <label for="about" class="about" id="Chat"
+                   onclick="current_state='chat';remove_chat_dot();scrollinterval=setInterval(updateScroll,200);"><i
+                    class="far fa-user"></i>Chat</label>
+            <div class="slider"></div>
+        </nav>
+        <section>
+            <!--INFO---------------------------------------------------------->
+            <div class="content content-1">
+                <div class="topic">
+                    <div class="title">Topic:
+                        <div id="current_topic">No Topic Has Been Set</div>
+                    </div>
+                </div>
+                <div class="title">Speaking Mode:</div>
+                <div id="speaking_mode">Idle</div>
+                <div>
+                    <div class="title">Current Moderated Caucus:
+                        <div id="current_mod">No Moderated Caucus in Progress</div>
+                    </div>
+                    <div class="topic2">
+                        <div class="title">Notifications:</div>
+                        <p>
+                        <div id="notifications" class="overflow"></div>
+                    </div>
+                    <div class="topic2">
+                    </div>
+                </div>
+            </div>
+            <!--RSL/GSL--------------------------------------------------------->
+            <div class="content content-2">
+                <div class="title">Speakers:</div>
+                <div class="gsltitle">GSL</div>
+                <div class="rsltitle">RSL</div>
+                <p>
+                <div id="gsl" class="GSL"></div>
+                <p>
+                <div id="rsl" class="RSL"></div>
+                <div class="gsl_rsl">
+                    <div class="title">Raise Point:</div>
+                    <select class="selectbtn" id="point">
+                        <option value="Point of Parliamentary Inquiry">Point of Parliamentary Inquiry</option>
+                        <option value="Point of Personal Privelege">Point of Personal Privelege</option>
+                        <option value="Point of Order">Point of Order</option>
+                    </select>
+                    <input type="button" class="btn" value="Raise Point" onclick="raise_point()"/><br>
+                </div>
+            </div>
+            <!--MODS---------------------------------------------------------------->
+            <div class="content content-3">
+                <div class="title">Floor MODs:</div>
+                <p>
+                <div class="overflow" id="mod_table"></div>
+                <br>
+            </div>
+            <!--PLACARD------------------------------------------------------------->
+            <div class="content content-4">
+                <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+                <div class="title">Delegates Present:</div>
+                <input type="button" class="btn" value="Raise Placard" onclick="fetch('raise_placard')"><i
+                    class="far fa-hand-paper"></i><br>
+                <input type="button" class="btn" value="Lower Placard" onclick="fetch('lower_placard')"><i
+                    class="far fa-hand-rock"></i><br>
+                <p>
+                <div id="att" class="overflow2">No one present.</div>
+
+            </div>
+            <!--Chatbox--------------------------------------------------------------->
+            <div class="content content-5">
+                <div class="title">Inbox:</div>
+                <div id="leftbox">
+                    <div id="inbox" class="overflow"></div>
+                    <br>
+                    <textarea placeholder="Message" class="message" id="message"/></textarea>
+                    <p>Send to:<br><select class="selectbtn" id="recipient" name="recipient">
+                        {% for c in country_matrix %}
+                        <option value="{{c}}">{{c}}</option>
+                        {% endfor %}
+                    </select>
+                        <input type="button" class="btn" value="Send Message" onclick="sendmessage()"/><br>
+                </div>
+
+            </div>
+        </section>
     </div>
-  </div>
-</div>
-
-  <div class="wrapper">
-    <header>DASHBOARD</header>
-    <input type="radio" name="slider" checked id="home">
-    <input type="radio" name="slider" id="blog">
-    <input type="radio" name="slider" id="code">
-    <input type="radio" name="slider" id="help">
-    <input type="radio" name="slider" id="about">
-    <nav>
-      <label for="home" class="home" onclick="current_state=''"><i class="fas fa-home"></i>Info</label>
-      <label for="blog" class="blog" onclick="current_state=''"><i class="fas fa-blog"></i>GSL/RSL</label>
-      <label for="code" class="code" onclick="current_state=''"><i class="fas fa-code"></i>MODs</label>
-      <label for="help" class="help" onclick="current_state=''"><i class="far fa-envelope"></i>Placard</label>
-      <label for="about" class="about" id="Chat" onclick="current_state='chat';remove_chat_dot();scrollinterval=setInterval(updateScroll,200);"><i class="far fa-user"></i>Chat</label>
-      <div class="slider"></div>
-    </nav>
-    <section>
-<!--INFO---------------------------------------------------------->
-      <div class="content content-1">
-        <div class="topic">
-        <div class="title">Topic:
-            <div id="current_topic">No Topic Has Been Set</div></div>
-      </div>
-      <div class="title">Speaking Mode:</div>
-        <div id="speaking_mode">Idle</div>
-      <div>
-      <div class="title">Current Moderated Caucus:
-          <div id="current_mod">No Moderated Caucus in Progress</div></div>
-     <div class="topic2">
-     <div class="title">Notifications:</div>
-     <p><div id="notifications" class="overflow"></div>
-     </div>
-     <div class="topic2">
-     </div>
-   </div>
- </div>
-<!--RSL/GSL--------------------------------------------------------->
-      <div class="content content-2">
-        <div class="title">Speakers:</div>
-        <div class="gsltitle">GSL</div>
-        <div class="rsltitle">RSL</div>
-        <p><div id="gsl" class="GSL"></div>
-        <p><div id="rsl" class="RSL"></div>
-        <div class="gsl_rsl">
-          <div class="title">Raise Point:</div>
-          <select class="selectbtn" id="point">
-              <option value="Point of Parliamentary Inquiry">Point of Parliamentary Inquiry</option>
-              <option value="Point of Personal Privelege">Point of Personal Privelege</option>
-              <option value="Point of Order">Point of Order</option>
-          </select>
-          <input type="button" class="btn" value="Raise Point" onclick="raise_point()"/><br>
-        </div>
-      </div>
-<!--MODS---------------------------------------------------------------->
-      <div class="content content-3">
-        <div class="title">Floor MODs:</div>
-        <p><div class="overflow" id="mod_table"></div><br>
-      </div>
-<!--PLACARD------------------------------------------------------------->
-      <div class="content content-4">
-        <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
-        <div class="title">Delegates Present:</div>
-        <input type="button" class="btn" value="Raise Placard" onclick="fetch('raise_placard')"><i class="far fa-hand-paper"></i><br>
-        <input type="button" class="btn" value="Lower Placard" onclick="fetch('lower_placard')"><i class="far fa-hand-rock"></i><br>
-        <p><div id="att" class="overflow2">No one present.</div>
-
-      </div>
-<!--Chatbox--------------------------------------------------------------->
-      <div class="content content-5">
-        <div class="title">Inbox:</div>
-        <div id="leftbox">
-            <div id="inbox" class="overflow"></div><br>
-            <textarea placeholder="Message" class="message" id="message"/></textarea>
-            <p>Send to:<br><select class="selectbtn" id="recipient" name="recipient">
-            {% for c in country_matrix %}
-            <option value="{{c}}">{{c}}</option>
-            {% endfor %}
-        </select>
-            <input type="button" class="btn" value="Send Message" onclick="sendmessage()"/><br>
-        </div>
-
-      </div>
-    </section>
-  </div>
 
 </body>
 </html>

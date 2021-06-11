@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 import pandas
 
+
 # general
 
 
@@ -15,25 +16,24 @@ def index(request):
 
 
 def save_stats(request):
-
     df = pandas.read_csv('metrics.csv')
     users = UserCommittee.objects.filter(committee=request.session['committee'])
     for u in users:
 
-        if u.award=='':
+        if u.award == '':
 
-            award='none'
+            award = 'none'
 
         else:
 
             award = u.award
 
-        df = df.append({'award':award,
-                       'mods':u.mods_raised,
-                       'placards':u.placards_raised,
-                       'points':u.points_raised,
-                       'recognitions': u.added_to_sl,
-                       'messages': u.messages_sent},
+        df = df.append({'award': award,
+                        'mods': u.mods_raised,
+                        'placards': u.placards_raised,
+                        'points': u.points_raised,
+                        'recognitions': u.added_to_sl,
+                        'messages': u.messages_sent},
                        ignore_index=True)
 
     df.to_csv('metrics.csv', index=False)
@@ -46,7 +46,6 @@ def save_stats(request):
 
 
 def grantaward(request):
-
     user = UserCommittee.objects.get(country=request.POST['country'], committee=request.session['committee'])
     user.award = request.POST['award']
     user.save()
@@ -54,6 +53,7 @@ def grantaward(request):
     c.awards_finalized = True
     c.save()
     return redirect('editcommittee')
+
 
 def getabsent(request):
     att = Attendance.objects.get(country=request.session['country'], committee=request.session['committee'])
@@ -92,17 +92,17 @@ def editcommittee(request):
     for u in users:
         countrylist.append(u.country)
         if u.award != '':
-            memberlist.append(u.user.username + '|' + u.country+'|'+u.award)
+            memberlist.append(u.user.username + '|' + u.country + '|' + u.award)
 
         else:
 
-            memberlist.append(u.user.username+'|'+u.country)
+            memberlist.append(u.user.username + '|' + u.country)
 
     return render(request, 'editcommittee.html',
                   {'members': memberlist,
                    'committee': request.session['committee'],
-                   'countries':countrylist,
-                   'username':request.user.username})
+                   'countries': countrylist,
+                   'username': request.user.username})
 
 
 @login_required
@@ -268,7 +268,7 @@ def hub(request):
     for c in committees:
         committee_info.append(c.committee)
 
-    request_context = {'committees': committee_info,'username':request.user.username}
+    request_context = {'committees': committee_info, 'username': request.user.username}
     return render(request, 'hub.html', request_context)
 
 
@@ -601,7 +601,7 @@ def dais(request):
         pass
 
     request_context = {'committee': request.session['committee'], 'country': 'Dais',
-                       'country_matrix': country_matrix, 'uuid': 'none', 'username':request.user.username}
+                       'country_matrix': country_matrix, 'uuid': 'none', 'username': request.user.username}
     if request.session['utype'] == 'admin':
         return render(request, 'admin.html', request_context)
     return render(request, 'dais.html', request_context)
@@ -651,7 +651,7 @@ def delegate(request):
         pass
 
     request_context = {'committee': request.session['committee'], 'country': request.session['country'],
-                       'country_matrix': country_matrix, 'uuid': 'none', 'username':request.user.username}
+                       'country_matrix': country_matrix, 'uuid': 'none', 'username': request.user.username}
     return render(request, 'delegate.html', request_context)
 
 
